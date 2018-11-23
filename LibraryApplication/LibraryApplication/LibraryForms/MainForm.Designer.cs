@@ -49,12 +49,16 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LastSaveTimeLabel = new System.Windows.Forms.Label();
             this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // RefreshButton
             // 
-            this.RefreshButton.Location = new System.Drawing.Point(401, 12);
+            this.RefreshButton.Location = new System.Drawing.Point(297, 31);
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(95, 20);
             this.RefreshButton.TabIndex = 1;
@@ -64,9 +68,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 114);
+            this.button1.Location = new System.Drawing.Point(6, 82);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.Size = new System.Drawing.Size(117, 23);
             this.button1.TabIndex = 0;
             this.button1.TabStop = false;
             this.button1.Text = "Add new Book";
@@ -75,9 +79,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 85);
+            this.button2.Location = new System.Drawing.Point(6, 53);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 23);
+            this.button2.Size = new System.Drawing.Size(117, 23);
             this.button2.TabIndex = 0;
             this.button2.TabStop = false;
             this.button2.Text = "Add new Author";
@@ -86,7 +90,7 @@
             // 
             // SearchBox
             // 
-            this.SearchBox.Location = new System.Drawing.Point(170, 13);
+            this.SearchBox.Location = new System.Drawing.Point(66, 32);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(225, 20);
             this.SearchBox.TabIndex = 0;
@@ -94,9 +98,9 @@
             // 
             // ResultList
             // 
-            this.ResultList.Location = new System.Drawing.Point(113, 39);
+            this.ResultList.Location = new System.Drawing.Point(6, 57);
             this.ResultList.Name = "ResultList";
-            this.ResultList.Size = new System.Drawing.Size(808, 482);
+            this.ResultList.Size = new System.Drawing.Size(760, 394);
             this.ResultList.TabIndex = 5;
             this.ResultList.TabStop = false;
             this.ResultList.UseCompatibleStateImageBehavior = false;
@@ -106,7 +110,7 @@
             // SearchLabel
             // 
             this.SearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchLabel.Location = new System.Drawing.Point(111, 13);
+            this.SearchLabel.Location = new System.Drawing.Point(7, 32);
             this.SearchLabel.Name = "SearchLabel";
             this.SearchLabel.Size = new System.Drawing.Size(53, 20);
             this.SearchLabel.TabIndex = 0;
@@ -116,7 +120,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(502, 13);
+            this.label2.Location = new System.Drawing.Point(398, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 20);
             this.label2.TabIndex = 2;
@@ -126,7 +130,7 @@
             // SearchTypeBox
             // 
             this.SearchTypeBox.FormattingEnabled = true;
-            this.SearchTypeBox.Location = new System.Drawing.Point(551, 12);
+            this.SearchTypeBox.Location = new System.Drawing.Point(447, 31);
             this.SearchTypeBox.Name = "SearchTypeBox";
             this.SearchTypeBox.Size = new System.Drawing.Size(164, 21);
             this.SearchTypeBox.TabIndex = 3;
@@ -134,9 +138,9 @@
             // 
             // AddNewUserButton
             // 
-            this.AddNewUserButton.Location = new System.Drawing.Point(12, 143);
+            this.AddNewUserButton.Location = new System.Drawing.Point(6, 24);
             this.AddNewUserButton.Name = "AddNewUserButton";
-            this.AddNewUserButton.Size = new System.Drawing.Size(95, 20);
+            this.AddNewUserButton.Size = new System.Drawing.Size(117, 23);
             this.AddNewUserButton.TabIndex = 0;
             this.AddNewUserButton.TabStop = false;
             this.AddNewUserButton.Text = "Add new User";
@@ -150,8 +154,9 @@
             this.assToolStripMenuItem,
             this.weToolStripMenuItem,
             this.aSSToolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 524);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 476);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(934, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
@@ -203,14 +208,15 @@
             // deleteAllDataToolStripMenuItem
             // 
             this.deleteAllDataToolStripMenuItem.Name = "deleteAllDataToolStripMenuItem";
-            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteAllDataToolStripMenuItem.Text = "Delete all data";
             this.deleteAllDataToolStripMenuItem.Click += new System.EventHandler(this.deleteAllDataToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -231,17 +237,19 @@
             // 
             // LastSaveTimeLabel
             // 
+            this.LastSaveTimeLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.LastSaveTimeLabel.AutoSize = true;
-            this.LastSaveTimeLabel.Location = new System.Drawing.Point(817, 529);
+            this.LastSaveTimeLabel.Location = new System.Drawing.Point(819, 482);
             this.LastSaveTimeLabel.Name = "LastSaveTimeLabel";
             this.LastSaveTimeLabel.Size = new System.Drawing.Size(103, 13);
             this.LastSaveTimeLabel.TabIndex = 7;
             this.LastSaveTimeLabel.Text = "Last Save: 00:00:00";
+            this.LastSaveTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ShowAllCheckBox
             // 
             this.ShowAllCheckBox.AutoSize = true;
-            this.ShowAllCheckBox.Location = new System.Drawing.Point(721, 15);
+            this.ShowAllCheckBox.Location = new System.Drawing.Point(617, 34);
             this.ShowAllCheckBox.Name = "ShowAllCheckBox";
             this.ShowAllCheckBox.Size = new System.Drawing.Size(153, 17);
             this.ShowAllCheckBox.TabIndex = 8;
@@ -249,23 +257,44 @@
             this.ShowAllCheckBox.UseVisualStyleBackColor = true;
             this.ShowAllCheckBox.CheckedChanged += new System.EventHandler(this.ShowAllCheckBox_CheckChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.AddNewUserButton);
+            this.groupBox1.Location = new System.Drawing.Point(12, 15);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(129, 457);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tools";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ResultList);
+            this.groupBox2.Controls.Add(this.SearchLabel);
+            this.groupBox2.Controls.Add(this.ShowAllCheckBox);
+            this.groupBox2.Controls.Add(this.RefreshButton);
+            this.groupBox2.Controls.Add(this.SearchBox);
+            this.groupBox2.Controls.Add(this.SearchTypeBox);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Location = new System.Drawing.Point(150, 15);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(772, 457);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Search";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 548);
-            this.Controls.Add(this.ShowAllCheckBox);
+            this.ClientSize = new System.Drawing.Size(934, 500);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.LastSaveTimeLabel);
-            this.Controls.Add(this.SearchTypeBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.SearchLabel);
-            this.Controls.Add(this.ResultList);
-            this.Controls.Add(this.SearchBox);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.AddNewUserButton);
-            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -274,6 +303,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,6 +334,8 @@
         private System.Windows.Forms.ToolStripMenuItem addNewUserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewAuthorToolStripMenuItem;
         private System.Windows.Forms.CheckBox ShowAllCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryApplication.LibraryEvents
 {
     class EventManager
     {
+        public static Action OnDataFileChanged { get; set; }
+
         public static void AutoSave(object o, EventArgs e)
         {
             DataFileSystem.IO.SaveUserData();
@@ -16,10 +14,8 @@ namespace LibraryApplication.LibraryEvents
         public static void Startup()
         {
             DataFileSystem.IO.SetupFolders();
-            DataFileSystem.IO.LoadUserData();
             DataFileSystem.IO.DefaultImage();
+            DataFileSystem.IO.LoadUserData();
         }
-
-        public static Action OnDataFileChanged;
     }
 }

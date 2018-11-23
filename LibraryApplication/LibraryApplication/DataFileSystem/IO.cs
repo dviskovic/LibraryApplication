@@ -12,29 +12,30 @@ namespace LibraryApplication.DataFileSystem
     class IO
     {
         public static DataFile DataFile;
+        public static readonly string FileName = "userdata.json";
 
         public static void LoadUserData()
         {
-            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, "userdata.json")))
+            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
             {
                 IO.DataFile = new DataFile();
-                File.WriteAllText(Path.Combine(FileLocations.DatabasePath, "userdata.json"), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
+                File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
                 return;
             }
 
-            IO.DataFile = JsonConvert.DeserializeObject<DataFile>(File.ReadAllText(Path.Combine(FileLocations.DatabasePath, "userdata.json")));
+            IO.DataFile = JsonConvert.DeserializeObject<DataFile>(File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName)));
         }
 
         public static void SaveUserData()
         {
             IO.DataFile.LastSaveTime = DateTime.UtcNow;
 
-            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, "userdata.json")))
+            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
             {
                 throw new Exception("File does not exist on saving!!");
             }
 
-            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, "userdata.json"), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
+            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
             LibraryEvents.EventManager.OnDataFileChanged();
         }
 

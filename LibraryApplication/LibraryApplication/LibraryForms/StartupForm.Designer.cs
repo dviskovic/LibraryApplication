@@ -33,12 +33,14 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(114, 177);
+            this.label1.Location = new System.Drawing.Point(29, 166);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 24);
+            this.label1.Size = new System.Drawing.Size(223, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Ass";
+            this.label1.Text = "PLACEHOLDER TEXT HERE";
             // 
             // StartupForm
             // 
@@ -51,6 +53,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Library Application";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

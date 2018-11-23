@@ -32,6 +32,7 @@ namespace LibraryApplication
             this.LastSaveTimer.Start(); 
             this.SearchTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.SearchTypeBox.DataSource = SearchResultType.StringArray();
+            DataFileSystem.IO.SaveUserData();
         }
 
 

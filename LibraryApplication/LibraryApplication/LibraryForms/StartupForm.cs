@@ -12,11 +12,11 @@ namespace LibraryApplication.LibraryForms
 
         public StartupForm()
         {
+            InitializeComponent();
             this.Opacity = 0;
             this.timer.Tick += new EventHandler(IncreaseOpacy);
             this.timer.Start();
             LibraryEvents.EventManager.Startup();
-            InitializeComponent();
         }
 
         private void IncreaseOpacy(object o, EventArgs e)
