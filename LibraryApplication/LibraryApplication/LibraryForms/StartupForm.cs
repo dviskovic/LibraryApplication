@@ -19,6 +19,16 @@ namespace LibraryApplication.LibraryForms
             LibraryEvents.EventManager.Startup();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var current = base.CreateParams;
+                current.ClassStyle |= 0x00020000;
+                return current;
+            }
+        }
+
         private void IncreaseOpacy(object o, EventArgs e)
         {
             this.Opacity += 0.025;

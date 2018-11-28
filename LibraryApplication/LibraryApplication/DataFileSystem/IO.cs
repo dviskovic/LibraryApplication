@@ -49,8 +49,8 @@ namespace LibraryApplication.DataFileSystem
 
         public static void DefaultImage()
         {
-            if (!File.Exists(FileLocations.DefaultUserImagePath)) File.WriteAllBytes(FileLocations.DefaultUserImagePath, Helpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultUser));
-            if (!File.Exists(FileLocations.DefaultBookImagePath)) File.WriteAllBytes(FileLocations.DefaultBookImagePath, Helpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultBook));
+            if (!File.Exists(FileLocations.DefaultUserImagePath)) File.WriteAllBytes(FileLocations.DefaultUserImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultUser));
+            if (!File.Exists(FileLocations.DefaultBookImagePath)) File.WriteAllBytes(FileLocations.DefaultBookImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultBook));
         }
 
         public static void Wipe()

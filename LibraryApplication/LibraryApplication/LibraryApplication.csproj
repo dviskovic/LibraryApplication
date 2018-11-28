@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="DataFileSystem\FileLocations.cs" />
     <Compile Include="DataFileSystem\IO.cs" />
-    <Compile Include="Helpers\Data.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="LibraryHelpers\Data.cs" />
+    <Compile Include="LibraryHelpers\ImageHelper.cs" />
     <Compile Include="LibraryEvents\EventManager.cs" />
     <Compile Include="LibraryForms\About.cs">
       <SubType>Form</SubType>

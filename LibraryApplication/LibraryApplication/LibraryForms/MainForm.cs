@@ -35,11 +35,21 @@ namespace LibraryApplication
             DataFileSystem.IO.SaveUserData();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                return base.CreateParams;
+                var current = base.CreateParams;
+                current.ClassStyle |= 0x00020000;
+                return current;
+            }
+        }
 
         private void RefreshLastTime(object o, EventArgs e)
         {
-            TimeSpan TimeSpanSinceSave = Helpers.Data.TimeSinceLastSave();
-            this.LastSaveTimeLabel.Text = "Last Save: " + Helpers.Data.GetReadableTimeFromTimeSpan(TimeSpanSinceSave);
+            TimeSpan TimeSpanSinceSave = LibraryHelpers.Data.TimeSinceLastSave();
+            this.LastSaveTimeLabel.Text = "Last Save: " + LibraryHelpers.Data.GetReadableTimeFromTimeSpan(TimeSpanSinceSave);
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
@@ -239,7 +249,7 @@ namespace LibraryApplication
 
             if (this.SelectedItem == null) return;
 
-            var SearchResult = Helpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
+            var SearchResult = LibraryHelpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
             if (SearchResult == null) MessageBox.Show("NULL!");
 
             string name = "Undefined";
@@ -252,7 +262,7 @@ namespace LibraryApplication
 
             if (Dialog == DialogResult.Yes)
             {
-                Helpers.Data.DeleteEntryFromDataFile(SearchResult);
+                LibraryHelpers.Data.DeleteEntryFromDataFile(SearchResult);
                 MessageBox.Show("Deleted " + name, "Notification");
             }
         }
@@ -267,7 +277,7 @@ namespace LibraryApplication
 
             if (this.SelectedItem == null) return;
 
-            var SearchResult = Helpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
+            var SearchResult = LibraryHelpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
             if (SearchResult == null) MessageBox.Show("NULL!");
 
             this.SelectedItem = null;

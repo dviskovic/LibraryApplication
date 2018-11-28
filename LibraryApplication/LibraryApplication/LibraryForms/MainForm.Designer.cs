@@ -60,7 +60,7 @@
             // 
             this.RefreshButton.Location = new System.Drawing.Point(297, 31);
             this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(95, 20);
+            this.RefreshButton.Size = new System.Drawing.Size(95, 21);
             this.RefreshButton.TabIndex = 1;
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
@@ -98,6 +98,9 @@
             // 
             // ResultList
             // 
+            this.ResultList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ResultList.Location = new System.Drawing.Point(6, 57);
             this.ResultList.Name = "ResultList";
             this.ResultList.Size = new System.Drawing.Size(760, 394);
@@ -208,7 +211,7 @@
             // deleteAllDataToolStripMenuItem
             // 
             this.deleteAllDataToolStripMenuItem.Name = "deleteAllDataToolStripMenuItem";
-            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.deleteAllDataToolStripMenuItem.Text = "Delete all data";
             this.deleteAllDataToolStripMenuItem.Click += new System.EventHandler(this.deleteAllDataToolStripMenuItem_Click);
             // 
@@ -216,7 +219,7 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -231,13 +234,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // LastSaveTimeLabel
             // 
-            this.LastSaveTimeLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.LastSaveTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LastSaveTimeLabel.AutoSize = true;
             this.LastSaveTimeLabel.Location = new System.Drawing.Point(819, 482);
             this.LastSaveTimeLabel.Name = "LastSaveTimeLabel";
@@ -259,6 +262,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.AddNewUserButton);
@@ -271,6 +276,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.ResultList);
             this.groupBox2.Controls.Add(this.SearchLabel);
             this.groupBox2.Controls.Add(this.ShowAllCheckBox);
