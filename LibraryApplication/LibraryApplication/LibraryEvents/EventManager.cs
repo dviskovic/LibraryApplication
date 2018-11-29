@@ -14,7 +14,7 @@ namespace LibraryApplication.LibraryEvents
         public static void Startup()
         {
             DataFileSystem.IO.SetupFolders();
-            DataFileSystem.IO.DefaultImage();
+            DataFileSystem.IO.SetupFiles();
             DataFileSystem.IO.LoadUserData();
         }
     }

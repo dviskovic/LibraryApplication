@@ -1,5 +1,6 @@
 ﻿using LibraryApplication.LibraryObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -13,11 +14,18 @@ namespace LibraryApplication.LibraryForms
         private MainForm mainForm = null;
         private Author SelectedAuthor = null;
 
+        private readonly string NameText = "First name";
+
+        private readonly string CountText = "Count";
+
         public AddNewBookForm(MainForm mainForm)
         {
+            this.Focus();
             random = new Random();
             this.mainForm = mainForm;
             InitializeComponent();
+            this.NameBox.Text = this.NameText;
+            this.CountBox.Text = this.CountText;
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.AddNewBookButton.Enabled = false;
 
@@ -27,19 +35,23 @@ namespace LibraryApplication.LibraryForms
             //this.pictureBox1.BackgroundImageLayout = ImageLayout.Center;
             //this.pictureBox1.BackColor = Color.Black;
             this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
-            this.AuthorBox.DataSource = DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList();
-            this.AuthorBox.SelectedItem = null;
-            //this.AuthorBox.SelectedText = "Select an author";
+            List<string> DataSource = new List<string> { this.AuthorBox.Enabled ? "Select an author" : "No authors set up yet" };
+            foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList()) DataSource.Add(item);
+            this.AuthorBox.DataSource = DataSource;
+            //this.AuthorBox.SelectedItem = null;
+            //this.AuthorBox.SelectedItem = "Select an author";
         }
 
         private string ImagePath = string.Empty;
 
-        private void TextChanged(object o, EventArgs e)
+        private void TextChangedEvent(object o, EventArgs e)
         {
-            if (this.AuthorBox == null || this.AuthorBox?.SelectedIndex >= 0)
-                this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex];
+            if (this.AuthorBox?.SelectedIndex > 0)
+            {
+                this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 1];
+            }
 
-            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.AuthorBox.SelectedItem != null;
+            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.CountBox.Text != this.CountText && this.NameBox.Text != this.NameText && this.AuthorBox.SelectedIndex != 0;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -99,6 +111,26 @@ namespace LibraryApplication.LibraryForms
         private void AddNewBookForm_Closing(object sender, FormClosingEventArgs e)
         {
             this.mainForm.CurrentAddNewBookForm = null;
+        }
+
+        private void NameBox_Enter(object sender, EventArgs e)
+        {
+            if (this.NameBox.Text == this.NameText) this.NameBox.Text = string.Empty;
+        }
+
+        private void NameBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.NameBox.Text)) this.NameBox.Text = this.NameText;
+        }
+
+        private void CountBox_Enter(object sender, EventArgs e)
+        {
+            if (this.CountBox.Text == this.CountText) this.CountBox.Text = string.Empty;
+        }
+
+        private void CountBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CountBox.Text)) this.CountBox.Text = this.CountText;
         }
     }
 }

@@ -42,7 +42,10 @@
             this.FirstNameTextBox.Name = "FirstNameTextBox";
             this.FirstNameTextBox.Size = new System.Drawing.Size(256, 20);
             this.FirstNameTextBox.TabIndex = 1;
-            this.FirstNameTextBox.TextChanged += new System.EventHandler(this.TextChanged);
+            this.FirstNameTextBox.Text = "First name";
+            this.FirstNameTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.FirstNameTextBox.Enter += new System.EventHandler(this.FirstNameTextBox_Enter);
+            this.FirstNameTextBox.Leave += new System.EventHandler(this.FirstNameTextBox_Leave);
             // 
             // LastNameTextBox
             // 
@@ -50,7 +53,10 @@
             this.LastNameTextBox.Name = "LastNameTextBox";
             this.LastNameTextBox.Size = new System.Drawing.Size(256, 20);
             this.LastNameTextBox.TabIndex = 2;
-            this.LastNameTextBox.TextChanged += new System.EventHandler(this.TextChanged);
+            this.LastNameTextBox.Text = "Last name";
+            this.LastNameTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.LastNameTextBox.Enter += new System.EventHandler(this.LastNameTextBox_Enter);
+            this.LastNameTextBox.Leave += new System.EventHandler(this.LastNameTextBox_Leave);
             // 
             // AddButton
             // 

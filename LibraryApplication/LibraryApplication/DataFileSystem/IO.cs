@@ -47,7 +47,7 @@ namespace LibraryApplication.DataFileSystem
                 Directory.CreateDirectory(FileLocations.ImagesFolderPath);
         }
 
-        public static void DefaultImage()
+        public static void SetupFiles()
         {
             if (!File.Exists(FileLocations.DefaultUserImagePath)) File.WriteAllBytes(FileLocations.DefaultUserImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultUser));
             if (!File.Exists(FileLocations.DefaultBookImagePath)) File.WriteAllBytes(FileLocations.DefaultBookImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultBook));

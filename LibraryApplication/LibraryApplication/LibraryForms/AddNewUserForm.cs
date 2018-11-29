@@ -11,6 +11,10 @@ namespace LibraryApplication.LibraryForms
         private Random random;
         private MainForm mainForm = null;
 
+        private readonly string FirstText = "First name";
+
+        private readonly string LastText = "Last name";
+
         public AddNewUserForm(MainForm mainForm)
         {
             random = new Random();
@@ -25,9 +29,9 @@ namespace LibraryApplication.LibraryForms
 
         private string ImagePath = string.Empty;
 
-        private void TextChanged(object o, EventArgs e)
+        private void TextChangedEvent(object o, EventArgs e)
         {
-            this.AddButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty;
+            this.AddButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty && this.FirstNameTextBox.Text != this.FirstText && this.LastNameTextBox.Text != this.LastText;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -78,6 +82,26 @@ namespace LibraryApplication.LibraryForms
         private void AddNewUserForm_Closing(object sender, FormClosingEventArgs e)
         {
             this.mainForm.CurrentAddNewUserForm = null;
+        }
+
+        private void FirstNameTextBox_Enter(object sender, EventArgs e)
+        {
+            if (this.FirstNameTextBox.Text == this.FirstText) this.FirstNameTextBox.Text = string.Empty;
+        }
+
+        private void FirstNameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.FirstNameTextBox.Text)) this.FirstNameTextBox.Text = this.FirstText;
+        }
+
+        private void LastNameTextBox_Enter(object sender, EventArgs e)
+        {
+            if (this.LastNameTextBox.Text == this.LastText) this.LastNameTextBox.Text = string.Empty;
+        }
+
+        private void LastNameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.LastNameTextBox.Text)) this.LastNameTextBox.Text = this.LastText;
         }
     }
 }

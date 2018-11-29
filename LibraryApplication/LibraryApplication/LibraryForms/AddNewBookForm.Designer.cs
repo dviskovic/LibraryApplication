@@ -43,7 +43,9 @@
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(255, 20);
             this.NameBox.TabIndex = 1;
-            this.NameBox.TextChanged += new System.EventHandler(this.TextChanged);
+            this.NameBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.NameBox.Enter += new System.EventHandler(this.NameBox_Enter);
+            this.NameBox.Leave += new System.EventHandler(this.NameBox_Leave);
             // 
             // SelectImageButton
             // 
@@ -80,8 +82,8 @@
             this.AuthorBox.Name = "AuthorBox";
             this.AuthorBox.Size = new System.Drawing.Size(254, 21);
             this.AuthorBox.TabIndex = 3;
-            this.AuthorBox.ValueMemberChanged += new System.EventHandler(this.TextChanged);
-            this.AuthorBox.TextChanged += new System.EventHandler(this.TextChanged);
+            this.AuthorBox.ValueMemberChanged += new System.EventHandler(this.TextChangedEvent);
+            this.AuthorBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // CountBox
             // 
@@ -89,8 +91,10 @@
             this.CountBox.Name = "CountBox";
             this.CountBox.Size = new System.Drawing.Size(255, 20);
             this.CountBox.TabIndex = 2;
-            this.CountBox.TextChanged += new System.EventHandler(this.TextChanged);
+            this.CountBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.CountBox.Enter += new System.EventHandler(this.CountBox_Enter);
             this.CountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CountBox_KeyPress);
+            this.CountBox.Leave += new System.EventHandler(this.CountBox_Leave);
             // 
             // AddNewBookForm
             // 

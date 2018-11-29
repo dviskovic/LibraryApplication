@@ -96,7 +96,6 @@ namespace LibraryApplication
                 if (!this.ShowAllCheckBox.Checked)
                 {
                     ClearSearchBox();
-                    return;
                 }
 
                 else
@@ -112,28 +111,23 @@ namespace LibraryApplication
 
         private void ShowAllResults()
         {
+            GC.Collect();
             var resultList = new List<SearchResult>();
 
             foreach (var user in DataFileSystem.IO.DataFile.Users)
             {
-                if (string.Compare(user.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(user.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || user.LastName.ToLower().Contains(SearchQuery) || user.FirstName.ToLower().Contains(SearchQuery) || string.Compare(user.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
-                {
-                    resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
-                }
+                resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
             }
 
             foreach (var book in DataFileSystem.IO.DataFile.Books)
             {
-                if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(book.Author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.Author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.Author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
-                {
-                    resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
-                }
+                resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
             }
 
             var imagelist = new ImageList
             {
                 ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth32Bit
+                ColorDepth = ColorDepth.Depth24Bit
             };
 
             foreach (var result in resultList)
@@ -149,8 +143,11 @@ namespace LibraryApplication
                 imagelist.Images.Add(result.Image, Image.FromFile(path));
             }
 
+            //GC.Collect();
+
             this.ResultList.BeginUpdate();
             this.ResultList.Clear();
+            this.ResultList.LargeImageList = null;
             this.ResultList.LargeImageList = imagelist;
 
             foreach (var result in resultList)
@@ -169,6 +166,7 @@ namespace LibraryApplication
 
         private void UpdateList()
         {
+            GC.Collect();
             if (SearchBox.Text == string.Empty)
             {
                 if (!this.ShowAllCheckBox.Checked)
