@@ -13,6 +13,9 @@ namespace LibraryApplication
     {
         public StartupForm startupForm = null;
 
+        public Dictionary<User, LibraryForms.UserControl> UserDictionary = new Dictionary<User, LibraryForms.UserControl>();
+        public Dictionary<Book, LibraryForms.BookControl> BookDictionary = new Dictionary<Book, LibraryForms.BookControl>();
+
         private string SearchQuery = string.Empty;
 
         public AddNewUserForm CurrentAddNewUserForm = null;
@@ -20,6 +23,7 @@ namespace LibraryApplication
         public AddNewBookForm CurrentAddNewBookForm = null;
         public ListViewItem SelectedItem = null;
         public About CurrentAboutForm = null;
+        public ChangePasswordForm CurrentChangePasswordForm = null;
 
         private ContextMenu CurrentContextMenu = null;
         private Timer LastSaveTimer = new Timer { Enabled = true, Interval = 1000 };
@@ -114,14 +118,22 @@ namespace LibraryApplication
             GC.Collect();
             var resultList = new List<SearchResult>();
 
-            foreach (var user in DataFileSystem.IO.DataFile.Users)
+            SearchResultType.Type resultType = SearchResultType.ParseFromString((string)this.SearchTypeBox.SelectedItem);
+
+            if (resultType == SearchResultType.Type.All || resultType == SearchResultType.Type.Users)
             {
-                resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
+                foreach (var user in DataFileSystem.IO.DataFile.Users)
+                {
+                    resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
+                }
             }
 
-            foreach (var book in DataFileSystem.IO.DataFile.Books)
+            if (resultType == SearchResultType.Type.All || resultType == SearchResultType.Type.Books)
             {
-                resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                foreach (var book in DataFileSystem.IO.DataFile.Books)
+                {
+                    resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                }
             }
 
             var imagelist = new ImageList
@@ -142,8 +154,6 @@ namespace LibraryApplication
                 else path = DataFileSystem.FileLocations.DefaultUserImagePath;
                 imagelist.Images.Add(result.Image, Image.FromFile(path));
             }
-
-            //GC.Collect();
 
             this.ResultList.BeginUpdate();
             this.ResultList.Clear();
@@ -201,7 +211,8 @@ namespace LibraryApplication
             {
                 foreach (var book in DataFileSystem.IO.DataFile.Books)
                 {
-                    if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(book.Author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.Author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.Author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
+                    var author = book.Author;
+                    if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
                     }
@@ -260,8 +271,13 @@ namespace LibraryApplication
 
             if (Dialog == DialogResult.Yes)
             {
-                LibraryHelpers.Data.DeleteEntryFromDataFile(SearchResult);
-                MessageBox.Show("Deleted " + name, "Notification");
+                var pass = new PasswordForm(() => {
+                    LibraryHelpers.Data.DeleteEntryFromDataFile(SearchResult);
+                    MessageBox.Show("Deleted " + name, "Notification");
+                });
+
+                pass.Show();
+                pass.Focus();
             }
         }
 
@@ -282,12 +298,32 @@ namespace LibraryApplication
 
             if (SearchResult is User)
             {
-                MessageBox.Show("User!");
+                if (this.UserDictionary.TryGetValue(SearchResult, out LibraryForms.UserControl form))
+                {
+                    form.Focus();
+                }
+
+                else
+                {
+                    var form2 = new LibraryForms.UserControl(SearchResult, this);
+                    form2.Show();
+                    this.UserDictionary.Add(SearchResult, form2);
+                }
             }
 
-            if (SearchResult is Book)
+            if (SearchResult is Book book)
             {
-                MessageBox.Show("Book!");
+                if (this.BookDictionary.TryGetValue(SearchResult, out LibraryForms.BookControl form))
+                {
+                    form.Focus();
+                }
+
+                else
+                {
+                    var form2 = new LibraryForms.BookControl(SearchResult, this);
+                    form2.Show();
+                    this.BookDictionary.Add(SearchResult, form2);
+                }
             }
         }
 
@@ -302,7 +338,11 @@ namespace LibraryApplication
                     {
                         item.Selected = true;
                         this.SelectedItem = item;
-                        MenuItem[] mi = new MenuItem[] { new MenuItem("Open", new EventHandler(ResultBox_ItemOpenClick)), new MenuItem("Delete", new EventHandler(ResultBox_ItemDeleteClick)) };
+                        MenuItem[] mi = new MenuItem[] 
+                        {
+                            new MenuItem("Open", new EventHandler(ResultBox_ItemOpenClick)),
+                            new MenuItem("Delete", new EventHandler(ResultBox_ItemDeleteClick))
+                        };
                         ResultList.ContextMenu = this.CurrentContextMenu = new ContextMenu(mi);
                         ResultList.ContextMenu.Show(ResultList, new Point(e.X, e.Y));
                     }
@@ -341,7 +381,14 @@ namespace LibraryApplication
             {
                 var dialog2 = MessageBox.Show("Are you REALLY sure you want to delete all data?", "Warning", MessageBoxButtons.YesNo);
 
-                if (dialog2 == DialogResult.Yes) DataFileSystem.IO.Wipe();
+                if (dialog2 == DialogResult.Yes)
+                {
+                    var confirm = new PasswordForm(() => {
+                        DataFileSystem.IO.Wipe();
+                        MessageBox.Show("All user data has been deleted");
+                    });
+                    confirm.Show();
+                }
             }
         }
 
@@ -380,6 +427,39 @@ namespace LibraryApplication
         private void ShowAllCheckBox_CheckChanged(object sender, EventArgs e)
         {
             UpdateList();
+        }
+
+        private void changeDataLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var confirm = new PasswordForm(() => {
+                var op = new FolderBrowserDialog
+                {
+                    Description = "Select the folder for storing data\nCurrent folder: " + DataFileSystem.FileLocations.DatabasePath
+                };
+                op.ShowDialog();
+
+                if (string.IsNullOrEmpty(op.SelectedPath)) return;
+
+                DataFileSystem.IO.SaveUserData();
+                string prevPath = DataFileSystem.FileLocations.DatabasePath;
+                DataFileSystem.IO.configFile.DataLocation = op.SelectedPath;
+                DataFileSystem.IO.SaveConfig();
+                MessageBox.Show("For changes to take effect the app has to be restarted, press OK to confirm");
+                System.Diagnostics.Process.Start(Application.ExecutablePath);
+                this.Close();
+                File.Move(Path.Combine(prevPath, DataFileSystem.IO.FileName), Path.Combine(DataFileSystem.IO.configFile.DataLocation, DataFileSystem.IO.FileName));
+            });
+            confirm.Show();
+        }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.CurrentChangePasswordForm != null) this.CurrentChangePasswordForm.Focus();
+            else
+            {
+                this.CurrentChangePasswordForm = new ChangePasswordForm(this);
+                this.CurrentChangePasswordForm.Show();
+            }
         }
     }
 }

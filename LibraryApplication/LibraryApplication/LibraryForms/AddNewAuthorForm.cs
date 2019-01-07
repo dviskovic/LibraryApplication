@@ -1,6 +1,7 @@
 ﻿using LibraryApplication.LibraryObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryForms
@@ -27,7 +28,10 @@ namespace LibraryApplication.LibraryForms
             {
                 FirstName = this.FirstNameTextBox.Text,
                 LastName = this.LastNameTextBox.Text,
+                ID = DataFileSystem.IO.DataFile.Authors.Count == 0 ? 0 : DataFileSystem.IO.DataFile.Authors.Last().ID + 1
             });
+
+            LibraryEvents.EventManager.OnAuthorListChanged();
 
             DataFileSystem.IO.SaveUserData();
 

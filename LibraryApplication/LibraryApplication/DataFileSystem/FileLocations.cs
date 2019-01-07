@@ -9,7 +9,9 @@ namespace LibraryApplication.DataFileSystem
 {
     class FileLocations
     {
-        public static readonly string DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LibraryApplication");
+        public static string DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LibraryApplication");
+
+        public static readonly string ConfigFilePath = Path.Combine(DatabasePath, "config.json");
 
         public static readonly string ImagesFolderPath = Path.Combine(DatabasePath, "Images");
 

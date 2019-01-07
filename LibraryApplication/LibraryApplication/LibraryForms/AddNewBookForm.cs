@@ -14,32 +14,37 @@ namespace LibraryApplication.LibraryForms
         private MainForm mainForm = null;
         private Author SelectedAuthor = null;
 
-        private readonly string NameText = "First name";
+        private readonly string NameText = "Book Name";
 
         private readonly string CountText = "Count";
 
         public AddNewBookForm(MainForm mainForm)
         {
+            InitializeComponent();
             this.Focus();
             random = new Random();
             this.mainForm = mainForm;
-            InitializeComponent();
             this.NameBox.Text = this.NameText;
             this.CountBox.Text = this.CountText;
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.AddNewBookButton.Enabled = false;
 
-
-            this.AuthorBox.Enabled = DataFileSystem.IO.DataFile.Authors.Count > 0;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
             //this.pictureBox1.BackgroundImageLayout = ImageLayout.Center;
             //this.pictureBox1.BackColor = Color.Black;
-            this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
+            LibraryEvents.EventManager.OnAuthorListChanged += UpdateAuthorList;
+            this.UpdateAuthorList();
+            //this.AuthorBox.SelectedItem = null;
+            //this.AuthorBox.SelectedItem = "Select an author";
+        }
+
+        private void UpdateAuthorList()
+        {
+            this.AuthorBox.Enabled = DataFileSystem.IO.DataFile.Authors.Count > 0;
             List<string> DataSource = new List<string> { this.AuthorBox.Enabled ? "Select an author" : "No authors set up yet" };
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList()) DataSource.Add(item);
             this.AuthorBox.DataSource = DataSource;
-            //this.AuthorBox.SelectedItem = null;
-            //this.AuthorBox.SelectedItem = "Select an author";
         }
 
         private string ImagePath = string.Empty;
@@ -69,7 +74,7 @@ namespace LibraryApplication.LibraryForms
             DataFileSystem.IO.DataFile.Books.Add(new Book
             {
                 Count = int.Parse(this.CountBox.Text),
-                Author = SelectedAuthor,
+                AuthorID = SelectedAuthor.ID,
                 Name = this.NameBox.Text,
                 ImageID = fileName
             });

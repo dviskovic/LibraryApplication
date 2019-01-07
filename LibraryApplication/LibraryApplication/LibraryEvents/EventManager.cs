@@ -6,6 +6,8 @@ namespace LibraryApplication.LibraryEvents
     {
         public static Action OnDataFileChanged { get; set; }
 
+        public static Action OnAuthorListChanged { get; set; } = new Action(() => { });
+
         public static void AutoSave(object o, EventArgs e)
         {
             DataFileSystem.IO.SaveUserData();

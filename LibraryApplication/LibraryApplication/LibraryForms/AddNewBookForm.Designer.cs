@@ -41,7 +41,7 @@
             // 
             this.NameBox.Location = new System.Drawing.Point(12, 237);
             this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(255, 20);
+            this.NameBox.Size = new System.Drawing.Size(256, 20);
             this.NameBox.TabIndex = 1;
             this.NameBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
             this.NameBox.Enter += new System.EventHandler(this.NameBox_Enter);
@@ -61,7 +61,7 @@
             // 
             this.AddNewBookButton.Location = new System.Drawing.Point(13, 317);
             this.AddNewBookButton.Name = "AddNewBookButton";
-            this.AddNewBookButton.Size = new System.Drawing.Size(254, 23);
+            this.AddNewBookButton.Size = new System.Drawing.Size(255, 23);
             this.AddNewBookButton.TabIndex = 4;
             this.AddNewBookButton.Text = "Add a new book";
             this.AddNewBookButton.UseVisualStyleBackColor = true;
@@ -80,7 +80,7 @@
             this.AuthorBox.FormattingEnabled = true;
             this.AuthorBox.Location = new System.Drawing.Point(13, 289);
             this.AuthorBox.Name = "AuthorBox";
-            this.AuthorBox.Size = new System.Drawing.Size(254, 21);
+            this.AuthorBox.Size = new System.Drawing.Size(255, 21);
             this.AuthorBox.TabIndex = 3;
             this.AuthorBox.ValueMemberChanged += new System.EventHandler(this.TextChangedEvent);
             this.AuthorBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
@@ -89,7 +89,7 @@
             // 
             this.CountBox.Location = new System.Drawing.Point(12, 263);
             this.CountBox.Name = "CountBox";
-            this.CountBox.Size = new System.Drawing.Size(255, 20);
+            this.CountBox.Size = new System.Drawing.Size(256, 20);
             this.CountBox.TabIndex = 2;
             this.CountBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
             this.CountBox.Enter += new System.EventHandler(this.CountBox_Enter);
@@ -110,7 +110,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "AddNewBookForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add a new book";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookForm_Closing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddNewBookForm_KeyDown);

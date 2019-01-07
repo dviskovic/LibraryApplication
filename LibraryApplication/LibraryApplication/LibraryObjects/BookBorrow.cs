@@ -2,7 +2,7 @@
 
 namespace LibraryApplication.LibraryObjects
 {
-    class BookBorrow
+    public class BookBorrow
     {
         public Book Book;
         public DateTime BorrowTime;

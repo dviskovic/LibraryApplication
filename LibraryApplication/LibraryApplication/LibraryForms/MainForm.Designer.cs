@@ -42,8 +42,10 @@
             this.addNewBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.weToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeDataLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aSSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -169,7 +171,8 @@
             this.assToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewBookToolStripMenuItem,
             this.addNewUserToolStripMenuItem,
-            this.addNewAuthorToolStripMenuItem});
+            this.addNewAuthorToolStripMenuItem,
+            this.changePasswordToolStripMenuItem});
             this.assToolStripMenuItem.Name = "assToolStripMenuItem";
             this.assToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.assToolStripMenuItem.Text = "Tools";
@@ -199,10 +202,18 @@
             this.addNewAuthorToolStripMenuItem.Text = "Add new Author";
             this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler(this.addNewAuthorToolStripMenuItem_Click);
             // 
+            // changePasswordToolStripMenuItem
+            // 
+            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.changePasswordToolStripMenuItem.Text = "Change Password";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
+            // 
             // weToolStripMenuItem
             // 
             this.weToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteAllDataToolStripMenuItem,
+            this.changeDataLocationToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.weToolStripMenuItem.Name = "weToolStripMenuItem";
             this.weToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
@@ -211,15 +222,22 @@
             // deleteAllDataToolStripMenuItem
             // 
             this.deleteAllDataToolStripMenuItem.Name = "deleteAllDataToolStripMenuItem";
-            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.deleteAllDataToolStripMenuItem.Text = "Delete all data";
             this.deleteAllDataToolStripMenuItem.Click += new System.EventHandler(this.deleteAllDataToolStripMenuItem_Click);
+            // 
+            // changeDataLocationToolStripMenuItem
+            // 
+            this.changeDataLocationToolStripMenuItem.Name = "changeDataLocationToolStripMenuItem";
+            this.changeDataLocationToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.changeDataLocationToolStripMenuItem.Text = "Change data location";
+            this.changeDataLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDataLocationToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -344,6 +362,8 @@
         private System.Windows.Forms.CheckBox ShowAllCheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ToolStripMenuItem changeDataLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
     }
 }
 
