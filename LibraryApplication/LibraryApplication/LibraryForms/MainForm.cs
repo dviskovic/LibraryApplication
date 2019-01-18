@@ -25,7 +25,6 @@ namespace LibraryApplication
         public About CurrentAboutForm = null;
         public ChangePasswordForm CurrentChangePasswordForm = null;
 
-        private ContextMenu CurrentContextMenu = null;
         private Timer LastSaveTimer = new Timer { Enabled = true, Interval = 1000 };
 
         public MainForm()
@@ -35,19 +34,9 @@ namespace LibraryApplication
             this.LastSaveTimer.Tick += new EventHandler(RefreshLastTime);
             this.LastSaveTimer.Start(); 
             this.SearchTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.SearchTypeBox.DataSource = SearchResultType.StringArray();
-            DataFileSystem.IO.SaveUserData();
-        }
+            this.SearchTypeBox.DataSource = SearchResult.StringArray();
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                return base.CreateParams;
-                var current = base.CreateParams;
-                current.ClassStyle |= 0x00020000;
-                return current;
-            }
+            DataFileSystem.IO.SaveUserData();
         }
 
         private void RefreshLastTime(object o, EventArgs e)
@@ -115,68 +104,39 @@ namespace LibraryApplication
 
         private void ShowAllResults()
         {
-            GC.Collect();
             var resultList = new List<SearchResult>();
 
-            SearchResultType.Type resultType = SearchResultType.ParseFromString((string)this.SearchTypeBox.SelectedItem);
+            SearchResult.Types resultType = SearchResult.ParseFromString((string)this.SearchTypeBox.SelectedItem);
 
-            if (resultType == SearchResultType.Type.All || resultType == SearchResultType.Type.Users)
+            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.User)
             {
                 foreach (var user in DataFileSystem.IO.DataFile.Users)
                 {
-                    resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
+                    resultList.Add(new SearchResult { Name = "\"" + user.FirstName + " " + user.LastName + "\"" /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Type = SearchResult.Types.User, Author = "None", Available = "None", ISBN = "None"   });
                 }
             }
 
-            if (resultType == SearchResultType.Type.All || resultType == SearchResultType.Type.Books)
+            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.Book)
             {
                 foreach (var book in DataFileSystem.IO.DataFile.Books)
                 {
-                    resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                    resultList.Add(new SearchResult { Name = "\"" + book.Name + "\""/*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Type = SearchResult.Types.Book, Author = "\"" + book.Author.FullName + "\"", Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", ISBN = book.ISBN });
                 }
             }
 
-            var imagelist = new ImageList
-            {
-                ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth24Bit
-            };
+            this.ResultList.Rows.Clear();
 
             foreach (var result in resultList)
-            {
-                string path = string.Empty;
-
-                if (!string.IsNullOrEmpty(result.Image))
-                {
-                    path = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, result.Image);
-                }
-
-                else path = DataFileSystem.FileLocations.DefaultUserImagePath;
-                imagelist.Images.Add(result.Image, Image.FromFile(path));
-            }
-
-            this.ResultList.BeginUpdate();
-            this.ResultList.Clear();
-            this.ResultList.LargeImageList = null;
-            this.ResultList.LargeImageList = imagelist;
-
-            foreach (var result in resultList)
-                this.ResultList.Items.Add(new ListViewItem(result.Text, result.Image));
-
-            this.ResultList.EndUpdate();
+                this.ResultList.Rows.Add(result.Type, result.Name, result.Author, result.Available, result.ISBN);
         }
 
         private void ClearSearchBox()
         {
-            this.ResultList.BeginUpdate();
-            this.ResultList.Clear();
-            this.ResultList.Items.Clear();
-            this.ResultList.EndUpdate();
+            this.ResultList.Rows.Clear();
         }
 
         private void UpdateList()
         {
-            GC.Collect();
             if (SearchBox.Text == string.Empty)
             {
                 if (!this.ShowAllCheckBox.Checked)
@@ -192,173 +152,77 @@ namespace LibraryApplication
                 }
             }
 
-            SearchResultType.Type resultType = SearchResultType.ParseFromString((string) this.SearchTypeBox.SelectedItem);
+            SearchResult.Types resultType = SearchResult.ParseFromString((string) this.SearchTypeBox.SelectedItem);
 
             var resultList = new List<SearchResult>();
 
-            if (resultType == SearchResultType.Type.All || resultType == SearchResultType.Type.Users)
+            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.User)
             {
                 foreach (var user in DataFileSystem.IO.DataFile.Users)
                 {
-                    if (string.Compare(user.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(user.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || user.LastName.ToLower().Contains(SearchQuery) || user.FirstName.ToLower().Contains(SearchQuery) || string.Compare(user.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
+                    if (string.Compare(user.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(user.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 ||  user.LastName.ToLower().Contains(SearchQuery) || user.FirstName.ToLower().Contains(SearchQuery) || string.Compare(user.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || user.Email.ToLower().Contains(SearchQuery) || string.Compare(user.Email, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        resultList.Add(new SearchResult { Text = user.FirstName + " " + user.LastName, Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID });
+                        resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Available = "None", ISBN = "None", Type = SearchResult.Types.User, Author = "None" });
                     }
                 }
             }
                 
-            if (resultType == SearchResultType.Type.Books || resultType == SearchResultType.Type.All)
+            if (resultType == SearchResult.Types.Book || resultType == SearchResult.Types.All)
             {
                 foreach (var book in DataFileSystem.IO.DataFile.Books)
                 {
                     var author = book.Author;
-                    if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
+                    if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.ISBN, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.ISBN.ToLower().Contains(SearchQuery))
                     {
-                        resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"" /*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Type = SearchResult.Types.Book, Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No" });
                     }
                 }
             }
-                
-            var imagelist = new ImageList
-            {
-                ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth32Bit
-            };
 
-            foreach (var result in resultList)
-            {
-                string path = string.Empty;
-
-                if (!string.IsNullOrEmpty(result.Image))
-                {
-                    path = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, result.Image);
-                }
-
-                else path = DataFileSystem.FileLocations.DefaultUserImagePath;
-                imagelist.Images.Add(result.Image, Image.FromFile(path));
-            }
-
-            this.ResultList.BeginUpdate();
-            this.ResultList.Clear();
-            this.ResultList.LargeImageList = imagelist;
+            this.ResultList.Rows.Clear();
             
             foreach (var result in resultList)
-                this.ResultList.Items.Add(new ListViewItem(result.Text, result.Image));
+                this.ResultList.Rows.Add(result.Type, result.Name, result.Author, result.Available, result.ISBN);
 
-            this.ResultList.EndUpdate();
         }
 
-        private void ResultBox_ItemDeleteClick(object o, EventArgs e)
+        private void ResultBox_MouseDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (CurrentContextMenu != null)
+            string Name = this.ResultList.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string TypeString = this.ResultList.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+            SearchResult.Types Type = SearchResult.ParseFromString(TypeString);
+            var item = LibraryHelpers.Data.Find(Name, Type);
+            if (item == null) return;
+
+            if (item is Book book)
             {
-                CurrentContextMenu.Dispose();
-                this.ResultList.SelectedItems.Clear();
-            }
-
-            if (this.SelectedItem == null) return;
-
-            var SearchResult = LibraryHelpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
-            if (SearchResult == null) MessageBox.Show("NULL!");
-
-            string name = "Undefined";
-            if (SearchResult is User) name = "\"" + (SearchResult as User).FullName + "\"";
-            if (SearchResult is Book) name = "\"" + (SearchResult as Book).Name + "\"";
-
-            this.SelectedItem = null;
-
-            var Dialog = MessageBox.Show("Are you sure you want to delete " + name, "Delete Confirmation", MessageBoxButtons.YesNo);
-
-            if (Dialog == DialogResult.Yes)
-            {
-                var pass = new PasswordForm(() => {
-                    LibraryHelpers.Data.DeleteEntryFromDataFile(SearchResult);
-                    MessageBox.Show("Deleted " + name, "Notification");
-                });
-
-                pass.Show();
-                pass.Focus();
-            }
-        }
-
-        private void ResultBox_ItemOpenClick(object o, EventArgs e)
-        {
-            if (CurrentContextMenu != null)
-            {
-                CurrentContextMenu.Dispose();
-                this.ResultList.SelectedItems.Clear();
-            }
-
-            if (this.SelectedItem == null) return;
-
-            var SearchResult = LibraryHelpers.Data.FindByNameAndImage(this.SelectedItem.Text, this.SelectedItem.ImageKey);
-            if (SearchResult == null) MessageBox.Show("NULL!");
-
-            this.SelectedItem = null;
-
-            if (SearchResult is User)
-            {
-                if (this.UserDictionary.TryGetValue(SearchResult, out LibraryForms.UserControl form))
+                if (this.BookDictionary.TryGetValue(book, out LibraryForms.BookControl form))
                 {
                     form.Focus();
                 }
 
                 else
                 {
-                    var form2 = new LibraryForms.UserControl(SearchResult, this);
+                    var form2 = new LibraryForms.BookControl(book, this);
                     form2.Show();
-                    this.UserDictionary.Add(SearchResult, form2);
+                    this.BookDictionary.Add(book, form2);
                 }
             }
 
-            if (SearchResult is Book book)
+            if (item is User user)
             {
-                if (this.BookDictionary.TryGetValue(SearchResult, out LibraryForms.BookControl form))
+                if (this.UserDictionary.TryGetValue(user, out LibraryForms.UserControl form))
                 {
+                   
                     form.Focus();
                 }
 
                 else
                 {
-                    var form2 = new LibraryForms.BookControl(SearchResult, this);
+                    var form2 = new LibraryForms.UserControl(user, this);
                     form2.Show();
-                    this.BookDictionary.Add(SearchResult, form2);
-                }
-            }
-        }
-
-        private void ResultBox_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (this.CurrentContextMenu != null) this.CurrentContextMenu.Dispose();
-                foreach (ListViewItem item in ResultList.Items)
-                {
-                    if (item.Bounds.Contains(new Point(e.X, e.Y)))
-                    {
-                        item.Selected = true;
-                        this.SelectedItem = item;
-                        MenuItem[] mi = new MenuItem[] 
-                        {
-                            new MenuItem("Open", new EventHandler(ResultBox_ItemOpenClick)),
-                            new MenuItem("Delete", new EventHandler(ResultBox_ItemDeleteClick))
-                        };
-                        ResultList.ContextMenu = this.CurrentContextMenu = new ContextMenu(mi);
-                        ResultList.ContextMenu.Show(ResultList, new Point(e.X, e.Y));
-                    }
-                }
-            }
-        }
-
-        private void ResultBox_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            foreach (ListViewItem item in ResultList.Items)
-            {
-                if (item.Bounds.Contains(new Point(e.X, e.Y)))
-                {
-                    this.SelectedItem = item;
-                    ResultBox_ItemOpenClick(null, null);
-                    return;
+                    this.UserDictionary.Add(user, form2);
                 }
             }
         }

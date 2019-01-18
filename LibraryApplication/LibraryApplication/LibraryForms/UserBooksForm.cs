@@ -26,45 +26,22 @@ namespace LibraryApplication.LibraryForms
             InitializeComponent();
             this.Text = "\"" + user.FullName + "\"'s Borrowed Books";
             this.UpdateList();
+            this.user.OnUpdate += new Action(UpdateList);
         }
 
         public void UpdateList()
         {
-            GC.Collect();
             var resultList = new List<SearchResult>();
 
             foreach (var book in this.user.BorrowedBooks)
             {
-                resultList.Add(new SearchResult { Text = book.Book.Name, Image = string.IsNullOrEmpty(book.Book.ImageID) ? "default_book.png" : book.Book.ImageID });
+                resultList.Add(new SearchResult { Name = book.Book.Name, Author = book.Book.Author.FullName, ISBN = book.Book.ISBN});
             }
 
-            var imagelist = new ImageList
-            {
-                ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth32Bit
-            };
+            this.BookList.Rows.Clear();
 
             foreach (var result in resultList)
-            {
-                string path = string.Empty;
-
-                if (!string.IsNullOrEmpty(result.Image))
-                {
-                    path = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, result.Image);
-                }
-
-                else path = DataFileSystem.FileLocations.DefaultUserImagePath;
-                imagelist.Images.Add(result.Image, Image.FromFile(path));
-            }
-
-            this.BookList.BeginUpdate();
-            this.BookList.Clear();
-            this.BookList.LargeImageList = imagelist;
-
-            foreach (var result in resultList)
-                this.BookList.Items.Add(new ListViewItem(result.Text, result.Image));
-
-            this.BookList.EndUpdate();
+                this.BookList.Rows.Add(result.Name, result.Author, result.ISBN);
         }
 
         private void UserBooksForm_Closing(object sender, FormClosingEventArgs e)
@@ -87,14 +64,22 @@ namespace LibraryApplication.LibraryForms
             }
         }
 
-        private void BookList_DoubleClick(object sender, MouseEventArgs e)
+        private void BookList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            foreach (ListViewItem item in this.BookList.Items)
+            foreach (var rowObj in this.BookList.Rows)
             {
-                if (item.Bounds.Contains(new Point(e.X, e.Y)))
+                if (rowObj is DataGridViewRow row)
                 {
-                    MessageBox.Show("HIT " + item.Text);
-                    return;
+                    string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                    var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
+                    if (item == null) return;
+
+                    if (item is Book book)  
+                    {
+                        //This is where we open a new form :feelsbadman:
+                        MessageBox.Show("HIT " + book.Name);
+                    }
                 }
             }
         }

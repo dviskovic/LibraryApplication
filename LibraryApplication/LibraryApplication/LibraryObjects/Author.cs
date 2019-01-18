@@ -5,8 +5,10 @@ namespace LibraryApplication.LibraryObjects
     public class Author
     {
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
-        public int ID;
+
+        public int ID { get; set; }
 
         [JsonIgnore]
         public string FullName { get { return FirstName + " " + LastName; } }

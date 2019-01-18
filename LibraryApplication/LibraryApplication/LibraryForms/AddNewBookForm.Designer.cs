@@ -34,6 +34,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.AuthorBox = new System.Windows.Forms.ComboBox();
             this.CountBox = new System.Windows.Forms.TextBox();
+            this.ISBNTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,9 +50,9 @@
             // 
             // SelectImageButton
             // 
-            this.SelectImageButton.Location = new System.Drawing.Point(13, 208);
+            this.SelectImageButton.Location = new System.Drawing.Point(12, 208);
             this.SelectImageButton.Name = "SelectImageButton";
-            this.SelectImageButton.Size = new System.Drawing.Size(255, 23);
+            this.SelectImageButton.Size = new System.Drawing.Size(256, 23);
             this.SelectImageButton.TabIndex = 0;
             this.SelectImageButton.Text = "SelectImage";
             this.SelectImageButton.UseVisualStyleBackColor = true;
@@ -59,29 +60,29 @@
             // 
             // AddNewBookButton
             // 
-            this.AddNewBookButton.Location = new System.Drawing.Point(13, 317);
+            this.AddNewBookButton.Location = new System.Drawing.Point(12, 342);
             this.AddNewBookButton.Name = "AddNewBookButton";
-            this.AddNewBookButton.Size = new System.Drawing.Size(255, 23);
-            this.AddNewBookButton.TabIndex = 4;
+            this.AddNewBookButton.Size = new System.Drawing.Size(256, 23);
+            this.AddNewBookButton.TabIndex = 5;
             this.AddNewBookButton.Text = "Add a new book";
             this.AddNewBookButton.UseVisualStyleBackColor = true;
             this.AddNewBookButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(255, 185);
+            this.pictureBox1.Size = new System.Drawing.Size(256, 185);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // AuthorBox
             // 
             this.AuthorBox.FormattingEnabled = true;
-            this.AuthorBox.Location = new System.Drawing.Point(13, 289);
+            this.AuthorBox.Location = new System.Drawing.Point(12, 315);
             this.AuthorBox.Name = "AuthorBox";
-            this.AuthorBox.Size = new System.Drawing.Size(255, 21);
-            this.AuthorBox.TabIndex = 3;
+            this.AuthorBox.Size = new System.Drawing.Size(256, 21);
+            this.AuthorBox.TabIndex = 4;
             this.AuthorBox.ValueMemberChanged += new System.EventHandler(this.TextChangedEvent);
             this.AuthorBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
@@ -96,11 +97,23 @@
             this.CountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CountBox_KeyPress);
             this.CountBox.Leave += new System.EventHandler(this.CountBox_Leave);
             // 
+            // ISBNTextBox
+            // 
+            this.ISBNTextBox.Location = new System.Drawing.Point(12, 289);
+            this.ISBNTextBox.Name = "ISBNTextBox";
+            this.ISBNTextBox.Size = new System.Drawing.Size(256, 20);
+            this.ISBNTextBox.TabIndex = 3;
+            this.ISBNTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.ISBNTextBox.Enter += new System.EventHandler(this.ISBNBox_Enter);
+            this.ISBNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ISBNBox_KeyPress);
+            this.ISBNTextBox.Leave += new System.EventHandler(this.ISBNBox_Leave);
+            // 
             // AddNewBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 352);
+            this.ClientSize = new System.Drawing.Size(280, 377);
+            this.Controls.Add(this.ISBNTextBox);
             this.Controls.Add(this.AuthorBox);
             this.Controls.Add(this.AddNewBookButton);
             this.Controls.Add(this.SelectImageButton);
@@ -128,5 +141,6 @@
         private System.Windows.Forms.Button AddNewBookButton;
         private System.Windows.Forms.ComboBox AuthorBox;
         private System.Windows.Forms.TextBox CountBox;
+        private System.Windows.Forms.TextBox ISBNTextBox;
     }
 }

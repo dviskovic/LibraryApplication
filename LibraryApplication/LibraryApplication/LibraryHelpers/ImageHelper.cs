@@ -29,5 +29,15 @@ namespace LibraryApplication.LibraryHelpers
             File.Copy(path, Destination);
             return TargetFileName;
         }
+
+        public static string SaveImage(Book book, string path)
+        {
+            if (!File.Exists(path)) return string.Empty;
+
+            string TargetFileName = book.Name + random.Next().ToString() + Path.GetExtension(path);
+            string Destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, TargetFileName);
+            File.Copy(path, Destination);
+            return TargetFileName;
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace LibraryApplication
         [STAThread]
         static void Main()
         {
+            if (!Directory.Exists(FileLocations.DatabasePath)) Directory.CreateDirectory(FileLocations.DatabasePath);
             if (!File.Exists(FileLocations.NewtonsoftJson)) File.WriteAllBytes(FileLocations.NewtonsoftJson, Properties.Resources.Newtonsoft_Json);
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolve);
             Application.EnableVisualStyles();

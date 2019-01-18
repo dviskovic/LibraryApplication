@@ -9,13 +9,25 @@ namespace LibraryApplication.LibraryHelpers
 {
     class Data
     {
-        public static dynamic FindByNameAndImage(string Name, string ImagePath)
+        public static dynamic Find(string Name, SearchResult.Types type)
         {
-            foreach (var user in DataFileSystem.IO.DataFile.Users)
-                if (string.Compare(user.FullName, Name, StringComparison.OrdinalIgnoreCase) == 0 && ImagePath == user.ImageID) return user;
-
-            foreach (var book in DataFileSystem.IO.DataFile.Books)
-                if (string.Compare(book.Name, Name, StringComparison.OrdinalIgnoreCase) == 0 && ImagePath == book.ImageID) return book;
+            Name = Name.Replace("\"", "");
+            if (type == SearchResult.Types.User)
+            {
+                foreach (var user in DataFileSystem.IO.DataFile.Users)
+                {
+                    if (string.Compare(user.FullName, Name, StringComparison.OrdinalIgnoreCase) == 0) return user;
+                }
+            }
+            
+            if (type == SearchResult.Types.Book)
+            {
+                foreach (var book in DataFileSystem.IO.DataFile.Books)
+                {
+                    if (string.Compare(book.Name, Name, StringComparison.OrdinalIgnoreCase) == 0) return book;
+                }
+                    
+            }
 
             return null;
         }

@@ -29,9 +29,6 @@ namespace LibraryApplication.DataFileSystem
                 };
                 op.ShowDialog();
 
-                var setup = new SetupPaswordForm();
-                setup.Show();
-
                 if (!string.IsNullOrEmpty(op.SelectedPath)) configFile.DataLocation = op.SelectedPath;
 
                 SaveConfig();

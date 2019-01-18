@@ -18,7 +18,12 @@ namespace LibraryApplication.LibraryForms
 
         public UserBooksForm userBooks;
 
-        private bool DefaultImage;
+        private bool DefaultImage {
+            get
+            {
+                return Path.GetFileName(this.ImagePath) == "default_user.png";
+            }
+        }
 
         private string ImagePath;
 
@@ -30,18 +35,18 @@ namespace LibraryApplication.LibraryForms
             this.Text = "Info about " + user.FullName;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.ImagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, user.ImageID);
-            this.DefaultImage = Path.GetFileName(this.ImagePath) == "default_user.png";
-
             var image = Image.FromFile(this.ImagePath);
             this.pictureBox1.Image = image;
             this.pictureBox1.Refresh();
             this.FirstName.Text = user.FirstName;
             this.LastName.Text = user.LastName;
+            this.Email.Text = user.Email;
+            this.Phone.Text = user.Phone;
+            this.Address.Text = user.Address;
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.form.UserDictionary.Remove(this.user);
             this.Close();
         }
 
@@ -50,6 +55,9 @@ namespace LibraryApplication.LibraryForms
             this.user.FirstName = this.FirstName.Text;
             this.user.LastName = this.LastName.Text;
             this.user.ImageID = this.DefaultImage ? "default_user.png" : LibraryHelpers.ImageHelper.SaveImage(this.user, this.ImagePath);
+            this.user.Address = this.Address.Text;
+            this.user.Phone = this.Phone.Text;
+            this.user.Email = this.Email.Text;
             DataFileSystem.IO.SaveUserData();
             this.form.UserDictionary.Remove(this.user);
             this.Close();
@@ -68,7 +76,7 @@ namespace LibraryApplication.LibraryForms
 
         private void InfoForm_Closing(object sender, FormClosingEventArgs e)
         {
-            this.form.UserDictionary.Remove(this.user);
+            if (this.form.UserDictionary.ContainsKey(this.user)) this.form.UserDictionary.Remove(this.user);
         }
 
         private void BooksButton_Click(object sender, EventArgs e)
@@ -78,6 +86,23 @@ namespace LibraryApplication.LibraryForms
             {
                 this.userBooks = new UserBooksForm(this, this.user);
                 this.userBooks.Show();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var Dialog = MessageBox.Show("Are you sure you want to delete \"" + this.user.FullName + "\"", "Delete Confirmation", MessageBoxButtons.YesNo);
+
+            if (Dialog == DialogResult.Yes)
+            {
+                var pass = new PasswordForm(() => {
+                    MessageBox.Show("Deleted \"" + this.user.FullName + "\"", "Notification");
+                    LibraryHelpers.Data.DeleteEntryFromDataFile(this.user);
+                    this.Close();
+                });
+
+                pass.Show();
+                pass.Focus();
             }
         }
     }

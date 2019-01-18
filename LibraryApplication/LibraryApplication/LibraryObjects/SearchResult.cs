@@ -8,7 +8,32 @@ namespace LibraryApplication.LibraryObjects
 {
     class SearchResult
     {
-        public string Text { get; set; }
-        public string Image { get; set; }
+        public Types Type { get; set; }
+
+        public string Name { get; set; }
+
+        public string Author { get; set; }
+
+        public string Available { get; set; }
+
+        public string ISBN { get; set; }
+
+        public enum Types
+        {
+            All,
+            Book,
+            User
+        }
+
+        public static Types ParseFromString(string input)
+        {
+            Enum.TryParse(input, out Types type);
+            return type;
+        }
+
+        public static List<string> StringArray()
+        {
+            return Enum.GetNames(typeof(Types)).ToList();
+        }
     }
 }

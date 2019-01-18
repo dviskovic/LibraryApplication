@@ -18,6 +18,8 @@ namespace LibraryApplication.LibraryForms
 
         private readonly string CountText = "Count";
 
+        private readonly string ISBNText = "ISBN";
+
         public AddNewBookForm(MainForm mainForm)
         {
             InitializeComponent();
@@ -26,23 +28,19 @@ namespace LibraryApplication.LibraryForms
             this.mainForm = mainForm;
             this.NameBox.Text = this.NameText;
             this.CountBox.Text = this.CountText;
+            this.ISBNTextBox.Text = this.ISBNText;
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.AddNewBookButton.Enabled = false;
 
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
-            //this.pictureBox1.BackgroundImageLayout = ImageLayout.Center;
-            //this.pictureBox1.BackColor = Color.Black;
             LibraryEvents.EventManager.OnAuthorListChanged += UpdateAuthorList;
-            this.UpdateAuthorList();
-            //this.AuthorBox.SelectedItem = null;
-            //this.AuthorBox.SelectedItem = "Select an author";
+            this.UpdateAuthorList();   
         }
 
         private void UpdateAuthorList()
         {
-            this.AuthorBox.Enabled = DataFileSystem.IO.DataFile.Authors.Count > 0;
-            List<string> DataSource = new List<string> { this.AuthorBox.Enabled ? "Select an author" : "No authors set up yet" };
+            List<string> DataSource = new List<string> { "Select an Author", "--Add a New Author--" };
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList()) DataSource.Add(item);
             this.AuthorBox.DataSource = DataSource;
         }
@@ -53,10 +51,16 @@ namespace LibraryApplication.LibraryForms
         {
             if (this.AuthorBox?.SelectedIndex > 0)
             {
-                this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 1];
+                if (this.AuthorBox?.SelectedIndex == 1)
+                {
+                    if (this.mainForm.CurrentAddNewAuthorForm != null) this.mainForm.CurrentAddNewAuthorForm.Focus();
+                    this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthorForm(this.mainForm);
+                    this.mainForm.CurrentAddNewAuthorForm.Show();
+                }
+                else this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
             }
 
-            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.CountBox.Text != this.CountText && this.NameBox.Text != this.NameText && this.AuthorBox.SelectedIndex != 0;
+            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.CountBox.Text != this.CountText && this.NameBox.Text != this.NameText && this.AuthorBox.SelectedIndex != 0 && this.ISBNTextBox.Text != string.Empty;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -76,7 +80,8 @@ namespace LibraryApplication.LibraryForms
                 Count = int.Parse(this.CountBox.Text),
                 AuthorID = SelectedAuthor.ID,
                 Name = this.NameBox.Text,
-                ImageID = fileName
+                ImageID = fileName,
+                ISBN = this.ISBNTextBox.Text
             });
 
             DataFileSystem.IO.SaveUserData();
@@ -136,6 +141,24 @@ namespace LibraryApplication.LibraryForms
         private void CountBox_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.CountBox.Text)) this.CountBox.Text = this.CountText;
+        }
+
+        private void ISBNBox_Enter(object sender, EventArgs e)
+        {
+            if (this.ISBNTextBox.Text == this.ISBNText) this.ISBNTextBox.Text = string.Empty;
+        }
+
+        private void ISBNBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.ISBNTextBox.Text)) this.ISBNTextBox.Text = this.ISBNText;
+        }
+
+        private void ISBNBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

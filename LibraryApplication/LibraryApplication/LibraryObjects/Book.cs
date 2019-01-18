@@ -13,6 +13,8 @@ namespace LibraryApplication.LibraryObjects
 
         public int AuthorID { get; set; }
 
+        public string ISBN { get; set; }
+
         [JsonIgnore]
         public Author Author
         {
@@ -27,7 +29,7 @@ namespace LibraryApplication.LibraryObjects
         {
             get
             {
-                return this.Count - DataFileSystem.IO.DataFile.Users.Select(x => x.BorrowedBooks.Where(bborrow => bborrow.Book == this)).Count();
+                return this.Count - DataFileSystem.IO.DataFile.Users.Select(x => x.BorrowedBooks.Where(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this)).Count();
             }
         }
     }

@@ -10,6 +10,7 @@ namespace LibraryApplication.LibraryObjects
     class ConfigFile
     {
         private static SHA512 SHA512 = SHA512.Create();
+
         public static byte[] Hash(string password) => SHA512.ComputeHash(Encoding.UTF8.GetBytes(password));
 
         public string DataLocation;

@@ -24,6 +24,7 @@ namespace LibraryApplication.LibraryForms
             InitializeComponent();
 
             this.UpdateList();
+            this.currentUser.OnUpdate += new Action(UpdateList);
         }
 
         public void UpdateList()
@@ -38,15 +39,13 @@ namespace LibraryApplication.LibraryForms
                     foreach (var book in DataFileSystem.IO.DataFile.Books.Where(x => x.Available != 0).ToList())
                     {
                         if (this.currentUser.BorrowedBooks.Select(x => x.Book.Name).Contains(book.Name)) continue;
-                        resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", Author = "\"" + book.Author.FullName + "\"" });
                     }
                 }
 
                 else
                 {
-                    this.AvailableBookList.BeginUpdate();
-                    this.AvailableBookList.Items.Clear();
-                    this.AvailableBookList.EndUpdate();
+                    this.BookList.Rows.Clear();
                 }
             }
 
@@ -56,55 +55,32 @@ namespace LibraryApplication.LibraryForms
                 {
                     if (this.currentUser.BorrowedBooks.Select(x => x.Book.Name).Contains(book.Name)) continue;
                     if (string.Compare(this.SearchTextBox.Text, book.Name, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(this.SearchTextBox.Text, book.Author?.FullName, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.Contains(this.SearchTextBox.Text) || book.Author.FullName.Contains(this.SearchTextBox.Text) && !string.IsNullOrEmpty(this.SearchTextBox.Text))
-                    resultList.Add(new SearchResult { Text = book.Name, Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID });
+                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", Author = "\"" + book.Author.FullName + "\"" });
                 }
             }
 
-            var imagelist = new ImageList
-            {
-                ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth32Bit
-            };
+            this.BookList.Rows.Clear();
 
             foreach (var result in resultList)
-            {
-                string path = string.Empty;
-
-                if (!string.IsNullOrEmpty(result.Image))
-                {
-                    path = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, result.Image);
-                }
-
-                else path = DataFileSystem.FileLocations.DefaultUserImagePath;
-                imagelist.Images.Add(result.Image, Image.FromFile(path));
-            }
-
-            this.AvailableBookList.BeginUpdate();
-            this.AvailableBookList.Clear();
-            this.AvailableBookList.LargeImageList = imagelist;
-
-            foreach (var result in resultList)
-                this.AvailableBookList.Items.Add(new ListViewItem(result.Text, result.Image));
-
-            this.AvailableBookList.EndUpdate();
+                this.BookList.Rows.Add(result.Name, result.Author, result.Available, result.ISBN);
         }
 
-        private void AvailableBookList_DoubleClick(object sender, MouseEventArgs e)
+        private void AvailableBookList_DoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            foreach (ListViewItem item in this.AvailableBookList.Items)
+            foreach (var rowObj in this.BookList.Rows)
             {
-                if (item.Bounds.Contains(new Point(e.X, e.Y)))
+                if (rowObj is DataGridViewRow row)
                 {
-                    var res = LibraryHelpers.Data.FindByNameAndImage(item.Text, item.ImageKey);
-                    if (res is Book book)
-                    {
-                        this.currentUser.BorrowedBooks.Add(new BookBorrow { Book = res, BorrowTime = DateTime.UtcNow });
-                        this.userBooksForm.UpdateList();
-                        this.userBooksForm.AddNewBookBorrowForm = null;
-                        this.Close();
-                    }
+                    string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                    return;
+                    var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
+                    if (item == null) return;
+                   
+                    if (item is Book book)
+                    {
+                        var form = new NewBookBorrowForm(this, book, this.currentUser);
+                        form.Show();
+                    }                 
                 }
             }
         }

@@ -15,6 +15,12 @@ namespace LibraryApplication.LibraryForms
 
         private readonly string LastText = "Last name";
 
+        private readonly string EmailText = "Email";
+
+        private readonly string PhoneText = "Phone";
+
+        private readonly string AddressText = "Address";
+
         public AddNewUserForm(MainForm mainForm)
         {
             random = new Random();
@@ -48,6 +54,9 @@ namespace LibraryApplication.LibraryForms
             DataFileSystem.IO.DataFile.Users.Add(new User {
                 FirstName = this.FirstNameTextBox.Text,
                 LastName = this.LastNameTextBox.Text,
+                Address = this.AddressTextBox.Text,
+                Phone = this.PhoneTextBox.Text,
+                Email = this.EmailTextBox.Text,
                 BorrowedBooks = new List<BookBorrow>(),
                 ImageID = fileName
             });
@@ -102,6 +111,44 @@ namespace LibraryApplication.LibraryForms
         private void LastNameTextBox_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.LastNameTextBox.Text)) this.LastNameTextBox.Text = this.LastText;
+        }
+
+        private void EmailTextBox_Enter(object sender, EventArgs e)
+        {
+            if (this.EmailTextBox.Text == this.EmailText) this.EmailTextBox.Text = string.Empty;
+        }
+
+        private void EmailTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.EmailTextBox.Text)) this.EmailTextBox.Text = this.EmailText;
+        }
+
+        private void PhoneTextBox_Enter(object sender, EventArgs e)
+        {
+            if (this.PhoneTextBox.Text == this.PhoneText) this.PhoneTextBox.Text = string.Empty;
+        }
+
+        private void PhoneTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PhoneTextBox.Text)) this.PhoneTextBox.Text = this.PhoneText;
+        }
+
+        private void AddressTextBox_Enter(object sender, EventArgs e)
+        {
+            if (this.AddressTextBox.Text == this.AddressText) this.AddressTextBox.Text = string.Empty;
+        }
+
+        private void AddressTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.AddressTextBox.Text)) this.AddressTextBox.Text = this.AddressText;
+        }
+
+        private void PhoneTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+' && e.KeyChar != '/' && e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

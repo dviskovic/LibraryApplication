@@ -32,7 +32,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.TextBox();
-            this.ResultList = new System.Windows.Forms.ListView();
             this.SearchLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SearchTypeBox = new System.Windows.Forms.ComboBox();
@@ -53,9 +52,16 @@
             this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ResultList = new System.Windows.Forms.DataGridView();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ResultList)).BeginInit();
             this.SuspendLayout();
             // 
             // RefreshButton
@@ -98,20 +104,6 @@
             this.SearchBox.TabIndex = 0;
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchQueryChanged);
             // 
-            // ResultList
-            // 
-            this.ResultList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResultList.Location = new System.Drawing.Point(6, 57);
-            this.ResultList.Name = "ResultList";
-            this.ResultList.Size = new System.Drawing.Size(760, 394);
-            this.ResultList.TabIndex = 5;
-            this.ResultList.TabStop = false;
-            this.ResultList.UseCompatibleStateImageBehavior = false;
-            this.ResultList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ResultBox_MouseDoubleClick);
-            this.ResultList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ResultBox_MouseDown);
-            // 
             // SearchLabel
             // 
             this.SearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -124,6 +116,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(398, 32);
             this.label2.Name = "label2";
@@ -134,6 +129,7 @@
             // 
             // SearchTypeBox
             // 
+            this.SearchTypeBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchTypeBox.FormattingEnabled = true;
             this.SearchTypeBox.Location = new System.Drawing.Point(447, 31);
             this.SearchTypeBox.Name = "SearchTypeBox";
@@ -269,6 +265,7 @@
             // 
             // ShowAllCheckBox
             // 
+            this.ShowAllCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ShowAllCheckBox.AutoSize = true;
             this.ShowAllCheckBox.Location = new System.Drawing.Point(617, 34);
             this.ShowAllCheckBox.Name = "ShowAllCheckBox";
@@ -311,6 +308,62 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search";
             // 
+            // ResultList
+            // 
+            this.ResultList.AllowUserToAddRows = false;
+            this.ResultList.AllowUserToDeleteRows = false;
+            this.ResultList.AllowUserToResizeRows = false;
+            this.ResultList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResultList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ResultList.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ResultList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ResultList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Type,
+            this.ItemName,
+            this.Author,
+            this.Available,
+            this.ISBN});
+            this.ResultList.Location = new System.Drawing.Point(6, 64);
+            this.ResultList.MultiSelect = false;
+            this.ResultList.Name = "ResultList";
+            this.ResultList.RowHeadersVisible = false;
+            this.ResultList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ResultList.Size = new System.Drawing.Size(760, 387);
+            this.ResultList.TabIndex = 9;
+            this.ResultList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ResultBox_MouseDoubleClick);
+            // 
+            // Type
+            // 
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            // 
+            // ItemName
+            // 
+            this.ItemName.HeaderText = "Name";
+            this.ItemName.Name = "ItemName";
+            this.ItemName.ReadOnly = true;
+            // 
+            // Author
+            // 
+            this.Author.HeaderText = "Author";
+            this.Author.Name = "Author";
+            this.Author.ReadOnly = true;
+            // 
+            // Available
+            // 
+            this.Available.HeaderText = "Available";
+            this.Available.Name = "Available";
+            this.Available.ReadOnly = true;
+            // 
+            // ISBN
+            // 
+            this.ISBN.HeaderText = "ISBN";
+            this.ISBN.Name = "ISBN";
+            this.ISBN.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,7 +373,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.LastSaveTimeLabel);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -332,6 +384,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ResultList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,7 +396,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox SearchBox;
-        private System.Windows.Forms.ListView ResultList;
         private System.Windows.Forms.Label SearchLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox SearchTypeBox;
@@ -364,6 +416,12 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolStripMenuItem changeDataLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
+        private System.Windows.Forms.DataGridView ResultList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Author;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Available;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ISBN;
     }
 }
 
