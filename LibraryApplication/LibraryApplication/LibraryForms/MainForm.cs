@@ -47,6 +47,7 @@ namespace LibraryApplication
 
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
         {
+            DataFileSystem.IO.SaveConfig();
             DataFileSystem.IO.SaveUserData();
             startupForm.Close();
         }

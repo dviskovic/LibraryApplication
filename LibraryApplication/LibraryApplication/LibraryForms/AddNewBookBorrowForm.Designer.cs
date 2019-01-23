@@ -59,6 +59,8 @@
             // ShowAllCheckBox
             // 
             this.ShowAllCheckBox.AutoSize = true;
+            this.ShowAllCheckBox.Checked = true;
+            this.ShowAllCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowAllCheckBox.Location = new System.Drawing.Point(581, 14);
             this.ShowAllCheckBox.Name = "ShowAllCheckBox";
             this.ShowAllCheckBox.Size = new System.Drawing.Size(207, 17);

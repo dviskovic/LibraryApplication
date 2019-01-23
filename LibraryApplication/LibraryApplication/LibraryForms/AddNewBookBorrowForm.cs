@@ -80,7 +80,9 @@ namespace LibraryApplication.LibraryForms
                     {
                         var form = new NewBookBorrowForm(this, book, this.currentUser);
                         form.Show();
-                    }                 
+                    }
+
+                    return;
                 }
             }
         }

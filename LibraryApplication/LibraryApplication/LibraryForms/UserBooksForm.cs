@@ -75,10 +75,11 @@ namespace LibraryApplication.LibraryForms
                     var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
                     if (item == null) return;
 
-                    if (item is Book book)  
+                    if (item is Book book)
                     {
                         //This is where we open a new form :feelsbadman:
                         MessageBox.Show("HIT " + book.Name);
+                        return;
                     }
                 }
             }

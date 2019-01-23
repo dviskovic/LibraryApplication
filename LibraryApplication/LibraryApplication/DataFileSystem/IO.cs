@@ -14,7 +14,9 @@ namespace LibraryApplication.DataFileSystem
     class IO
     {
         public static DataFile DataFile;
+
         public static ConfigFile configFile;
+
         public static readonly string FileName = "userdata.json";
 
         public static void InitConfig()
@@ -30,7 +32,7 @@ namespace LibraryApplication.DataFileSystem
                 op.ShowDialog();
 
                 if (!string.IsNullOrEmpty(op.SelectedPath)) configFile.DataLocation = op.SelectedPath;
-
+                
                 SaveConfig();
             }
 
@@ -40,6 +42,12 @@ namespace LibraryApplication.DataFileSystem
             {
                 var setup = new SetupPaswordForm();
                 setup.Show();
+            }
+
+            if (configFile.LateFee == 0)
+            {
+                var FeeSetup = new SetUpLateFeeForm();
+                FeeSetup.Show();
             }
             
             if (string.IsNullOrEmpty(configFile.DataLocation))

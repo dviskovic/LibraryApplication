@@ -15,6 +15,8 @@ namespace LibraryApplication.LibraryObjects
 
         public string DataLocation;
 
+        public double LateFee;
+
         [JsonProperty()]
         private string _Password;
 

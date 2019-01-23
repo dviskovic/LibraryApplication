@@ -45,9 +45,10 @@ namespace LibraryApplication.LibraryForms
 
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            this.ToDate = new DateTime(e.Start.Year, e.Start.Month, e.Start.Day, this.Now.Hour, this.Now.Minute + 5, this.Now.Second);
+            this.ToDate = new DateTime(e.Start.Year, e.Start.Month, e.Start.Day, this.Now.Hour, this.Now.Minute + 1, this.Now.Second);
             this.ToTextBox.Text = this.ToDate.ToString();
-            this.DaysTextBox.Text = LibraryHelpers.Data.GetReadableTimeFromTimeSpan(this.ToDate.Subtract(this.Now));
+            var ETAText = LibraryHelpers.Data.GetReadableTimeFromTimeSpan(this.ToDate.Subtract(this.Now));
+            this.DaysTextBox.Text = (ETAText == "Now" ? "Invalid Date!" : ETAText);
             this.TextUpdate(null, null);
         }
 

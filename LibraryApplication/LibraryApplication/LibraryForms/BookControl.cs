@@ -52,7 +52,7 @@ namespace LibraryApplication.LibraryForms
             List<string> DataSource = new List<string> { "Select an Author", "--Add a New Author--" };
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList()) DataSource.Add(item);
             this.AuthorBox.DataSource = DataSource;
-            //this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 1;
+            this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -99,8 +99,11 @@ namespace LibraryApplication.LibraryForms
                 if (this.AuthorBox?.SelectedIndex == 1)
                 {
                     if (this.form.CurrentAddNewAuthorForm != null) this.form.CurrentAddNewAuthorForm.Focus();
-                    this.form.CurrentAddNewAuthorForm = new AddNewAuthorForm(this.form);
-                    this.form.CurrentAddNewAuthorForm.Show();
+                    else
+                    {
+                        this.form.CurrentAddNewAuthorForm = new AddNewAuthorForm(this.form);
+                        this.form.CurrentAddNewAuthorForm.Show();
+                    }
                 }
                 else this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
             }
