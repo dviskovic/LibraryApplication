@@ -16,7 +16,7 @@ namespace LibraryApplication.LibraryForms
 
         private readonly string NameText = "Book Name";
 
-        private readonly string CountText = "Count";
+        private readonly string CountText = "Quantity";
 
         private readonly string ISBNText = "ISBN";
 

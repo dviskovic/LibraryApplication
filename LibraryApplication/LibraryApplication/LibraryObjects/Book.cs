@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryObjects
 {
@@ -29,7 +30,8 @@ namespace LibraryApplication.LibraryObjects
         {
             get
             {
-                return this.Count - DataFileSystem.IO.DataFile.Users.Select(x => x.BorrowedBooks.Where(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this)).Count();
+                var BorrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this));
+                return this.Count - BorrowedCount;
             }
         }
     }

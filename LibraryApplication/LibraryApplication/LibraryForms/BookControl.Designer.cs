@@ -39,23 +39,27 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.CountLabel = new System.Windows.Forms.Label();
             this.AuthorLabel = new System.Windows.Forms.Label();
+            this.AvailableTextBox = new System.Windows.Forms.TextBox();
+            this.AvailableLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 185);
+            this.pictureBox1.Size = new System.Drawing.Size(256, 193);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // SelectImageButton
             // 
-            this.SelectImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.SelectImageButton.Location = new System.Drawing.Point(12, 232);
+            this.SelectImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectImageButton.Location = new System.Drawing.Point(12, 238);
             this.SelectImageButton.Name = "SelectImageButton";
             this.SelectImageButton.Size = new System.Drawing.Size(256, 23);
             this.SelectImageButton.TabIndex = 3;
@@ -65,34 +69,38 @@
             // 
             // NameBox
             // 
-            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameBox.Location = new System.Drawing.Point(53, 261);
+            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameBox.Location = new System.Drawing.Point(68, 267);
             this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(215, 20);
+            this.NameBox.Size = new System.Drawing.Size(200, 20);
             this.NameBox.TabIndex = 4;
             // 
             // CountBox
             // 
-            this.CountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.CountBox.Location = new System.Drawing.Point(53, 287);
+            this.CountBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CountBox.Location = new System.Drawing.Point(68, 293);
             this.CountBox.Name = "CountBox";
-            this.CountBox.Size = new System.Drawing.Size(215, 20);
+            this.CountBox.Size = new System.Drawing.Size(200, 20);
             this.CountBox.TabIndex = 5;
             // 
             // AuthorBox
             // 
-            this.AuthorBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AuthorBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AuthorBox.FormattingEnabled = true;
-            this.AuthorBox.Location = new System.Drawing.Point(53, 313);
+            this.AuthorBox.Location = new System.Drawing.Point(68, 345);
             this.AuthorBox.Name = "AuthorBox";
-            this.AuthorBox.Size = new System.Drawing.Size(215, 21);
+            this.AuthorBox.Size = new System.Drawing.Size(200, 21);
             this.AuthorBox.TabIndex = 6;
             this.AuthorBox.TextChanged += new System.EventHandler(this.AuthorBox_TextChanged);
             // 
             // SaveAndExit
             // 
-            this.SaveAndExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveAndExit.Location = new System.Drawing.Point(12, 340);
+            this.SaveAndExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveAndExit.Location = new System.Drawing.Point(12, 372);
             this.SaveAndExit.Name = "SaveAndExit";
             this.SaveAndExit.Size = new System.Drawing.Size(256, 23);
             this.SaveAndExit.TabIndex = 7;
@@ -104,7 +112,7 @@
             // 
             this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CloseButton.Location = new System.Drawing.Point(13, 399);
+            this.CloseButton.Location = new System.Drawing.Point(13, 430);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(255, 23);
             this.CloseButton.TabIndex = 8;
@@ -114,7 +122,9 @@
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(13, 369);
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.Location = new System.Drawing.Point(13, 401);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(255, 23);
             this.DeleteButton.TabIndex = 9;
@@ -124,8 +134,10 @@
             // 
             // NameLabel
             // 
+            this.NameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(12, 264);
+            this.NameLabel.Location = new System.Drawing.Point(12, 270);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(35, 13);
             this.NameLabel.TabIndex = 10;
@@ -133,8 +145,10 @@
             // 
             // CountLabel
             // 
+            this.CountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CountLabel.AutoSize = true;
-            this.CountLabel.Location = new System.Drawing.Point(12, 290);
+            this.CountLabel.Location = new System.Drawing.Point(12, 296);
             this.CountLabel.Name = "CountLabel";
             this.CountLabel.Size = new System.Drawing.Size(35, 13);
             this.CountLabel.TabIndex = 10;
@@ -142,25 +156,52 @@
             // 
             // AuthorLabel
             // 
+            this.AuthorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AuthorLabel.AutoSize = true;
-            this.AuthorLabel.Location = new System.Drawing.Point(12, 316);
+            this.AuthorLabel.Location = new System.Drawing.Point(12, 348);
             this.AuthorLabel.Name = "AuthorLabel";
             this.AuthorLabel.Size = new System.Drawing.Size(38, 13);
             this.AuthorLabel.TabIndex = 10;
             this.AuthorLabel.Text = "Author";
             // 
+            // AvailableTextBox
+            // 
+            this.AvailableTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AvailableTextBox.Cursor = System.Windows.Forms.Cursors.No;
+            this.AvailableTextBox.Enabled = false;
+            this.AvailableTextBox.Location = new System.Drawing.Point(68, 319);
+            this.AvailableTextBox.Name = "AvailableTextBox";
+            this.AvailableTextBox.ReadOnly = true;
+            this.AvailableTextBox.Size = new System.Drawing.Size(200, 20);
+            this.AvailableTextBox.TabIndex = 5;
+            // 
+            // AvailableLabel
+            // 
+            this.AvailableLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AvailableLabel.AutoSize = true;
+            this.AvailableLabel.Location = new System.Drawing.Point(12, 322);
+            this.AvailableLabel.Name = "AvailableLabel";
+            this.AvailableLabel.Size = new System.Drawing.Size(50, 13);
+            this.AvailableLabel.TabIndex = 10;
+            this.AvailableLabel.Text = "Available";
+            // 
             // BookControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 431);
+            this.ClientSize = new System.Drawing.Size(280, 466);
             this.Controls.Add(this.AuthorLabel);
+            this.Controls.Add(this.AvailableLabel);
             this.Controls.Add(this.CountLabel);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveAndExit);
             this.Controls.Add(this.AuthorBox);
+            this.Controls.Add(this.AvailableTextBox);
             this.Controls.Add(this.CountBox);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.SelectImageButton);
@@ -188,5 +229,7 @@
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Label AuthorLabel;
+        private System.Windows.Forms.TextBox AvailableTextBox;
+        private System.Windows.Forms.Label AvailableLabel;
     }
 }

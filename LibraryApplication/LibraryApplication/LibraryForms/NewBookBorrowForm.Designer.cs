@@ -53,6 +53,7 @@
             // 
             // SinceTextBox
             // 
+            this.SinceTextBox.Enabled = false;
             this.SinceTextBox.Location = new System.Drawing.Point(83, 72);
             this.SinceTextBox.Name = "SinceTextBox";
             this.SinceTextBox.ReadOnly = true;
@@ -62,6 +63,7 @@
             // 
             // ToTextBox
             // 
+            this.ToTextBox.Enabled = false;
             this.ToTextBox.Location = new System.Drawing.Point(83, 98);
             this.ToTextBox.Name = "ToTextBox";
             this.ToTextBox.ReadOnly = true;
@@ -89,6 +91,7 @@
             // 
             // BookNameTextBox
             // 
+            this.BookNameTextBox.Enabled = false;
             this.BookNameTextBox.Location = new System.Drawing.Point(83, 46);
             this.BookNameTextBox.Name = "BookNameTextBox";
             this.BookNameTextBox.ReadOnly = true;
@@ -106,6 +109,7 @@
             // 
             // UserNameTextBox
             // 
+            this.UserNameTextBox.Enabled = false;
             this.UserNameTextBox.Location = new System.Drawing.Point(83, 20);
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.ReadOnly = true;
@@ -133,6 +137,7 @@
             // 
             // DaysTextBox
             // 
+            this.DaysTextBox.Enabled = false;
             this.DaysTextBox.Location = new System.Drawing.Point(83, 124);
             this.DaysTextBox.Name = "DaysTextBox";
             this.DaysTextBox.ReadOnly = true;

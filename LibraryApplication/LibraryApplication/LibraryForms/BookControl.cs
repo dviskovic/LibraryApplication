@@ -34,13 +34,14 @@ namespace LibraryApplication.LibraryForms
             InitializeComponent();
             this.currentBook = book;
             this.form = form;
-            this.Text = "Info about " + this.currentBook.Name;
+            this.Text = "Info about \"" + this.currentBook.Name + "\"";
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.ImagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, book.ImageID); 
             this.pictureBox1.Image = this.pictureBox1.Image = Image.FromFile(File.Exists(this.ImagePath) ? this.ImagePath : DataFileSystem.FileLocations.DefaultBookImagePath);
             this.pictureBox1.Refresh();
             this.NameBox.Text = book.Name;
             this.CountBox.Text = book.Count.ToString();
+            this.AvailableTextBox.Text = book.Available.ToString();
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             LibraryEvents.EventManager.OnAuthorListChanged += UpdateAuthorList;
             this.UpdateAuthorList();
