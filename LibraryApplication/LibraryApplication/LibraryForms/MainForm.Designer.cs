@@ -53,7 +53,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ResultList = new System.Windows.Forms.DataGridView();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -320,7 +319,6 @@
             this.ResultList.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ResultList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ResultList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Type,
             this.ItemName,
             this.Author,
             this.Available,
@@ -333,12 +331,6 @@
             this.ResultList.Size = new System.Drawing.Size(760, 387);
             this.ResultList.TabIndex = 9;
             this.ResultList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ResultBox_MouseDoubleClick);
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
             // 
             // ItemName
             // 
@@ -417,7 +409,6 @@
         private System.Windows.Forms.ToolStripMenuItem changeDataLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
         private System.Windows.Forms.DataGridView ResultList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Author;
         private System.Windows.Forms.DataGridViewTextBoxColumn Available;

@@ -35,6 +35,9 @@
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Late = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BookList)).BeginInit();
             this.SuspendLayout();
@@ -84,10 +87,14 @@
             this.BookList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ItemName,
             this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn3});
+            this.dataGridViewTextBoxColumn3,
+            this.From,
+            this.To,
+            this.Late});
             this.BookList.Location = new System.Drawing.Point(135, 24);
             this.BookList.MultiSelect = false;
             this.BookList.Name = "BookList";
+            this.BookList.ReadOnly = true;
             this.BookList.RowHeadersVisible = false;
             this.BookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BookList.Size = new System.Drawing.Size(653, 414);
@@ -111,6 +118,21 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "ISBN";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // From
+            // 
+            this.From.HeaderText = "From";
+            this.From.Name = "From";
+            // 
+            // To
+            // 
+            this.To.HeaderText = "To";
+            this.To.Name = "To";
+            // 
+            // Late
+            // 
+            this.Late.HeaderText = "Late";
+            this.Late.Name = "Late";
             // 
             // UserBooksForm
             // 
@@ -136,5 +158,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn From;
+        private System.Windows.Forms.DataGridViewTextBoxColumn To;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Late;
     }
 }

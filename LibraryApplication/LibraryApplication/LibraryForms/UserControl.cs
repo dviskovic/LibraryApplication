@@ -35,8 +35,7 @@ namespace LibraryApplication.LibraryForms
             this.Text = "Info about " + user.FullName;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.ImagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, user.ImageID);
-            var image = Image.FromFile(this.ImagePath);
-            this.pictureBox1.Image = image;
+            this.pictureBox1.Image = Image.FromFile(File.Exists(this.ImagePath) ? this.ImagePath : DataFileSystem.FileLocations.DefaultUserImagePath);
             this.pictureBox1.Refresh();
             this.FirstName.Text = user.FirstName;
             this.LastName.Text = user.LastName;

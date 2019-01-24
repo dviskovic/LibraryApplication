@@ -23,16 +23,8 @@ namespace LibraryApplication.DataFileSystem
         {
             if (!File.Exists(FileLocations.ConfigFilePath))
             {
-                MessageBox.Show("It appears that you are running the application first time, please select the folder for saving data");
                 IO.configFile = new ConfigFile();
-                var op = new FolderBrowserDialog
-                {
-                    Description = "Select the folder for storing data"
-                };
-                op.ShowDialog();
-
-                if (!string.IsNullOrEmpty(op.SelectedPath)) configFile.DataLocation = op.SelectedPath;
-                
+                IO.configFile.DataLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 SaveConfig();
             }
 

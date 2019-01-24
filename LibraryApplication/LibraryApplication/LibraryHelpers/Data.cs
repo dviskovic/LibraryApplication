@@ -29,6 +29,21 @@ namespace LibraryApplication.LibraryHelpers
                     
             }
 
+            else
+            {
+                foreach (var book in DataFileSystem.IO.DataFile.Books)
+                {
+                    if (string.Compare(book.Name, Name, StringComparison.OrdinalIgnoreCase) == 0) return book;
+                }
+
+                foreach (var user in DataFileSystem.IO.DataFile.Users)
+                {
+                    if (string.Compare(user.FullName, Name, StringComparison.OrdinalIgnoreCase) == 0) return user;
+                }
+            }
+
+            
+
             return null;
         }
 

@@ -8,8 +8,6 @@ namespace LibraryApplication.LibraryObjects
 {
     class SearchResult
     {
-        public Types Type { get; set; }
-
         public string Name { get; set; }
 
         public string Author { get; set; }
@@ -20,9 +18,9 @@ namespace LibraryApplication.LibraryObjects
 
         public enum Types
         {
-            All,
             Book,
-            User
+            User,
+            All
         }
 
         public static Types ParseFromString(string input)

@@ -113,7 +113,7 @@ namespace LibraryApplication
             {
                 foreach (var user in DataFileSystem.IO.DataFile.Users)
                 {
-                    resultList.Add(new SearchResult { Name = "\"" + user.FirstName + " " + user.LastName + "\"" /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Type = SearchResult.Types.User, Author = "None", Available = "None", ISBN = "None"   });
+                    resultList.Add(new SearchResult { Name = "\"" + user.FirstName + " " + user.LastName + "\"" /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Author = "None", Available = "None", ISBN = "None"   });
                 }
             }
 
@@ -121,14 +121,14 @@ namespace LibraryApplication
             {
                 foreach (var book in DataFileSystem.IO.DataFile.Books)
                 {
-                    resultList.Add(new SearchResult { Name = "\"" + book.Name + "\""/*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Type = SearchResult.Types.Book, Author = "\"" + book.Author.FullName + "\"", Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", ISBN = book.ISBN });
+                    resultList.Add(new SearchResult { Name = "\"" + book.Name + "\""/*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Author = "\"" + book.Author.FullName + "\"", Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", ISBN = book.ISBN });
                 }
             }
 
             this.ResultList.Rows.Clear();
 
             foreach (var result in resultList)
-                this.ResultList.Rows.Add(result.Type, result.Name, result.Author, result.Available, result.ISBN);
+                this.ResultList.Rows.Add(result.Name, result.Author, result.Available, result.ISBN);
         }
 
         private void ClearSearchBox()
@@ -163,7 +163,7 @@ namespace LibraryApplication
                 {
                     if (string.Compare(user.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(user.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 ||  user.LastName.ToLower().Contains(SearchQuery) || user.FirstName.ToLower().Contains(SearchQuery) || string.Compare(user.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || user.Email.ToLower().Contains(SearchQuery) || string.Compare(user.Email, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Available = "None", ISBN = "None", Type = SearchResult.Types.User, Author = "None" });
+                        resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Available = "None", ISBN = "None", Author = "None" });
                     }
                 }
             }
@@ -175,7 +175,7 @@ namespace LibraryApplication
                     var author = book.Author;
                     if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.ISBN, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.ISBN.ToLower().Contains(SearchQuery))
                     {
-                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"" /*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Type = SearchResult.Types.Book, Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No" });
+                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"" /*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No" });
                     }
                 }
             }
@@ -183,19 +183,17 @@ namespace LibraryApplication
             this.ResultList.Rows.Clear();
             
             foreach (var result in resultList)
-                this.ResultList.Rows.Add(result.Type, result.Name, result.Author, result.Available, result.ISBN);
+                this.ResultList.Rows.Add(result.Name, result.Author, result.Available, result.ISBN);
 
         }
 
         private void ResultBox_MouseDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string Name = this.ResultList.Rows[e.RowIndex].Cells[1].Value.ToString();
-            string TypeString = this.ResultList.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string Name = this.ResultList.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-            SearchResult.Types Type = SearchResult.ParseFromString(TypeString);
-            var item = LibraryHelpers.Data.Find(Name, Type);
+            var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.All);
             if (item == null) return;
-
+            
             if (item is Book book)
             {
                 if (this.BookDictionary.TryGetValue(book, out LibraryForms.BookControl form))

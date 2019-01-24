@@ -31,17 +31,14 @@ namespace LibraryApplication.LibraryForms
 
         public void UpdateList()
         {
-            var resultList = new List<SearchResult>();
+            this.BookList.Rows.Clear();
 
             foreach (var book in this.user.BorrowedBooks)
             {
-                resultList.Add(new SearchResult { Name = book.Book.Name, Author = book.Book.Author.FullName, ISBN = book.Book.ISBN});
+                var Late = DateTime.Now.Subtract(book.BorrowedUntil);
+                var LateString = Late.TotalMilliseconds > 0 ? "Yes (" + Late.Days + " day" + (Late.Days > 1 ? "s" : "") + ", " + Math.Round(Late.Days * DataFileSystem.IO.configFile.LateFee, 2) + " HRK)" : "No (" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days) + " day" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days > 1 ? "s" : "") + " left)";
+                this.BookList.Rows.Add(book.Book.Name, book.Book.Author.FullName, book.Book.ISBN, book.BorrowedAt, book.BorrowedUntil, LateString);
             }
-
-            this.BookList.Rows.Clear();
-
-            foreach (var result in resultList)
-                this.BookList.Rows.Add(result.Name, result.Author, result.ISBN);
         }
 
         private void UserBooksForm_Closing(object sender, FormClosingEventArgs e)

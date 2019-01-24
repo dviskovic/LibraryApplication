@@ -37,8 +37,7 @@ namespace LibraryApplication.LibraryForms
             this.Text = "Info about " + this.currentBook.Name;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.ImagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, book.ImageID); 
-            var image = Image.FromFile(this.ImagePath);
-            this.pictureBox1.Image = image;
+            this.pictureBox1.Image = this.pictureBox1.Image = Image.FromFile(File.Exists(this.ImagePath) ? this.ImagePath : DataFileSystem.FileLocations.DefaultBookImagePath);
             this.pictureBox1.Refresh();
             this.NameBox.Text = book.Name;
             this.CountBox.Text = book.Count.ToString();
