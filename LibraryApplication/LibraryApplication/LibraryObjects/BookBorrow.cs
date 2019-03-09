@@ -12,7 +12,7 @@ namespace LibraryApplication.LibraryObjects
         public DateTime BorrowedUntil { get; set; }
 
         [JsonIgnore]
-        public TimeSpan BorrowedBookCount
+        public TimeSpan ReturnTimeSpan
         {
             get
             {
