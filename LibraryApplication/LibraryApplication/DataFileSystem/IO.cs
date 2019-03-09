@@ -63,14 +63,87 @@ namespace LibraryApplication.DataFileSystem
 
         public static void LoadUserData()
         {
-            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
+            try
             {
-                IO.DataFile = new DataFile();
-                File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
-                return;
+                if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
+                {
+                    if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
+                    {
+                        if (!LoadFromFile(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
+                        {
+                            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName) + "2"));
+                            //MessageBox.Show("An error occured while loading user data");
+                            CreateNewDataFile();
+                        }
+
+                        else
+                        {
+                            //MessageBox.Show("An error occured while loading user data but we managed to recover everything");
+                            SaveUserData();
+                        }
+                    }
+                    //First time starting the app
+                    else CreateNewDataFile();
+
+                    return;
+                }
+
+                else
+                {
+                    if (!LoadFromFile(Path.Combine(FileLocations.DatabasePath, FileName)))
+                    {
+                        if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
+                        {
+                            if (!LoadFromFile(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
+                            {
+                                File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName) + "2"));
+                                //MessageBox.Show("An error occured while loading user data");
+                                CreateNewDataFile();
+                            }
+
+                            else
+                            {
+                                //MessageBox.Show("An error occured while loading user data but we managed to recover everything");
+                                SaveUserData();
+                            }   
+                        }
+
+                        else
+                        {
+                            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName)));
+                            //MessageBox.Show("An error occured while loading user data");
+                            CreateNewDataFile();
+                        }
+                    }
+                }
             }
 
-            IO.DataFile = JsonConvert.DeserializeObject<DataFile>(File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName)));
+            catch (Exception ex)
+            {
+                //MessageBox.Show("An exception occured while loading user data");
+                CreateNewDataFile();
+            }
+        }
+
+        private static void CreateNewDataFile()
+        {
+            IO.DataFile = new DataFile();
+            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
+        }
+
+        private static bool LoadFromFile(string path)
+        {
+            try
+            {
+                IO.DataFile = JsonConvert.DeserializeObject<DataFile>(File.ReadAllText(path));
+            }
+
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public static void SaveUserData()
@@ -79,8 +152,11 @@ namespace LibraryApplication.DataFileSystem
 
             if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
             {
-                throw new Exception("File does not exist on saving!");
+                throw new FileNotFoundException("File does not exist on saving!", FileName);
             }
+
+            if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2")) File.Delete(Path.Combine(FileLocations.DatabasePath, FileName) + "2");
+            File.Move(Path.Combine(FileLocations.DatabasePath, FileName), Path.Combine(FileLocations.DatabasePath, FileName) + "2");
 
             File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
             LibraryEvents.EventManager.OnDataFileChanged();

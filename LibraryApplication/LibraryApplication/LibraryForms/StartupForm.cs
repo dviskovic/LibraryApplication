@@ -31,7 +31,7 @@ namespace LibraryApplication.LibraryForms
 
         private void IncreaseOpacy(object o, EventArgs e)
         {
-            this.Opacity += 0.025;
+            this.Opacity += 0.0125;
             if (this.Opacity >= 1)
             {
                 this.timer.Stop();

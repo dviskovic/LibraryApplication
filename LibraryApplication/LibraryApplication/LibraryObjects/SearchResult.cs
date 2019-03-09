@@ -16,6 +16,14 @@ namespace LibraryApplication.LibraryObjects
 
         public string ISBN { get; set; }
 
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Address { get; set; }
+
+        public int BorrowedCount { get; set; }
+
         public enum Types
         {
             Book,

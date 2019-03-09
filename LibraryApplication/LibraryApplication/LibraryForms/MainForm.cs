@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using LibraryApplication.LibraryHelpers;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace LibraryApplication
 {
@@ -25,7 +27,7 @@ namespace LibraryApplication
         public About CurrentAboutForm = null;
         public ChangePasswordForm CurrentChangePasswordForm = null;
 
-        private Timer LastSaveTimer = new Timer { Enabled = true, Interval = 1000 };
+        private System.Windows.Forms.Timer LastSaveTimer = new System.Windows.Forms.Timer { Enabled = true, Interval = 1000 };
 
         public MainForm()
         {
@@ -36,6 +38,8 @@ namespace LibraryApplication
             this.SearchTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.SearchTypeBox.DataSource = SearchResult.StringArray();
 
+            var doubleBuffer = typeof(DataGridView).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
+            doubleBuffer.SetValue(this.ResultList, true, null);
             DataFileSystem.IO.SaveUserData();
         }
 
@@ -67,8 +71,11 @@ namespace LibraryApplication
         private void AddNewAuthorButton_Clicked(object sender, EventArgs e)
         {
             if (CurrentAddNewAuthorForm != null) CurrentAddNewAuthorForm.Focus();
-            CurrentAddNewAuthorForm = new AddNewAuthorForm(this);
-            CurrentAddNewAuthorForm.Show();
+            else
+            {
+                CurrentAddNewAuthorForm = new AddNewAuthorForm(this);
+                CurrentAddNewAuthorForm.Show();
+            }
         }
 
         private void AddNewBookButton_Clicked(object sender, EventArgs e)
@@ -85,50 +92,17 @@ namespace LibraryApplication
 
         private void SearchQueryChanged(object sender, EventArgs e)
         {
-            if (SearchBox.Text == string.Empty)
+            if (string.IsNullOrEmpty(SearchBox.Text))
             {
-                if (!this.ShowAllCheckBox.Checked)
-                {
-                    ClearSearchBox();
-                }
-
-                else
-                {
-                    ShowAllResults();
-                    return;
-                }
+                if (!this.ShowAllCheckBox.Checked) ClearSearchBox();
+                else ShowResults(true);
             }
 
-            SearchQuery = SearchBox.Text.ToLower();
-            UpdateList();
-        }
-
-        private void ShowAllResults()
-        {
-            var resultList = new List<SearchResult>();
-
-            SearchResult.Types resultType = SearchResult.ParseFromString((string)this.SearchTypeBox.SelectedItem);
-
-            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.User)
+            else
             {
-                foreach (var user in DataFileSystem.IO.DataFile.Users)
-                {
-                    resultList.Add(new SearchResult { Name = "\"" + user.FirstName + " " + user.LastName + "\"" /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Author = "None", Available = "None", ISBN = "None"   });
-                }
+                SearchQuery = SearchBox.Text.ToLower();
+                UpdateList();
             }
-
-            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.Book)
-            {
-                foreach (var book in DataFileSystem.IO.DataFile.Books)
-                {
-                    resultList.Add(new SearchResult { Name = "\"" + book.Name + "\""/*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Author = "\"" + book.Author.FullName + "\"", Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", ISBN = book.ISBN });
-                }
-            }
-
-            this.ResultList.Rows.Clear();
-
-            foreach (var result in resultList)
-                this.ResultList.Rows.Add(result.Name, result.Author, result.Available, result.ISBN);
         }
 
         private void ClearSearchBox()
@@ -136,9 +110,83 @@ namespace LibraryApplication
             this.ResultList.Rows.Clear();
         }
 
+        private void ShowResults(bool All)
+        {
+            SearchResult.Types resultType = SearchResult.ParseFromString((string)this.SearchTypeBox.SelectedItem);
+
+            var resultList = new List<SearchResult>();
+
+            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.User)
+            {
+                foreach (var user in DataFileSystem.IO.DataFile.Users)
+                {
+                    if (All || user.FirstName.IncludesOrEqual(SearchQuery) || user.LastName.IncludesOrEqual(SearchQuery) || user.FullName.IncludesOrEqual(SearchQuery) || user.Email.IncludesOrEqual(SearchQuery) || user.Address.IncludesOrEqual(SearchQuery) || user.Phone.IncludesOrEqual(SearchQuery))
+                    {
+                        resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName, Address = user.Address, Phone = user.Phone, Email = user.Email, Author = "None", Available = "None", BorrowedCount = user.BorrowedBookCount, ISBN = "None" });
+                    }
+                }
+            }
+
+            if (resultType == SearchResult.Types.Book || resultType == SearchResult.Types.All)
+            {
+                foreach (var book in DataFileSystem.IO.DataFile.Books)
+                {
+                    var author = book.Author;
+                    if (All || book.Name.IncludesOrEqual(SearchQuery) || author.FirstName.IncludesOrEqual(SearchQuery) || author.LastName.IncludesOrEqual(SearchQuery) || author.FullName.IncludesOrEqual(SearchQuery) || book.ISBN.IncludesOrEqual(SearchQuery))
+                    {
+                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"", Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", BorrowedCount = -1, Address = "None", Email = "None", Phone = "None" });
+                    }
+                }
+            }
+
+            this.ResultList.Rows.Clear();
+            this.ResultList.Columns.Clear();
+
+            switch (resultType)
+            {
+                case SearchResult.Types.Book:
+                    {
+                        this.ResultList.Columns.Add("NameHeader", "Name");
+                        this.ResultList.Columns.Add("AuthorHeader", "Author");
+                        this.ResultList.Columns.Add("ISBNHeader", "ISBN");
+                        this.ResultList.Columns.Add("AvailableHeader", "Available");
+
+                        foreach (var result in resultList)
+                            this.ResultList.Rows.Add(result.Name, result.Author, result.ISBN, result.Available);
+                        return;
+                    }
+
+                case SearchResult.Types.User:
+                    {
+                        this.ResultList.Columns.Add("NameHeader", "Name");
+                        this.ResultList.Columns.Add("EmailHeader", "Email");
+                        this.ResultList.Columns.Add("PhoneHeader", "Phone");
+                        this.ResultList.Columns.Add("AddressHeader", "Address");
+                        this.ResultList.Columns.Add("BorrowedHeader", "Borrowed Books");
+
+                        foreach (var result in resultList)
+                            this.ResultList.Rows.Add(result.Name, result.Email, result.Phone, result.Address, result.BorrowedCount);
+                        return;
+                    }
+
+                case SearchResult.Types.All:
+                    {
+                        this.ResultList.Columns.Add("NameHeader", "Name");
+                        this.ResultList.Columns.Add("AuthorHeader", "Author");
+                        this.ResultList.Columns.Add("AvailableHeader", "Available");
+
+                        foreach (var result in resultList)
+                            this.ResultList.Rows.Add(result.Name, result.Author, result.Available);
+                        return;
+                    }
+
+                default: return;
+            }
+        }
+
         private void UpdateList()
         {
-            if (SearchBox.Text == string.Empty)
+            if (string.IsNullOrEmpty(SearchBox.Text))
             {
                 if (!this.ShowAllCheckBox.Checked)
                 {
@@ -148,43 +196,12 @@ namespace LibraryApplication
 
                 else
                 {
-                    ShowAllResults();
+                    ShowResults(true);
                     return;
                 }
             }
 
-            SearchResult.Types resultType = SearchResult.ParseFromString((string) this.SearchTypeBox.SelectedItem);
-
-            var resultList = new List<SearchResult>();
-
-            if (resultType == SearchResult.Types.All || resultType == SearchResult.Types.User)
-            {
-                foreach (var user in DataFileSystem.IO.DataFile.Users)
-                {
-                    if (string.Compare(user.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(user.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 ||  user.LastName.ToLower().Contains(SearchQuery) || user.FirstName.ToLower().Contains(SearchQuery) || string.Compare(user.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || user.Email.ToLower().Contains(SearchQuery) || string.Compare(user.Email, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName /*Image = string.IsNullOrEmpty(user.ImageID) ? "default_user.png" : user.ImageID*/, Available = "None", ISBN = "None", Author = "None" });
-                    }
-                }
-            }
-                
-            if (resultType == SearchResult.Types.Book || resultType == SearchResult.Types.All)
-            {
-                foreach (var book in DataFileSystem.IO.DataFile.Books)
-                {
-                    var author = book.Author;
-                    if (string.Compare(book.Name, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.Name.ToLower().Contains(SearchQuery) || string.Compare(author.FirstName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.LastName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(author.FullName, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(book.ISBN, SearchQuery, StringComparison.OrdinalIgnoreCase) == 0 || book.ISBN.ToLower().Contains(SearchQuery))
-                    {
-                        resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"" /*Image = string.IsNullOrEmpty(book.ImageID) ? "default_book.png" : book.ImageID*/, Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No" });
-                    }
-                }
-            }
-
-            this.ResultList.Rows.Clear();
-            
-            foreach (var result in resultList)
-                this.ResultList.Rows.Add(result.Name, result.Author, result.Available, result.ISBN);
-
+            ShowResults(false);
         }
 
         private void ResultBox_MouseDoubleClick(object sender, DataGridViewCellEventArgs e)

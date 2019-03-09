@@ -10,10 +10,6 @@ namespace LibraryApplication.LibraryForms
     {
         private MainForm mainForm = null;
 
-        private readonly string FirstText = "First name";
-
-        private readonly string LastText = "Last name";
-
         public AddNewAuthorForm(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -41,7 +37,7 @@ namespace LibraryApplication.LibraryForms
 
         private void TextChangedEvent(object o, EventArgs e)
         {
-            this.AddNewAuthorButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty && this.FirstNameTextBox.Text != this.FirstText && this.LastNameTextBox.Text != this.LastText;
+            this.AddNewAuthorButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty;
         }
 
         private void AddNewAuthorForm_KeyDown(object sender, KeyEventArgs e)
@@ -56,26 +52,6 @@ namespace LibraryApplication.LibraryForms
         private void AddNewAuthorForm_Closing(object sender, FormClosingEventArgs e)
         {
             this.mainForm.CurrentAddNewAuthorForm = null;
-        }
-
-        private void FirstNameTextBox_Enter(object sender, EventArgs e)
-        {
-            if (this.FirstNameTextBox.Text == this.FirstText) this.FirstNameTextBox.Text = string.Empty;
-        }
-
-        private void FirstNameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.FirstNameTextBox.Text)) this.FirstNameTextBox.Text = this.FirstText;
-        }
-
-        private void LastNameTextBox_Enter(object sender, EventArgs e)
-        {
-            if (this.LastNameTextBox.Text == this.LastText) this.LastNameTextBox.Text = string.Empty;
-        }
-
-        private void LastNameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.LastNameTextBox.Text)) this.LastNameTextBox.Text = this.LastText;
         }
 
         private void LastNameTextBox_KeyDown(object sender, KeyEventArgs e)

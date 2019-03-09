@@ -24,7 +24,7 @@ namespace LibraryApplication.LibraryForms
             this.userControl = userControl;
             this.user = user;
             InitializeComponent();
-            this.Text = "\"" + user.FullName + "\"'s Borrowed Books";
+            this.Text = user.FullName + " - Borrowed Books";
             this.UpdateList();
             this.user.OnUpdate += new Action(UpdateList);
         }
@@ -35,9 +35,17 @@ namespace LibraryApplication.LibraryForms
 
             foreach (var book in this.user.BorrowedBooks)
             {
-                var Late = DateTime.Now.Subtract(book.BorrowedUntil);
-                var LateString = Late.TotalMilliseconds > 0 ? "Yes (" + Late.Days + " day" + (Late.Days > 1 ? "s" : "") + ", " + Math.Round(Late.Days * DataFileSystem.IO.configFile.LateFee, 2) + " HRK)" : "No (" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days) + " day" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days > 1 ? "s" : "") + " left)";
-                this.BookList.Rows.Add(book.Book.Name, book.Book.Author.FullName, book.Book.ISBN, book.BorrowedAt, book.BorrowedUntil, LateString);
+                var Late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local));
+                var isLate = Late.TotalMilliseconds > 0;
+                var LateString = isLate ? "Yes (" + Late.Days + " day" + (Late.Days > 1 ? "s" : "") + ", " + Math.Round(Late.Days * DataFileSystem.IO.configFile.LateFee, 2) + " HRK)" : "No (" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days) + " day" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days > 1 ? "s" : "") + " left)";
+                var ID = this.BookList.Rows.Add(book.Book.Name, book.Book.Author.FullName, book.Book.ISBN, TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedAt, TimeZoneInfo.Local), TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local), LateString);
+                if (isLate)
+                {
+                    var Style = this.BookList.Rows[ID].Cells[this.BookList.Rows[ID].Cells.Count - 1].Style;
+                    Style.ForeColor = Color.Red;
+                    Style.BackColor = Color.Gray;
+                    Style.Font = new Font(this.BookList.Font, FontStyle.Bold);
+                }
             }
         }
 
@@ -74,8 +82,8 @@ namespace LibraryApplication.LibraryForms
 
                     if (item is Book book)
                     {
-                        //This is where we open a new form :feelsbadman:
-                        MessageBox.Show("HIT " + book.Name);
+                        var T = new BorrowedBookInfo(this.user, item, this);
+                        T.Show();
                         return;
                     }
                 }

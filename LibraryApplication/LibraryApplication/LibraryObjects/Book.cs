@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryObjects
 {
-    public class Book
+    public class Book : IEquatable<Book>
     {
         public string Name { get; set; }
 
@@ -33,6 +34,12 @@ namespace LibraryApplication.LibraryObjects
                 var BorrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this));
                 return this.Count - BorrowedCount;
             }
+        }
+
+        public bool Equals(Book other)
+        {
+            if (this == null || other == null) return false;
+            return this.AuthorID == other.AuthorID && this.Name == other.Name && this.ISBN == other.ISBN;
         }
     }
 }

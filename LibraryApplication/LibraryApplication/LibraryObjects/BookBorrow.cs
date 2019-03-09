@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace LibraryApplication.LibraryObjects
 {
@@ -9,5 +10,14 @@ namespace LibraryApplication.LibraryObjects
         public DateTime BorrowedAt { get; set; }
 
         public DateTime BorrowedUntil { get; set; }
+
+        [JsonIgnore]
+        public TimeSpan BorrowedBookCount
+        {
+            get
+            {
+                return DateTime.UtcNow.Subtract(this.BorrowedUntil);
+            }
+        }
     }
 }

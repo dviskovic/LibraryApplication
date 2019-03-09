@@ -14,11 +14,7 @@ namespace LibraryApplication.LibraryForms
         private MainForm mainForm = null;
         private Author SelectedAuthor = null;
 
-        private readonly string NameText = "Book Name";
-
-        private readonly string CountText = "Quantity";
-
-        private readonly string ISBNText = "ISBN";
+        private bool RecentlyRequestedNewAuthor = false;
 
         public AddNewBookForm(MainForm mainForm)
         {
@@ -26,23 +22,24 @@ namespace LibraryApplication.LibraryForms
             this.Focus();
             random = new Random();
             this.mainForm = mainForm;
-            this.NameBox.Text = this.NameText;
-            this.CountBox.Text = this.CountText;
-            this.ISBNTextBox.Text = this.ISBNText;
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.AddNewBookButton.Enabled = false;
 
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
-            LibraryEvents.EventManager.OnAuthorListChanged += UpdateAuthorList;
+            LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => UpdateAuthorList(true));
             this.UpdateAuthorList();   
         }
 
-        private void UpdateAuthorList()
+        private void UpdateAuthorList(bool SelectLast = false)
         {
             List<string> DataSource = new List<string> { "Select an Author", "--Add a New Author--" };
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList()) DataSource.Add(item);
             this.AuthorBox.DataSource = DataSource;
+            if (SelectLast && this.RecentlyRequestedNewAuthor)
+            {
+                this.AuthorBox.SelectedIndex = DataSource.Count - 1;
+            }
         }
 
         private string ImagePath = string.Empty;
@@ -53,6 +50,7 @@ namespace LibraryApplication.LibraryForms
             {
                 if (this.AuthorBox?.SelectedIndex == 1)
                 {
+                    this.RecentlyRequestedNewAuthor = true;
                     if (this.mainForm.CurrentAddNewAuthorForm != null) this.mainForm.CurrentAddNewAuthorForm.Focus();
                     this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthorForm(this.mainForm);
                     this.mainForm.CurrentAddNewAuthorForm.Show();
@@ -60,7 +58,7 @@ namespace LibraryApplication.LibraryForms
                 else this.SelectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
             }
 
-            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.CountBox.Text != this.CountText && this.NameBox.Text != this.NameText && this.AuthorBox.SelectedIndex != 0 && this.ISBNTextBox.Text != string.Empty;
+            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.AuthorBox.SelectedIndex > 1 && this.ISBNTextBox.Text != string.Empty;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -120,37 +118,8 @@ namespace LibraryApplication.LibraryForms
 
         private void AddNewBookForm_Closing(object sender, FormClosingEventArgs e)
         {
+            LibraryEvents.EventManager.OnAuthorListChanged -= new Action(() => this.UpdateAuthorList());
             this.mainForm.CurrentAddNewBookForm = null;
-        }
-
-        private void NameBox_Enter(object sender, EventArgs e)
-        {
-            if (this.NameBox.Text == this.NameText) this.NameBox.Text = string.Empty;
-        }
-
-        private void NameBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.NameBox.Text)) this.NameBox.Text = this.NameText;
-        }
-
-        private void CountBox_Enter(object sender, EventArgs e)
-        {
-            if (this.CountBox.Text == this.CountText) this.CountBox.Text = string.Empty;
-        }
-
-        private void CountBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.CountBox.Text)) this.CountBox.Text = this.CountText;
-        }
-
-        private void ISBNBox_Enter(object sender, EventArgs e)
-        {
-            if (this.ISBNTextBox.Text == this.ISBNText) this.ISBNTextBox.Text = string.Empty;
-        }
-
-        private void ISBNBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.ISBNTextBox.Text)) this.ISBNTextBox.Text = this.ISBNText;
         }
 
         private void ISBNBox_KeyPress(object sender, KeyPressEventArgs e)

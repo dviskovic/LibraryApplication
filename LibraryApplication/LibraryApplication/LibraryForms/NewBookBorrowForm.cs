@@ -45,7 +45,8 @@ namespace LibraryApplication.LibraryForms
 
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            this.ToDate = new DateTime(e.Start.Year, e.Start.Month, e.Start.Day, this.Now.Hour, this.Now.Minute + 1, this.Now.Second);
+            this.ToDate = new DateTime(e.Start.Year, e.Start.Month, e.Start.Day, this.Now.Hour, this.Now.Minute, this.Now.Second);
+            this.ToDate = this.ToDate.AddMinutes(1);
             this.ToTextBox.Text = this.ToDate.ToString();
             var ETAText = LibraryHelpers.Data.GetReadableTimeFromTimeSpan(this.ToDate.Subtract(this.Now));
             this.DaysTextBox.Text = (ETAText == "Now" ? "Invalid Date!" : ETAText);
@@ -57,8 +58,8 @@ namespace LibraryApplication.LibraryForms
             this.user.BorrowedBooks.Add(new BookBorrow
             {
                 Book = this.book,
-                BorrowedAt = this.Now,
-                BorrowedUntil = this.ToDate
+                BorrowedAt = TimeZoneInfo.ConvertTimeToUtc(this.Now),
+                BorrowedUntil = TimeZoneInfo.ConvertTimeToUtc(this.ToDate)
             });
 
             DataFileSystem.IO.SaveUserData();

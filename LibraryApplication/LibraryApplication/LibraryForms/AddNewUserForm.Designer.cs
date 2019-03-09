@@ -36,30 +36,29 @@
             this.EmailTextBox = new System.Windows.Forms.TextBox();
             this.PhoneTextBox = new System.Windows.Forms.TextBox();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
+            this.FirstName = new System.Windows.Forms.Label();
+            this.LastName = new System.Windows.Forms.Label();
+            this.EmailLabel = new System.Windows.Forms.Label();
+            this.PhoneLabel = new System.Windows.Forms.Label();
+            this.AddressLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // FirstNameTextBox
             // 
-            this.FirstNameTextBox.Location = new System.Drawing.Point(13, 266);
+            this.FirstNameTextBox.Location = new System.Drawing.Point(75, 266);
             this.FirstNameTextBox.Name = "FirstNameTextBox";
-            this.FirstNameTextBox.Size = new System.Drawing.Size(256, 20);
+            this.FirstNameTextBox.Size = new System.Drawing.Size(194, 20);
             this.FirstNameTextBox.TabIndex = 1;
-            this.FirstNameTextBox.Text = "First name";
             this.FirstNameTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.FirstNameTextBox.Enter += new System.EventHandler(this.FirstNameTextBox_Enter);
-            this.FirstNameTextBox.Leave += new System.EventHandler(this.FirstNameTextBox_Leave);
             // 
             // LastNameTextBox
             // 
-            this.LastNameTextBox.Location = new System.Drawing.Point(13, 292);
+            this.LastNameTextBox.Location = new System.Drawing.Point(75, 292);
             this.LastNameTextBox.Name = "LastNameTextBox";
-            this.LastNameTextBox.Size = new System.Drawing.Size(256, 20);
+            this.LastNameTextBox.Size = new System.Drawing.Size(194, 20);
             this.LastNameTextBox.TabIndex = 2;
-            this.LastNameTextBox.Text = "Last name";
             this.LastNameTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.LastNameTextBox.Enter += new System.EventHandler(this.LastNameTextBox_Enter);
-            this.LastNameTextBox.Leave += new System.EventHandler(this.LastNameTextBox_Leave);
             // 
             // AddButton
             // 
@@ -91,43 +90,84 @@
             // 
             // EmailTextBox
             // 
-            this.EmailTextBox.Location = new System.Drawing.Point(13, 318);
+            this.EmailTextBox.Location = new System.Drawing.Point(75, 318);
             this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(256, 20);
+            this.EmailTextBox.Size = new System.Drawing.Size(194, 20);
             this.EmailTextBox.TabIndex = 3;
-            this.EmailTextBox.Text = "Email";
             this.EmailTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.EmailTextBox.Enter += new System.EventHandler(this.EmailTextBox_Enter);
-            this.EmailTextBox.Leave += new System.EventHandler(this.EmailTextBox_Leave);
             // 
             // PhoneTextBox
             // 
-            this.PhoneTextBox.Location = new System.Drawing.Point(13, 344);
+            this.PhoneTextBox.Location = new System.Drawing.Point(75, 344);
             this.PhoneTextBox.Name = "PhoneTextBox";
-            this.PhoneTextBox.Size = new System.Drawing.Size(256, 20);
+            this.PhoneTextBox.Size = new System.Drawing.Size(194, 20);
             this.PhoneTextBox.TabIndex = 4;
-            this.PhoneTextBox.Text = "Phone";
             this.PhoneTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.PhoneTextBox.Enter += new System.EventHandler(this.PhoneTextBox_Enter);
             this.PhoneTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PhoneTextBox_KeyPress);
-            this.PhoneTextBox.Leave += new System.EventHandler(this.PhoneTextBox_Leave);
             // 
             // AddressTextBox
             // 
-            this.AddressTextBox.Location = new System.Drawing.Point(12, 370);
+            this.AddressTextBox.Location = new System.Drawing.Point(75, 370);
             this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(256, 20);
+            this.AddressTextBox.Size = new System.Drawing.Size(193, 20);
             this.AddressTextBox.TabIndex = 5;
-            this.AddressTextBox.Text = "Address";
             this.AddressTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.AddressTextBox.Enter += new System.EventHandler(this.AddressTextBox_Enter);
-            this.AddressTextBox.Leave += new System.EventHandler(this.AddressTextBox_Leave);
+            // 
+            // FirstName
+            // 
+            this.FirstName.AutoSize = true;
+            this.FirstName.Location = new System.Drawing.Point(12, 269);
+            this.FirstName.Name = "FirstName";
+            this.FirstName.Size = new System.Drawing.Size(57, 13);
+            this.FirstName.TabIndex = 7;
+            this.FirstName.Text = "First Name";
+            // 
+            // LastName
+            // 
+            this.LastName.AutoSize = true;
+            this.LastName.Location = new System.Drawing.Point(12, 295);
+            this.LastName.Name = "LastName";
+            this.LastName.Size = new System.Drawing.Size(58, 13);
+            this.LastName.TabIndex = 7;
+            this.LastName.Text = "Last Name";
+            // 
+            // EmailLabel
+            // 
+            this.EmailLabel.AutoSize = true;
+            this.EmailLabel.Location = new System.Drawing.Point(12, 321);
+            this.EmailLabel.Name = "EmailLabel";
+            this.EmailLabel.Size = new System.Drawing.Size(32, 13);
+            this.EmailLabel.TabIndex = 7;
+            this.EmailLabel.Text = "Email";
+            // 
+            // PhoneLabel
+            // 
+            this.PhoneLabel.AutoSize = true;
+            this.PhoneLabel.Location = new System.Drawing.Point(12, 347);
+            this.PhoneLabel.Name = "PhoneLabel";
+            this.PhoneLabel.Size = new System.Drawing.Size(38, 13);
+            this.PhoneLabel.TabIndex = 7;
+            this.PhoneLabel.Text = "Phone";
+            // 
+            // AddressLabel
+            // 
+            this.AddressLabel.AutoSize = true;
+            this.AddressLabel.Location = new System.Drawing.Point(12, 373);
+            this.AddressLabel.Name = "AddressLabel";
+            this.AddressLabel.Size = new System.Drawing.Size(45, 13);
+            this.AddressLabel.TabIndex = 7;
+            this.AddressLabel.Text = "Address";
             // 
             // AddNewUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(280, 429);
+            this.Controls.Add(this.AddressLabel);
+            this.Controls.Add(this.PhoneLabel);
+            this.Controls.Add(this.EmailLabel);
+            this.Controls.Add(this.LastName);
+            this.Controls.Add(this.FirstName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SelectImageButton);
             this.Controls.Add(this.AddButton);
@@ -159,5 +199,10 @@
         private System.Windows.Forms.TextBox EmailTextBox;
         private System.Windows.Forms.TextBox PhoneTextBox;
         private System.Windows.Forms.TextBox AddressTextBox;
+        private System.Windows.Forms.Label FirstName;
+        private System.Windows.Forms.Label LastName;
+        private System.Windows.Forms.Label EmailLabel;
+        private System.Windows.Forms.Label PhoneLabel;
+        private System.Windows.Forms.Label AddressLabel;
     }
 }

@@ -21,6 +21,14 @@ namespace LibraryApplication.LibraryObjects
         [JsonIgnore]
         public string FullName { get { return FirstName + " " + LastName; } }
 
+        [JsonIgnore]
+        public int BorrowedBookCount {
+            get
+            {
+                return this.BorrowedBooks.Count;
+            }
+        }
+
         public List<BookBorrow> BorrowedBooks = new List<BookBorrow>();
 
         [JsonIgnore]

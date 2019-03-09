@@ -1,4 +1,7 @@
-﻿namespace LibraryApplication
+﻿using System;
+using LibraryApplication.LibraryHelpers;
+
+namespace LibraryApplication
 {
     partial class MainForm
     {
@@ -326,6 +329,7 @@
             this.ResultList.Location = new System.Drawing.Point(6, 64);
             this.ResultList.MultiSelect = false;
             this.ResultList.Name = "ResultList";
+            this.ResultList.ReadOnly = true;
             this.ResultList.RowHeadersVisible = false;
             this.ResultList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ResultList.Size = new System.Drawing.Size(760, 387);
