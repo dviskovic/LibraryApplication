@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNewBook));
             this.NameBox = new System.Windows.Forms.TextBox();
             this.SelectImageButton = new System.Windows.Forms.Button();
             this.AddNewBookButton = new System.Windows.Forms.Button();
@@ -142,7 +143,7 @@
             this.AuthorLabel.TabIndex = 6;
             this.AuthorLabel.Text = "Author";
             // 
-            // AddNewBookForm
+            // AddNewBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -159,8 +160,9 @@
             this.Controls.Add(this.CountBox);
             this.Controls.Add(this.NameBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Name = "AddNewBookForm";
+            this.Name = "AddNewBook";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add a new book";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookForm_Closing);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookInfo));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SelectImageButton = new System.Windows.Forms.Button();
             this.NameBox = new System.Windows.Forms.TextBox();
@@ -188,7 +189,7 @@
             this.AvailableLabel.TabIndex = 10;
             this.AvailableLabel.Text = "Available";
             // 
-            // BookControl
+            // BookInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -207,7 +208,8 @@
             this.Controls.Add(this.SelectImageButton);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "BookControl";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "BookInfo";
             this.Text = "BookInfoForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BookInfoForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

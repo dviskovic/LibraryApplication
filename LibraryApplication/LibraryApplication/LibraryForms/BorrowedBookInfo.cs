@@ -37,7 +37,7 @@ namespace LibraryApplication.LibraryForms
             this.UntilTextBox.Text = TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local).ToString();
             var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local));
             var isLate = late.TotalMilliseconds > 0;
-            var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).Days + " day" + (this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).Days > 1 ? "s" : "") + " left)";
+            var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Ceiling(this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).TotalDays) + " day" + (Math.Ceiling(this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).TotalDays) > 1 ? "s" : "") + " left)";
             this.LateTextBox.Text = lateString;
         }
 

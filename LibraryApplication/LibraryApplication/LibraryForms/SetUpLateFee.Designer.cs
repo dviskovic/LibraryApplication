@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetUpLateFee));
             this.FeeLabel = new System.Windows.Forms.Label();
             this.FeeTextBox = new System.Windows.Forms.TextBox();
             this.FinishButton = new System.Windows.Forms.Button();
@@ -61,7 +62,7 @@
             this.FinishButton.UseVisualStyleBackColor = true;
             this.FinishButton.Click += new System.EventHandler(this.FinishButton_Click);
             // 
-            // SetUpLateFeeForm
+            // SetUpLateFee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -70,7 +71,8 @@
             this.Controls.Add(this.FeeTextBox);
             this.Controls.Add(this.FeeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "SetUpLateFeeForm";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "SetUpLateFee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Set Up Late Fee";
             this.ResumeLayout(false);

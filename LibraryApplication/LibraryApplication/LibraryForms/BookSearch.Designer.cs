@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookSearch));
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
@@ -119,7 +120,7 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // AddNewBookBorrowForm
+            // BookSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -128,7 +129,8 @@
             this.Controls.Add(this.ShowAllCheckBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SearchTextBox);
-            this.Name = "AddNewBookBorrowForm";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "BookSearch";
             this.Text = "Borrow a Book";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookBorrowForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.BookList)).EndInit();

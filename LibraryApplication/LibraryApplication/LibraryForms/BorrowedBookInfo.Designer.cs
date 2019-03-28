@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BorrowedBookInfo));
             this.ReturnButton = new System.Windows.Forms.Button();
             this.LateTextBox = new System.Windows.Forms.TextBox();
             this.LateLabel = new System.Windows.Forms.Label();
@@ -169,6 +170,7 @@
             this.Controls.Add(this.UntilTextBox);
             this.Controls.Add(this.LateTextBox);
             this.Controls.Add(this.ReturnButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BorrowedBookInfo";
             this.Text = "BorrowedBookInfo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

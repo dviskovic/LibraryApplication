@@ -31,7 +31,7 @@ namespace LibraryApplication.LibraryForms
             {
                 var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local));
                 var isLate = late.TotalMilliseconds > 0;
-                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + book.BorrowedUntil.Subtract(book.BorrowedAt).Days + " day" + (book.BorrowedUntil.Subtract(book.BorrowedAt).Days > 1 ? "s" : "") + " left)";
+                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Ceiling(book.BorrowedUntil.Subtract(book.BorrowedAt).TotalDays) + " day" + (Math.Ceiling(book.BorrowedUntil.Subtract(book.BorrowedAt).TotalDays) > 1 ? "s" : "") + " left)";
                 var ID = this.BookList.Rows.Add(book.Book.Name, book.Book.Author.FullName, book.Book.ISBN, TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedAt, TimeZoneInfo.Local), TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local), lateString);
 
                 if (isLate)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePassword));
             this.CurrentText = new System.Windows.Forms.TextBox();
             this.NewText = new System.Windows.Forms.TextBox();
             this.ConfirmNewText = new System.Windows.Forms.TextBox();
@@ -88,7 +89,7 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // ChangePasswordForm
+            // ChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,7 +100,8 @@
             this.Controls.Add(this.NewText);
             this.Controls.Add(this.CurrentText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "ChangePasswordForm";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ChangePassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change Password";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangePasswordForm_Closing);
