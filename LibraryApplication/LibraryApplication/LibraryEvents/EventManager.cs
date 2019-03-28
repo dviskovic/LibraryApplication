@@ -2,11 +2,13 @@
 
 namespace LibraryApplication.LibraryEvents
 {
-    class EventManager
+    public class EventManager
     {
         public static Action OnDataFileChanged { get; set; }
 
         public static Action OnAuthorListChanged { get; set; } = new Action(() => { });
+
+        public static Action OnStartupFinished { get; set; } = new Action(() => { });
 
         public static void AutoSave(object o, EventArgs e)
         {

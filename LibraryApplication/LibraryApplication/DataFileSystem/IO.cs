@@ -1,64 +1,68 @@
-﻿using LibraryApplication.LibraryForms;
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
+using LibraryApplication.LibraryForms;
 using LibraryApplication.LibraryObjects;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace LibraryApplication.DataFileSystem
 {
-    class IO
+    public class IO
     {
+        public static readonly string FileName = "userdata.json";
+
         public static DataFile DataFile;
 
-        public static ConfigFile configFile;
-
-        public static readonly string FileName = "userdata.json";
+        public static ConfigFile ConfigFile;  
 
         public static void InitConfig()
         {
             if (!File.Exists(FileLocations.ConfigFilePath))
             {
-                IO.configFile = new ConfigFile();
-                IO.configFile.DataLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                IO.ConfigFile = new ConfigFile
+                {
+                    DataLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                };
                 SaveConfig();
             }
 
-            IO.configFile = JsonConvert.DeserializeObject<ConfigFile>(File.ReadAllText(FileLocations.ConfigFilePath));
+            IO.ConfigFile = JsonConvert.DeserializeObject<ConfigFile>(File.ReadAllText(FileLocations.ConfigFilePath));
 
-            if (string.IsNullOrEmpty(configFile.Password))
+            if (string.IsNullOrEmpty(ConfigFile.Password))
             {
-                var setup = new SetupPaswordForm();
-                setup.Show();
+                var setup = new SetupPasword();
+                LibraryEvents.EventManager.OnStartupFinished += new Action(() => setup.Show());
             }
 
-            if (configFile.LateFee == 0)
+            if (ConfigFile.LateFee == 0)
             {
-                var FeeSetup = new SetUpLateFeeForm();
-                FeeSetup.Show();
+                var feeSetup = new SetUpLateFee();
+                LibraryEvents.EventManager.OnStartupFinished += new Action(() => feeSetup.Show());
             }
             
-            if (string.IsNullOrEmpty(configFile.DataLocation))
+            if (string.IsNullOrEmpty(ConfigFile.DataLocation))
             {
-                var op = new FolderBrowserDialog
+                LibraryEvents.EventManager.OnStartupFinished += new Action(() => 
                 {
-                    Description = "Select the folder for storing data"
-                };
-                op.ShowDialog();
-                configFile.DataLocation = op.SelectedPath;
-                SaveConfig();
+                    var op = new FolderBrowserDialog
+                    {
+                        Description = "Select the folder for storing data"
+                    };
+                    op.ShowDialog();
+                    ConfigFile.DataLocation = op.SelectedPath;
+                    SaveConfig();
+                });
             }
 
-            if (!string.IsNullOrEmpty(configFile.DataLocation)) FileLocations.DatabasePath = IO.configFile.DataLocation;
+            if (!string.IsNullOrEmpty(ConfigFile.DataLocation))
+            {
+                FileLocations.DatabasePath = IO.ConfigFile.DataLocation;
+            }
         }
 
         public static void SaveConfig()
         {
-            File.WriteAllText(FileLocations.ConfigFilePath, JsonConvert.SerializeObject(IO.configFile, Formatting.Indented));
+            File.WriteAllText(FileLocations.ConfigFilePath, JsonConvert.SerializeObject(IO.ConfigFile, Formatting.Indented));
         }
 
         public static void LoadUserData()
@@ -72,18 +76,21 @@ namespace LibraryApplication.DataFileSystem
                         if (!LoadFromFile(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
                         {
                             File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName) + "2"));
-                            //MessageBox.Show("An error occured while loading user data");
+                            LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An error occured while loading user data")); 
                             CreateNewDataFile();
                         }
 
                         else
                         {
-                            //MessageBox.Show("An error occured while loading user data but we managed to recover everything");
+                            LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An error occured while loading user data but we managed to recover everything"));
                             SaveUserData();
                         }
                     }
-                    //First time starting the app
-                    else CreateNewDataFile();
+
+                    else
+                    {
+                        CreateNewDataFile();
+                    }
 
                     return;
                 }
@@ -97,13 +104,13 @@ namespace LibraryApplication.DataFileSystem
                             if (!LoadFromFile(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
                             {
                                 File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName) + "2"));
-                                //MessageBox.Show("An error occured while loading user data");
+                                LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An error occured while loading user data"));
                                 CreateNewDataFile();
                             }
 
                             else
                             {
-                                //MessageBox.Show("An error occured while loading user data but we managed to recover everything");
+                                LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An error occured while loading user data but we managed to recover everything"));
                                 SaveUserData();
                             }   
                         }
@@ -111,18 +118,70 @@ namespace LibraryApplication.DataFileSystem
                         else
                         {
                             File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName) + ".broken", File.ReadAllText(Path.Combine(FileLocations.DatabasePath, FileName)));
-                            //MessageBox.Show("An error occured while loading user data");
+                            LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An error occured while loading user data"));
                             CreateNewDataFile();
                         }
                     }
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                //MessageBox.Show("An exception occured while loading user data");
+                LibraryEvents.EventManager.OnStartupFinished += new Action(() => MessageBox.Show("An exception occured while loading user data"));
                 CreateNewDataFile();
             }
+        }
+
+        public static void SaveUserData()
+        {
+            IO.DataFile.LastSaveTime = DateTime.UtcNow;
+
+            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
+            {
+                throw new FileNotFoundException("File does not exist on saving!", FileName);
+            }
+
+            if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
+            {
+                File.Delete(Path.Combine(FileLocations.DatabasePath, FileName) + "2");
+            }
+
+            File.Move(Path.Combine(FileLocations.DatabasePath, FileName), Path.Combine(FileLocations.DatabasePath, FileName) + "2");
+
+            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
+            LibraryEvents.EventManager.OnDataFileChanged();
+        }
+
+        public static void SetupFolders()
+        {
+            if (!Directory.Exists(FileLocations.DatabasePath))
+            {
+                Directory.CreateDirectory(FileLocations.DatabasePath);
+            }
+
+            if (!Directory.Exists(FileLocations.ImagesFolderPath))
+            {
+                Directory.CreateDirectory(FileLocations.ImagesFolderPath);
+            } 
+        }
+
+        public static void SetupFiles()
+        {
+            if (!File.Exists(FileLocations.DefaultUserImagePath))
+            {
+                File.WriteAllBytes(FileLocations.DefaultUserImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultUser));
+            }
+
+            if (!File.Exists(FileLocations.DefaultBookImagePath))
+            {
+                File.WriteAllBytes(FileLocations.DefaultBookImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultBook));
+            }
+        }
+
+        public static void Wipe()
+        {
+            DataFile = new DataFile();
+            SaveUserData();
         }
 
         private static void CreateNewDataFile()
@@ -144,42 +203,6 @@ namespace LibraryApplication.DataFileSystem
             }
 
             return true;
-        }
-
-        public static void SaveUserData()
-        {
-            IO.DataFile.LastSaveTime = DateTime.UtcNow;
-
-            if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
-            {
-                throw new FileNotFoundException("File does not exist on saving!", FileName);
-            }
-
-            if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2")) File.Delete(Path.Combine(FileLocations.DatabasePath, FileName) + "2");
-            File.Move(Path.Combine(FileLocations.DatabasePath, FileName), Path.Combine(FileLocations.DatabasePath, FileName) + "2");
-
-            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
-            LibraryEvents.EventManager.OnDataFileChanged();
-        }
-
-        public static void SetupFolders()
-        {
-            if (!Directory.Exists(FileLocations.DatabasePath)) Directory.CreateDirectory(FileLocations.DatabasePath);
-
-            if (!Directory.Exists(FileLocations.ImagesFolderPath))
-                Directory.CreateDirectory(FileLocations.ImagesFolderPath);
-        }
-
-        public static void SetupFiles()
-        {
-            if (!File.Exists(FileLocations.DefaultUserImagePath)) File.WriteAllBytes(FileLocations.DefaultUserImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultUser));
-            if (!File.Exists(FileLocations.DefaultBookImagePath)) File.WriteAllBytes(FileLocations.DefaultBookImagePath, LibraryHelpers.ImageHelper.ConvertToByteArray(Properties.Resources.defaultBook));
-        }
-
-        public static void Wipe()
-        {
-            DataFile = new DataFile();
-            SaveUserData();
         }
     }
 }

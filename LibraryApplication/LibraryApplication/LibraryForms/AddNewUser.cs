@@ -1,29 +1,26 @@
-﻿using LibraryApplication.LibraryObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class AddNewUserForm : Form
+    public partial class AddNewUser : Form
     {
         private Random random;
         private MainForm mainForm = null;
+        private string imagePath = string.Empty;
 
-        public AddNewUserForm(MainForm mainForm)
+        public AddNewUser(MainForm mainForm)
         {
-            random = new Random();
+            this.random = new Random();
             this.mainForm = mainForm;
-            InitializeComponent();
+            this.InitializeComponent();
             this.AddButton.Enabled = false;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            //this.pictureBox1.BackgroundImageLayout = ImageLayout.Center;
-            //this.pictureBox1.BackColor = Color.Black;
             this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultUserImagePath;
         }
-
-        private string ImagePath = string.Empty;
 
         private void TextChangedEvent(object o, EventArgs e)
         {
@@ -33,40 +30,40 @@ namespace LibraryApplication.LibraryForms
         private void AddButton_Click(object sender, EventArgs e)
         {
             string fileName = "default_user.png";
-            if (ImagePath != string.Empty)
+            if (this.imagePath != string.Empty)
             {
-                string TargetFileName = this.FirstNameTextBox.Text + "_" + this.LastNameTextBox.Text + random.Next().ToString() + Path.GetExtension(ImagePath);
-                string Destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, TargetFileName);
-                File.Copy(ImagePath, Destination);
-                fileName = TargetFileName;
+                string targetFileName = this.FirstNameTextBox.Text + "_" + this.LastNameTextBox.Text + this.random.Next().ToString() + Path.GetExtension(this.imagePath);
+                string destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, targetFileName);
+                File.Copy(this.imagePath, destination);
+                fileName = targetFileName;
             }
 
-            DataFileSystem.IO.DataFile.Users.Add(new User {
+            DataFileSystem.IO.DataFile.Users.Add(new User
+            {
                 FirstName = this.FirstNameTextBox.Text,
                 LastName = this.LastNameTextBox.Text,
                 Address = this.AddressTextBox.Text,
                 Phone = this.PhoneTextBox.Text,
                 Email = this.EmailTextBox.Text,
-                BorrowedBooks = new List<BookBorrow>(),
+                BorrowedBooks = new List<BorrowedBook>(),
                 ImageID = fileName
             });
 
             DataFileSystem.IO.SaveUserData();
             
-
             this.mainForm.Focus();
             this.Close();
         }
 
         private void SelectImageButton_Click(object sender, EventArgs e)
         {
-            var FileBrowser = new OpenFileDialog
+            var fileBrowser = new OpenFileDialog
             {
                 Title = "Select an image",
                 Filter = "Image Files|*.jpg;*.png;*.jpeg;*.png;..."
             };
-            FileBrowser.ShowDialog();
-            this.pictureBox1.ImageLocation = ImagePath = FileBrowser.FileName;
+            fileBrowser.ShowDialog();
+            this.pictureBox1.ImageLocation = this.imagePath = fileBrowser.FileName;
         }
 
         private void AddNewUserForm_KeyDown(object sender, KeyEventArgs e)

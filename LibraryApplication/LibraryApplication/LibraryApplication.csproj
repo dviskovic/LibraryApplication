@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject>LibraryApplication.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -56,17 +59,17 @@
   <ItemGroup>
     <Compile Include="DataFileSystem\FileLocations.cs" />
     <Compile Include="DataFileSystem\IO.cs" />
-    <Compile Include="LibraryForms\AddNewBookBorrowForm.cs">
+    <Compile Include="LibraryForms\BookSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\AddNewBookBorrowForm.Designer.cs">
-      <DependentUpon>AddNewBookBorrowForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\BookSearch.Designer.cs">
+      <DependentUpon>BookSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\BookControl.cs">
+    <Compile Include="LibraryForms\BookInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\BookControl.Designer.cs">
-      <DependentUpon>BookControl.cs</DependentUpon>
+    <Compile Include="LibraryForms\BookInfo.Designer.cs">
+      <DependentUpon>BookInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryForms\BorrowedBookInfo.cs">
       <SubType>Form</SubType>
@@ -74,17 +77,17 @@
     <Compile Include="LibraryForms\BorrowedBookInfo.Designer.cs">
       <DependentUpon>BorrowedBookInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\ChangePasswordForm.cs">
+    <Compile Include="LibraryForms\ChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\ChangePasswordForm.Designer.cs">
-      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\NewBookBorrowForm.cs">
+    <Compile Include="LibraryForms\NewBookBorrow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\NewBookBorrowForm.Designer.cs">
-      <DependentUpon>NewBookBorrowForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\NewBookBorrow.Designer.cs">
+      <DependentUpon>NewBookBorrow.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryForms\PasswordForm.cs">
       <SubType>Form</SubType>
@@ -92,29 +95,29 @@
     <Compile Include="LibraryForms\PasswordForm.Designer.cs">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\SetUpLateFeeForm.cs">
+    <Compile Include="LibraryForms\SetUpLateFee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\SetUpLateFeeForm.Designer.cs">
-      <DependentUpon>SetUpLateFeeForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\SetUpLateFee.Designer.cs">
+      <DependentUpon>SetUpLateFee.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\SetupPaswordForm.cs">
+    <Compile Include="LibraryForms\SetupPasword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\SetupPaswordForm.Designer.cs">
-      <DependentUpon>SetupPaswordForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\SetupPasword.Designer.cs">
+      <DependentUpon>SetupPasword.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\UserBooksForm.cs">
+    <Compile Include="LibraryForms\UserBooks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\UserBooksForm.Designer.cs">
-      <DependentUpon>UserBooksForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\UserBooks.Designer.cs">
+      <DependentUpon>UserBooks.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\UserControl.cs">
+    <Compile Include="LibraryForms\UserInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\UserControl.Designer.cs">
-      <DependentUpon>UserControl.cs</DependentUpon>
+    <Compile Include="LibraryForms\UserInfo.Designer.cs">
+      <DependentUpon>UserInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryHelpers\Data.cs" />
     <Compile Include="LibraryHelpers\ImageHelper.cs" />
@@ -125,27 +128,26 @@
     <Compile Include="LibraryForms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\AddNewAuthorForm.cs">
+    <Compile Include="LibraryForms\AddNewAuthor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\AddNewAuthorForm.Designer.cs">
-      <DependentUpon>AddNewAuthorForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\AddNewAuthor.Designer.cs">
+      <DependentUpon>AddNewAuthor.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\AddNewBookForm.cs">
+    <Compile Include="LibraryForms\AddNewBook.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\AddNewBookForm.Designer.cs">
-      <DependentUpon>AddNewBookForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\AddNewBook.Designer.cs">
+      <DependentUpon>AddNewBook.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryHelpers\StringHelper.cs" />
-    <Compile Include="LibraryHelpers\Timer.cs" />
     <Compile Include="LibraryObjects\ConfigFile.cs" />
     <Compile Include="LibraryObjects\DataFile.cs" />
-    <Compile Include="LibraryForms\AddNewUserForm.cs">
+    <Compile Include="LibraryForms\AddNewUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\AddNewUserForm.Designer.cs">
-      <DependentUpon>AddNewUserForm.cs</DependentUpon>
+    <Compile Include="LibraryForms\AddNewUser.Designer.cs">
+      <DependentUpon>AddNewUser.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryForms\MainForm.cs">
       <SubType>Form</SubType>
@@ -161,7 +163,7 @@
     </Compile>
     <Compile Include="LibraryObjects\Author.cs" />
     <Compile Include="LibraryObjects\Book.cs" />
-    <Compile Include="LibraryObjects\BookBorrow.cs" />
+    <Compile Include="LibraryObjects\BorrowedBook.cs" />
     <Compile Include="LibraryObjects\SearchResult.cs" />
     <Compile Include="LibraryObjects\User.cs" />
     <Compile Include="Program.cs" />
@@ -170,62 +172,62 @@
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\AddNewAuthorForm.resx">
-      <DependentUpon>AddNewAuthorForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\AddNewAuthor.resx">
+      <DependentUpon>AddNewAuthor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\AddNewBookBorrowForm.resx">
-      <DependentUpon>AddNewBookBorrowForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\BookSearch.resx">
+      <DependentUpon>BookSearch.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\AddNewBookForm.resx">
-      <DependentUpon>AddNewBookForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\AddNewBook.resx">
+      <DependentUpon>AddNewBook.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\AddNewUserForm.resx">
-      <DependentUpon>AddNewUserForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\AddNewUser.resx">
+      <DependentUpon>AddNewUser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\BookControl.resx">
-      <DependentUpon>BookControl.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\BookInfo.resx">
+      <DependentUpon>BookInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\BorrowedBookInfo.resx">
       <DependentUpon>BorrowedBookInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\ChangePasswordForm.resx">
-      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\NewBookBorrowForm.resx">
-      <DependentUpon>NewBookBorrowForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\NewBookBorrow.resx">
+      <DependentUpon>NewBookBorrow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\SetUpLateFeeForm.resx">
-      <DependentUpon>SetUpLateFeeForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\SetUpLateFee.resx">
+      <DependentUpon>SetUpLateFee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\SetupPaswordForm.resx">
-      <DependentUpon>SetupPaswordForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\SetupPasword.resx">
+      <DependentUpon>SetupPasword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\StartupForm.resx">
       <DependentUpon>StartupForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\UserBooksForm.resx">
-      <DependentUpon>UserBooksForm.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\UserBooks.resx">
+      <DependentUpon>UserBooks.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\UserControl.resx">
-      <DependentUpon>UserControl.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\UserInfo.resx">
+      <DependentUpon>UserInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -253,12 +255,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dependencies\Newtonsoft.Json.dll" />
+    <Content Include="icon.ico" />
+    <Content Include="icon2.ico" />
     <None Include="Resources\Newtonsoft.Json.dll" />
     <None Include="Resources\45755093-book-icon.jpg" />
     <None Include="Resources\defaultUser.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Debugging\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

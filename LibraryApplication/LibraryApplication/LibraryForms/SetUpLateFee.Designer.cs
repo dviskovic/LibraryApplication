@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class SetUpLateFeeForm
+    partial class SetUpLateFee
     {
         /// <summary>
         /// Required designer variable.
@@ -71,7 +71,8 @@
             this.Controls.Add(this.FeeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SetUpLateFeeForm";
-            this.Text = "SetUpLateFeeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Set Up Late Fee";
             this.ResumeLayout(false);
             this.PerformLayout();
 

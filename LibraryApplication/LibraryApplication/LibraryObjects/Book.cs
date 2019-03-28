@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
-using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace LibraryApplication.LibraryObjects
 {
@@ -31,14 +30,18 @@ namespace LibraryApplication.LibraryObjects
         {
             get
             {
-                var BorrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this));
-                return this.Count - BorrowedCount;
+                var borrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this));
+                return this.Count - borrowedCount;
             }
         }
 
         public bool Equals(Book other)
         {
-            if (this == null || other == null) return false;
+            if (this == null || other == null)
+            {
+                return false;
+            }
+
             return this.AuthorID == other.AuthorID && this.Name == other.Name && this.ISBN == other.ISBN;
         }
     }

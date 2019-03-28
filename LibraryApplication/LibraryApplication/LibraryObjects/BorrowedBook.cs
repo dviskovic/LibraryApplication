@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace LibraryApplication.LibraryObjects
 {
-    public class BookBorrow
+    public class BorrowedBook
     {
         public Book Book { get; set; }
 

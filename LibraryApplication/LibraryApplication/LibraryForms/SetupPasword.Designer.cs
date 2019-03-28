@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class SetupPaswordForm
+    partial class SetupPasword
     {
         /// <summary>
         /// Required designer variable.

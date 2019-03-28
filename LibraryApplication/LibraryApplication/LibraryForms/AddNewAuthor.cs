@@ -1,19 +1,18 @@
-﻿using LibraryApplication.LibraryObjects;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class AddNewAuthorForm : Form
+    public partial class AddNewAuthor : Form
     {
         private MainForm mainForm = null;
 
-        public AddNewAuthorForm(MainForm mainForm)
+        public AddNewAuthor(MainForm mainForm)
         {
             this.mainForm = mainForm;
-            InitializeComponent();
+            this.InitializeComponent();
             this.AddNewAuthorButton.Enabled = false;
             this.Focus();
         }
@@ -42,7 +41,7 @@ namespace LibraryApplication.LibraryForms
 
         private void AddNewAuthorForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.mainForm.CurrentAddNewAuthorForm = null;
                 this.Close();
@@ -56,9 +55,9 @@ namespace LibraryApplication.LibraryForms
 
         private void LastNameTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Return)
+            if (e.KeyCode == Keys.Return && this.AddNewAuthorButton.Enabled)
             {
-                if (this.AddNewAuthorButton.Enabled) this.AddButton_Click(null, null);
+                this.AddButton_Click(null, null);
             }
         }
     }

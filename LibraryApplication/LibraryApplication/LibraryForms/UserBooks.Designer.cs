@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class UserBooksForm
+    partial class UserBooks
     {
         /// <summary>
         /// Required designer variable.

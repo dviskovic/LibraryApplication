@@ -11,6 +11,12 @@ namespace LibraryApplication.LibraryObjects
         public int ID { get; set; }
 
         [JsonIgnore]
-        public string FullName { get { return FirstName + " " + LastName; } }
+        public string FullName
+        {
+            get
+            {
+                return this.FirstName + " " + this.LastName;
+            }
+        }
     }
 }

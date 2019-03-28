@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace LibraryApplication.LibraryObjects
 {
@@ -18,20 +18,27 @@ namespace LibraryApplication.LibraryObjects
 
         public string ImageID { get; set; }
 
-        [JsonIgnore]
-        public string FullName { get { return FirstName + " " + LastName; } }
+        public List<BorrowedBook> BorrowedBooks = new List<BorrowedBook>();
 
         [JsonIgnore]
-        public int BorrowedBookCount {
+        public Action OnUpdate = new Action(() => { });
+
+        [JsonIgnore]
+        public string FullName
+        {
+            get
+            {
+                return this.FirstName + " " + this.LastName;
+            }
+        }
+
+        [JsonIgnore]
+        public int BorrowedBookCount
+        {
             get
             {
                 return this.BorrowedBooks.Count;
             }
         }
-
-        public List<BookBorrow> BorrowedBooks = new List<BookBorrow>();
-
-        [JsonIgnore]
-        public Action OnUpdate = new Action(() => { });
     }
 }

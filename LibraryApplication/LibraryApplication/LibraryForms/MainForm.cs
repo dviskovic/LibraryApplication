@@ -1,40 +1,38 @@
-﻿using LibraryApplication.LibraryForms;
-using LibraryApplication.LibraryObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using LibraryApplication.LibraryHelpers;
-using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
+using LibraryApplication.LibraryForms;
+using LibraryApplication.LibraryHelpers;
+using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication
 {
     public partial class MainForm : Form
     {
-        public StartupForm startupForm = null;
+        public StartupForm StartupForm = null;
 
-        public Dictionary<User, LibraryForms.UserControl> UserDictionary = new Dictionary<User, LibraryForms.UserControl>();
-        public Dictionary<Book, LibraryForms.BookControl> BookDictionary = new Dictionary<Book, LibraryForms.BookControl>();
+        public Dictionary<User, LibraryForms.UserInfo> UserDictionary = new Dictionary<User, LibraryForms.UserInfo>();
+        public Dictionary<Book, LibraryForms.BookInfo> BookDictionary = new Dictionary<Book, LibraryForms.BookInfo>();
 
-        private string SearchQuery = string.Empty;
-
-        public AddNewUserForm CurrentAddNewUserForm = null;
-        public AddNewAuthorForm CurrentAddNewAuthorForm = null;
-        public AddNewBookForm CurrentAddNewBookForm = null;
+        public AddNewUser CurrentAddNewUserForm = null;
+        public AddNewAuthor CurrentAddNewAuthorForm = null;
+        public AddNewBook CurrentAddNewBookForm = null;
         public ListViewItem SelectedItem = null;
         public About CurrentAboutForm = null;
-        public ChangePasswordForm CurrentChangePasswordForm = null;
+        public ChangePassword CurrentChangePasswordForm = null;
 
-        private System.Windows.Forms.Timer LastSaveTimer = new System.Windows.Forms.Timer { Enabled = true, Interval = 1000 };
+        private string searchQuery = string.Empty;
+        private System.Windows.Forms.Timer lastSaveTimer = new System.Windows.Forms.Timer { Enabled = true, Interval = 1000 };
 
         public MainForm()
         {
-            InitializeComponent();
-            LibraryEvents.EventManager.OnDataFileChanged += new Action(UpdateList);
-            this.LastSaveTimer.Tick += new EventHandler(RefreshLastTime);
-            this.LastSaveTimer.Start(); 
+            this.InitializeComponent();
+            this.Shown += new EventHandler((o, e) => LibraryEvents.EventManager.OnStartupFinished());
+            LibraryEvents.EventManager.OnDataFileChanged += new Action(this.UpdateList);
+            this.lastSaveTimer.Tick += new EventHandler(this.RefreshLastTime);
+            this.lastSaveTimer.Start(); 
             this.SearchTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.SearchTypeBox.DataSource = SearchResult.StringArray();
 
@@ -45,63 +43,74 @@ namespace LibraryApplication
 
         private void RefreshLastTime(object o, EventArgs e)
         {
-            TimeSpan TimeSpanSinceSave = LibraryHelpers.Data.TimeSinceLastSave();
-            this.LastSaveTimeLabel.Text = "Last Save: " + LibraryHelpers.Data.GetReadableTimeFromTimeSpan(TimeSpanSinceSave);
+            TimeSpan timeSpanSinceSave = LibraryHelpers.Data.TimeSinceLastSave();
+            this.LastSaveTimeLabel.Text = "Last Save: " + LibraryHelpers.Data.GetReadableTimeFromTimeSpan(timeSpanSinceSave);
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
         {
             DataFileSystem.IO.SaveConfig();
             DataFileSystem.IO.SaveUserData();
-            startupForm.Close();
+            this.StartupForm.Close();
         }
 
         private void AddNewUserButton_Clicked(object sender, EventArgs e)
         {
-            if (CurrentAddNewUserForm != null)
+            if (this.CurrentAddNewUserForm != null)
             {
-                CurrentAddNewUserForm.Focus();
+                this.CurrentAddNewUserForm.Focus();
                 return;
             }
 
-            CurrentAddNewUserForm = new AddNewUserForm(this);
-            CurrentAddNewUserForm.Show();
+            this.CurrentAddNewUserForm = new AddNewUser(this);
+            this.CurrentAddNewUserForm.Show();
         }
 
         private void AddNewAuthorButton_Clicked(object sender, EventArgs e)
         {
-            if (CurrentAddNewAuthorForm != null) CurrentAddNewAuthorForm.Focus();
+            if (this.CurrentAddNewAuthorForm != null)
+            {
+                this.CurrentAddNewAuthorForm.Focus();
+            }
+
             else
             {
-                CurrentAddNewAuthorForm = new AddNewAuthorForm(this);
-                CurrentAddNewAuthorForm.Show();
+                this.CurrentAddNewAuthorForm = new AddNewAuthor(this);
+                this.CurrentAddNewAuthorForm.Show();
             }
         }
 
         private void AddNewBookButton_Clicked(object sender, EventArgs e)
         {
-            if (CurrentAddNewBookForm != null)
+            if (this.CurrentAddNewBookForm != null)
             {
-                CurrentAddNewBookForm.Focus();
+                this.CurrentAddNewBookForm.Focus();
                 return;
             }
 
-            CurrentAddNewBookForm = new AddNewBookForm(this);
-            CurrentAddNewBookForm.Show();
+            this.CurrentAddNewBookForm = new AddNewBook(this);
+            this.CurrentAddNewBookForm.Show();
         }
 
         private void SearchQueryChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(SearchBox.Text))
             {
-                if (!this.ShowAllCheckBox.Checked) ClearSearchBox();
-                else ShowResults(true);
+                if (!this.ShowAllCheckBox.Checked)
+                {
+                    this.ClearSearchBox();
+                }
+
+                else
+                {
+                    this.ShowResults(true);
+                }
             }
 
             else
             {
-                SearchQuery = SearchBox.Text.ToLower();
-                UpdateList();
+                this.searchQuery = SearchBox.Text.ToLower();
+                this.UpdateList();
             }
         }
 
@@ -110,7 +119,7 @@ namespace LibraryApplication
             this.ResultList.Rows.Clear();
         }
 
-        private void ShowResults(bool All)
+        private void ShowResults(bool all)
         {
             SearchResult.Types resultType = SearchResult.ParseFromString((string)this.SearchTypeBox.SelectedItem);
 
@@ -120,7 +129,7 @@ namespace LibraryApplication
             {
                 foreach (var user in DataFileSystem.IO.DataFile.Users)
                 {
-                    if (All || user.FirstName.IncludesOrEqual(SearchQuery) || user.LastName.IncludesOrEqual(SearchQuery) || user.FullName.IncludesOrEqual(SearchQuery) || user.Email.IncludesOrEqual(SearchQuery) || user.Address.IncludesOrEqual(SearchQuery) || user.Phone.IncludesOrEqual(SearchQuery))
+                    if (all || user.FirstName.IncludesOrEqual(this.searchQuery) || user.LastName.IncludesOrEqual(this.searchQuery) || user.FullName.IncludesOrEqual(this.searchQuery) || user.Email.IncludesOrEqual(this.searchQuery) || user.Address.IncludesOrEqual(this.searchQuery) || user.Phone.IncludesOrEqual(this.searchQuery))
                     {
                         resultList.Add(new SearchResult { Name = user.FirstName + " " + user.LastName, Address = user.Address, Phone = user.Phone, Email = user.Email, Author = "None", Available = "None", BorrowedCount = user.BorrowedBookCount, ISBN = "None" });
                     }
@@ -132,7 +141,7 @@ namespace LibraryApplication
                 foreach (var book in DataFileSystem.IO.DataFile.Books)
                 {
                     var author = book.Author;
-                    if (All || book.Name.IncludesOrEqual(SearchQuery) || author.FirstName.IncludesOrEqual(SearchQuery) || author.LastName.IncludesOrEqual(SearchQuery) || author.FullName.IncludesOrEqual(SearchQuery) || book.ISBN.IncludesOrEqual(SearchQuery))
+                    if (all || book.Name.IncludesOrEqual(this.searchQuery) || author.FirstName.IncludesOrEqual(this.searchQuery) || author.LastName.IncludesOrEqual(this.searchQuery) || author.FullName.IncludesOrEqual(this.searchQuery) || book.ISBN.IncludesOrEqual(this.searchQuery))
                     {
                         resultList.Add(new SearchResult { Name = "\"" + book.Name + "\"", Author = "\"" + book.Author.FullName + "\"", ISBN = book.ISBN, Available = book.Available > 0 ? "Yes (" + book.Available + ")" : "No", BorrowedCount = -1, Address = "None", Email = "None", Phone = "None" });
                     }
@@ -152,7 +161,10 @@ namespace LibraryApplication
                         this.ResultList.Columns.Add("AvailableHeader", "Available");
 
                         foreach (var result in resultList)
+                        {
                             this.ResultList.Rows.Add(result.Name, result.Author, result.ISBN, result.Available);
+                        }
+
                         return;
                     }
 
@@ -165,7 +177,10 @@ namespace LibraryApplication
                         this.ResultList.Columns.Add("BorrowedHeader", "Borrowed Books");
 
                         foreach (var result in resultList)
+                        {
                             this.ResultList.Rows.Add(result.Name, result.Email, result.Phone, result.Address, result.BorrowedCount);
+                        }
+
                         return;
                     }
 
@@ -176,7 +191,10 @@ namespace LibraryApplication
                         this.ResultList.Columns.Add("AvailableHeader", "Available");
 
                         foreach (var result in resultList)
+                        {
                             this.ResultList.Rows.Add(result.Name, result.Author, result.Available);
+                        }
+
                         return;
                     }
 
@@ -190,18 +208,18 @@ namespace LibraryApplication
             {
                 if (!this.ShowAllCheckBox.Checked)
                 {
-                    ClearSearchBox();
+                    this.ClearSearchBox();
                     return;
                 }
 
                 else
                 {
-                    ShowResults(true);
+                    this.ShowResults(true);
                     return;
                 }
             }
 
-            ShowResults(false);
+            this.ShowResults(false);
         }
 
         private void ResultBox_MouseDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -209,18 +227,22 @@ namespace LibraryApplication
             string Name = this.ResultList.Rows[e.RowIndex].Cells[0].Value.ToString();
 
             var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.All);
-            if (item == null) return;
+
+            if (item == null)
+            {
+                return;
+            }
             
             if (item is Book book)
             {
-                if (this.BookDictionary.TryGetValue(book, out LibraryForms.BookControl form))
+                if (this.BookDictionary.TryGetValue(book, out LibraryForms.BookInfo form))
                 {
                     form.Focus();
                 }
 
                 else
                 {
-                    var form2 = new LibraryForms.BookControl(book, this);
+                    var form2 = new LibraryForms.BookInfo(book, this);
                     form2.Show();
                     this.BookDictionary.Add(book, form2);
                 }
@@ -228,15 +250,14 @@ namespace LibraryApplication
 
             if (item is User user)
             {
-                if (this.UserDictionary.TryGetValue(user, out LibraryForms.UserControl form))
+                if (this.UserDictionary.TryGetValue(user, out LibraryForms.UserInfo form))
                 {
-                   
                     form.Focus();
                 }
 
                 else
                 {
-                    var form2 = new LibraryForms.UserControl(user, this);
+                    var form2 = new LibraryForms.UserInfo(user, this);
                     form2.Show();
                     this.UserDictionary.Add(user, form2);
                 }
@@ -245,15 +266,15 @@ namespace LibraryApplication
 
         private void RefreshButton_Clicked(object sender, EventArgs e)
         {
-            UpdateList();
+            this.UpdateList();
         }
 
         private void SearchTypeBox_TextChanged(object sender, EventArgs e)
         {
-            UpdateList();
+            this.UpdateList();
         }
 
-        private void deleteAllDataToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteAllDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dialog = MessageBox.Show("Are you sure you want to delete all data?", "Warning", MessageBoxButtons.YesNo);
 
@@ -263,7 +284,8 @@ namespace LibraryApplication
 
                 if (dialog2 == DialogResult.Yes)
                 {
-                    var confirm = new PasswordForm(() => {
+                    var confirm = new PasswordForm(() => 
+                    {
                         DataFileSystem.IO.Wipe();
                         MessageBox.Show("All user data has been deleted");
                     });
@@ -272,72 +294,80 @@ namespace LibraryApplication
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DataFileSystem.IO.SaveUserData();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CurrentAboutForm != null)
+            if (this.CurrentAboutForm != null)
             {
-                CurrentAboutForm.Focus();
+                this.CurrentAboutForm.Focus();
                 return;
             }
 
-            CurrentAboutForm = new About(this);
-            CurrentAboutForm.Show();
+            this.CurrentAboutForm = new About(this);
+            this.CurrentAboutForm.Show();
         }
 
-        private void addNewBookToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddNewBookToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddNewBookButton_Clicked(sender, e);
+            this.AddNewBookButton_Clicked(sender, e);
         }
 
-        private void addNewUserToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddNewUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddNewUserButton_Clicked(sender, e);
+            this.AddNewUserButton_Clicked(sender, e);
         }
 
-        private void addNewAuthorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddNewAuthorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddNewAuthorButton_Clicked(sender, e);
+            this.AddNewAuthorButton_Clicked(sender, e);
         }
 
         private void ShowAllCheckBox_CheckChanged(object sender, EventArgs e)
         {
-            UpdateList();
+            this.UpdateList();
         }
 
-        private void changeDataLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChangeDataLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var confirm = new PasswordForm(() => {
+            var confirm = new PasswordForm(() => 
+            {
                 var op = new FolderBrowserDialog
                 {
                     Description = "Select the folder for storing data\nCurrent folder: " + DataFileSystem.FileLocations.DatabasePath
                 };
                 op.ShowDialog();
 
-                if (string.IsNullOrEmpty(op.SelectedPath)) return;
+                if (string.IsNullOrEmpty(op.SelectedPath))
+                {
+                    return;
+                }
 
                 DataFileSystem.IO.SaveUserData();
                 string prevPath = DataFileSystem.FileLocations.DatabasePath;
-                DataFileSystem.IO.configFile.DataLocation = op.SelectedPath;
+                DataFileSystem.IO.ConfigFile.DataLocation = op.SelectedPath;
                 DataFileSystem.IO.SaveConfig();
                 MessageBox.Show("For changes to take effect the app has to be restarted, press OK to confirm");
                 System.Diagnostics.Process.Start(Application.ExecutablePath);
                 this.Close();
-                File.Move(Path.Combine(prevPath, DataFileSystem.IO.FileName), Path.Combine(DataFileSystem.IO.configFile.DataLocation, DataFileSystem.IO.FileName));
+                File.Move(Path.Combine(prevPath, DataFileSystem.IO.FileName), Path.Combine(DataFileSystem.IO.ConfigFile.DataLocation, DataFileSystem.IO.FileName));
             });
             confirm.Show();
         }
 
-        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChangePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.CurrentChangePasswordForm != null) this.CurrentChangePasswordForm.Focus();
+            if (this.CurrentChangePasswordForm != null)
+            {
+                this.CurrentChangePasswordForm.Focus();
+            }
+
             else
             {
-                this.CurrentChangePasswordForm = new ChangePasswordForm(this);
+                this.CurrentChangePasswordForm = new ChangePassword(this);
                 this.CurrentChangePasswordForm.Show();
             }
         }

@@ -1,38 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace LibraryApplication.LibraryObjects
 {
-    class ConfigFile
+    public class ConfigFile
     {
-        private static SHA512 SHA512 = SHA512.Create();
-
         public static byte[] Hash(string password) => SHA512.ComputeHash(Encoding.UTF8.GetBytes(password));
 
         public string DataLocation;
 
         public double LateFee;
 
-        [JsonProperty()]
-        private string _Password;
+        private static SHA512 SHA512 = SHA512.Create();
+
+        [JsonProperty]
+        private string _password;
 
         [JsonIgnore]
         public string Password
         {
             get
             {
-                return _Password;
+                return this._password;
             }
 
             set
             {
-                if (string.IsNullOrEmpty(value)) _Password = string.Empty;
+                if (string.IsNullOrEmpty(value))
+                {
+                    this._password = string.Empty;
+                }
 
-                _Password = Encoding.UTF8.GetString(ConfigFile.Hash(value));
+                this._password = Encoding.UTF8.GetString(ConfigFile.Hash(value));
             }
         }
     }

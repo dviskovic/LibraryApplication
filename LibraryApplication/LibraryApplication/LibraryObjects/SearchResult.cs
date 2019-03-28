@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApplication.LibraryObjects
 {
-    class SearchResult
+    public class SearchResult
     {
         public string Name { get; set; }
 

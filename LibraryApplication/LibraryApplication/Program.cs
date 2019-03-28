@@ -1,23 +1,30 @@
-﻿using LibraryApplication.DataFileSystem;
-using LibraryApplication.LibraryForms;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using LibraryApplication.DataFileSystem;
+using LibraryApplication.LibraryForms;
 
 namespace LibraryApplication
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
-            if (!Directory.Exists(FileLocations.DatabasePath)) Directory.CreateDirectory(FileLocations.DatabasePath);
-            if (!File.Exists(FileLocations.NewtonsoftJson)) File.WriteAllBytes(FileLocations.NewtonsoftJson, Properties.Resources.Newtonsoft_Json);
+            if (!Directory.Exists(FileLocations.DatabasePath))
+            {
+                Directory.CreateDirectory(FileLocations.DatabasePath);
+            }
+
+            if (!File.Exists(FileLocations.NewtonsoftJson))
+            {
+                File.WriteAllBytes(FileLocations.NewtonsoftJson, Properties.Resources.Newtonsoft_Json);
+            }
+
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolve);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -25,9 +32,9 @@ namespace LibraryApplication
             DataFileSystem.IO.InitConfig();
             DataFileSystem.IO.SetupFolders();
 
-            Timer AutoSaveTimer = new Timer { Enabled = true, Interval = 60000 };
-            AutoSaveTimer.Tick += new EventHandler(LibraryEvents.EventManager.AutoSave);
-            AutoSaveTimer.Start();
+            Timer autoSaveTimer = new Timer { Enabled = true, Interval = 60000 };
+            autoSaveTimer.Tick += new EventHandler(LibraryEvents.EventManager.AutoSave);
+            autoSaveTimer.Start();
             Application.Run(new StartupForm());
         }
 

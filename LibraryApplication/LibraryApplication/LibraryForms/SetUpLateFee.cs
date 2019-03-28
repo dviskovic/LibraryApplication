@@ -9,26 +9,26 @@ using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class SetUpLateFeeForm : Form
+    public partial class SetUpLateFee : Form
     {
-        private double Current;
+        private double current;
 
-        public SetUpLateFeeForm()
+        public SetUpLateFee()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.FinishButton.Enabled = false;
         }
 
         private void FinishButton_Click(object sender, EventArgs e)
         {
-            DataFileSystem.IO.configFile.LateFee = this.Current;
+            DataFileSystem.IO.ConfigFile.LateFee = this.current;
             DataFileSystem.IO.SaveConfig();
             this.Close();
         }
 
         private void Form_TextChanged(object sender, EventArgs e)
         {
-            this.FinishButton.Enabled = (!string.IsNullOrEmpty(this.FeeTextBox.Text) && double.TryParse(this.FeeTextBox.Text, out this.Current));
+            this.FinishButton.Enabled = !string.IsNullOrEmpty(this.FeeTextBox.Text) && double.TryParse(this.FeeTextBox.Text, out this.current);
         }
     }
 }

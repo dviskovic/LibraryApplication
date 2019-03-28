@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class UserControl
+    partial class UserInfo
     {
         /// <summary>
         /// Required designer variable.

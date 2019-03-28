@@ -1,15 +1,11 @@
-﻿using LibraryApplication.LibraryObjects;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication.LibraryHelpers
 {
-    class ImageHelper
+    public class ImageHelper
     {
         private static Random random = new Random();
 
@@ -22,22 +18,28 @@ namespace LibraryApplication.LibraryHelpers
 
         public static string SaveImage(User user, string path)
         {
-            if (!File.Exists(path)) return string.Empty;
+            if (!File.Exists(path))
+            {
+                return string.Empty;
+            }
 
-            string TargetFileName = user.FirstName + "_" + user.LastName + random.Next().ToString() + Path.GetExtension(path);
-            string Destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, TargetFileName);
-            File.Copy(path, Destination);
-            return TargetFileName;
+            string targetFileName = user.FirstName + "_" + user.LastName + random.Next().ToString() + Path.GetExtension(path);
+            string destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, targetFileName);
+            File.Copy(path, destination);
+            return targetFileName;
         }
 
         public static string SaveImage(Book book, string path)
         {
-            if (!File.Exists(path)) return string.Empty;
+            if (!File.Exists(path))
+            {
+                return string.Empty;
+            }
 
-            string TargetFileName = book.Name + random.Next().ToString() + Path.GetExtension(path);
-            string Destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, TargetFileName);
-            File.Copy(path, Destination);
-            return TargetFileName;
+            string targetFileName = book.Name + random.Next().ToString() + Path.GetExtension(path);
+            string destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, targetFileName);
+            File.Copy(path, destination);
+            return targetFileName;
         }
     }
 }

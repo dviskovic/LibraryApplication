@@ -1,12 +1,7 @@
-﻿using LibraryApplication.DataFileSystem;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using System;
 using System.Text;
 using System.Windows.Forms;
+using LibraryApplication.DataFileSystem;
 
 namespace LibraryApplication.LibraryForms
 {
@@ -14,19 +9,26 @@ namespace LibraryApplication.LibraryForms
     {
         private const string PasswordPlaceHolder = "Password";
 
-        private Action action { get; set; }
+        private Action Action { get; set; }
 
         public PasswordForm(Action action)
         {
-            this.action = action;
-            InitializeComponent();
+            this.Action = action;
+            this.InitializeComponent();
             this.ConfirmButton.Enabled = false;
         }
 
         private void PasswordBox_TextChanged(object sender, EventArgs e)
         {
-            if (Encoding.UTF8.GetString(LibraryObjects.ConfigFile.Hash(this.PasswordInputTextBox.Text)) == IO.configFile.Password) this.ConfirmButton.Enabled = true;
-            else this.ConfirmButton.Enabled = false;
+            if (Encoding.UTF8.GetString(LibraryObjects.ConfigFile.Hash(this.PasswordInputTextBox.Text)) == IO.ConfigFile.Password)
+            {
+                this.ConfirmButton.Enabled = true;
+            }
+
+            else
+            {
+                this.ConfirmButton.Enabled = false;
+            }
         }
 
         private void PasswordBox_Enter(object sender, EventArgs e)
@@ -49,7 +51,7 @@ namespace LibraryApplication.LibraryForms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            this.action();
+            this.Action();
             this.Close();
         }
 

@@ -16,16 +16,14 @@ namespace LibraryApplication.LibraryForms
         public About(MainForm main)
         {
             this.mainForm = main;
-            InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.InitializeComponent();
+            this.Text = string.Format("About {0}", this.AssemblyTitle);
+            this.labelProductName.Text = this.AssemblyProduct;
+            this.labelVersion.Text = string.Format("Version {0}", this.AssemblyVersion);
+            this.labelCopyright.Text = this.AssemblyCopyright;
+            this.labelCompanyName.Text = this.AssemblyCompany;
+            this.textBoxDescription.Text = this.AssemblyDescription;
         }
-
-        #region Assembly Attribute Accessors
 
         public string AssemblyTitle
         {
@@ -40,6 +38,7 @@ namespace LibraryApplication.LibraryForms
                         return titleAttribute.Title;
                     }
                 }
+
                 return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
@@ -61,6 +60,7 @@ namespace LibraryApplication.LibraryForms
                 {
                     return "";
                 }
+
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
@@ -74,6 +74,7 @@ namespace LibraryApplication.LibraryForms
                 {
                     return "";
                 }
+
                 return ((AssemblyProductAttribute)attributes[0]).Product;
             }
         }
@@ -87,6 +88,7 @@ namespace LibraryApplication.LibraryForms
                 {
                     return "";
                 }
+
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
@@ -100,14 +102,13 @@ namespace LibraryApplication.LibraryForms
                 {
                     return "";
                 }
+
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            
+        private void OkButton_Click(object sender, EventArgs e)
+        {            
             this.Close();
         }
 

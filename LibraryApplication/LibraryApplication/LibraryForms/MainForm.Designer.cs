@@ -31,6 +31,7 @@ namespace LibraryApplication
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.RefreshButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -58,8 +59,8 @@ namespace LibraryApplication
             this.ResultList = new System.Windows.Forms.DataGridView();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -181,7 +182,7 @@ namespace LibraryApplication
             this.addNewBookToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.addNewBookToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewBookToolStripMenuItem.Text = "Add new Book";
-            this.addNewBookToolStripMenuItem.Click += new System.EventHandler(this.addNewBookToolStripMenuItem_Click);
+            this.addNewBookToolStripMenuItem.Click += new System.EventHandler(this.AddNewBookToolStripMenuItem_Click);
             // 
             // addNewUserToolStripMenuItem
             // 
@@ -189,7 +190,7 @@ namespace LibraryApplication
             this.addNewUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.addNewUserToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewUserToolStripMenuItem.Text = "Add new User";
-            this.addNewUserToolStripMenuItem.Click += new System.EventHandler(this.addNewUserToolStripMenuItem_Click);
+            this.addNewUserToolStripMenuItem.Click += new System.EventHandler(this.AddNewUserToolStripMenuItem_Click);
             // 
             // addNewAuthorToolStripMenuItem
             // 
@@ -198,14 +199,14 @@ namespace LibraryApplication
             | System.Windows.Forms.Keys.A)));
             this.addNewAuthorToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewAuthorToolStripMenuItem.Text = "Add new Author";
-            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler(this.addNewAuthorToolStripMenuItem_Click);
+            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler(this.AddNewAuthorToolStripMenuItem_Click);
             // 
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
             this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.changePasswordToolStripMenuItem.Text = "Change Password";
-            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.ChangePasswordToolStripMenuItem_Click);
             // 
             // weToolStripMenuItem
             // 
@@ -222,14 +223,14 @@ namespace LibraryApplication
             this.deleteAllDataToolStripMenuItem.Name = "deleteAllDataToolStripMenuItem";
             this.deleteAllDataToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.deleteAllDataToolStripMenuItem.Text = "Delete all data";
-            this.deleteAllDataToolStripMenuItem.Click += new System.EventHandler(this.deleteAllDataToolStripMenuItem_Click);
+            this.deleteAllDataToolStripMenuItem.Click += new System.EventHandler(this.DeleteAllDataToolStripMenuItem_Click);
             // 
             // changeDataLocationToolStripMenuItem
             // 
             this.changeDataLocationToolStripMenuItem.Name = "changeDataLocationToolStripMenuItem";
             this.changeDataLocationToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.changeDataLocationToolStripMenuItem.Text = "Change data location";
-            this.changeDataLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDataLocationToolStripMenuItem_Click);
+            this.changeDataLocationToolStripMenuItem.Click += new System.EventHandler(this.ChangeDataLocationToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -237,7 +238,7 @@ namespace LibraryApplication
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // aSSToolStripMenuItem1
             // 
@@ -250,9 +251,10 @@ namespace LibraryApplication
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.ShortcutKeyDisplayString = "";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // LastSaveTimeLabel
             // 
@@ -324,8 +326,8 @@ namespace LibraryApplication
             this.ResultList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ItemName,
             this.Author,
-            this.Available,
-            this.ISBN});
+            this.ISBN,
+            this.Available});
             this.ResultList.Location = new System.Drawing.Point(6, 64);
             this.ResultList.MultiSelect = false;
             this.ResultList.Name = "ResultList";
@@ -348,17 +350,17 @@ namespace LibraryApplication
             this.Author.Name = "Author";
             this.Author.ReadOnly = true;
             // 
-            // Available
-            // 
-            this.Available.HeaderText = "Available";
-            this.Available.Name = "Available";
-            this.Available.ReadOnly = true;
-            // 
             // ISBN
             // 
             this.ISBN.HeaderText = "ISBN";
             this.ISBN.Name = "ISBN";
             this.ISBN.ReadOnly = true;
+            // 
+            // Available
+            // 
+            this.Available.HeaderText = "Available";
+            this.Available.Name = "Available";
+            this.Available.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -369,6 +371,7 @@ namespace LibraryApplication
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.LastSaveTimeLabel);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -415,8 +418,8 @@ namespace LibraryApplication
         private System.Windows.Forms.DataGridView ResultList;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Author;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Available;
         private System.Windows.Forms.DataGridViewTextBoxColumn ISBN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Available;
     }
 }
 

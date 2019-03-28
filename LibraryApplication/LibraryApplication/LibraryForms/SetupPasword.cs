@@ -1,24 +1,17 @@
-﻿using LibraryApplication.DataFileSystem;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class SetupPaswordForm : Form
+    public partial class SetupPasword : Form
     {
         private const string PasswordText = "Password";
         private const string PasswordTextConfirm = "Confirm Password";
-        private bool CanClose = false;
+        private bool canClose = false;
 
-        public SetupPaswordForm()
+        public SetupPasword()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.ConfirmButton.Enabled = false;
         }
 
@@ -29,7 +22,10 @@ namespace LibraryApplication.LibraryForms
                 this.ConfirmButton.Enabled = true;
             }
 
-            else this.ConfirmButton.Enabled = false;
+            else
+            {
+                this.ConfirmButton.Enabled = false;
+            }
         }
 
         private void PasswordConfirm_Enter(object sender, EventArgs e)
@@ -70,14 +66,17 @@ namespace LibraryApplication.LibraryForms
 
         private void SetupPasswordForm_Closing(object sender, FormClosingEventArgs e)
         {
-            if (!this.CanClose) e.Cancel = true;
+            if (!this.canClose)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            DataFileSystem.IO.configFile.Password = this.Password.Text;
+            DataFileSystem.IO.ConfigFile.Password = this.Password.Text;
             DataFileSystem.IO.SaveConfig();
-            this.CanClose = true;
+            this.canClose = true;
             this.Close();
         }
     }

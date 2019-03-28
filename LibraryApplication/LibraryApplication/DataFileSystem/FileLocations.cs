@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApplication.DataFileSystem
 {
-    class FileLocations
+    public class FileLocations
     {
         public static string DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LibraryApplication");
 

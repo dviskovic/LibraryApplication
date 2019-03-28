@@ -6,15 +6,15 @@ namespace LibraryApplication.LibraryForms
     public partial class StartupForm : Form
     {
         private Timer timer = new Timer { Enabled = true, Interval = 10 };
-        private Timer StartTimer = new Timer { Enabled = true, Interval = 1000 };
+        private Timer startTimer = new Timer { Enabled = true, Interval = 1000 };
 
         private MainForm mainForm = null;
 
         public StartupForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.Opacity = 0;
-            this.timer.Tick += new EventHandler(IncreaseOpacy);
+            this.timer.Tick += new EventHandler(this.IncreaseOpacy);
             this.timer.Start();
             LibraryEvents.EventManager.Startup();
         }
@@ -35,21 +35,20 @@ namespace LibraryApplication.LibraryForms
             if (this.Opacity >= 1)
             {
                 this.timer.Stop();
-                this.StartTimer.Tick += new EventHandler(StartMainForm);
-                this.StartTimer.Start();
+                this.startTimer.Tick += new EventHandler(this.StartMainForm);
+                this.startTimer.Start();
             }
         }
 
         private void StartMainForm(object o, EventArgs e)
         {
-            this.StartTimer.Stop();
-            this.StartTimer.Dispose();
-
-            mainForm = new MainForm
+            this.startTimer.Stop();
+            this.startTimer.Dispose();
+            this.mainForm = new MainForm
             {
-                startupForm = this
+                StartupForm = this
             };
-            mainForm.Show();
+            this.mainForm.Show();
             this.Hide();
         }
     }

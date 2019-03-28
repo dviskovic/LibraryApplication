@@ -9,30 +9,33 @@ using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class ChangePasswordForm : Form
+    public partial class ChangePassword : Form
     {
-        private MainForm form;
-
         private const string CurrentPW = "Current Password";
 
         private const string NewPW = "New Password";
 
         private const string ConfirmNewPW = "Confirm new Password";
 
-        public ChangePasswordForm(MainForm form1)
+        private MainForm form;
+
+        public ChangePassword(MainForm form1)
         {
             this.form = form1;
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Form_TextChanged(object sender, EventArgs e)
         {
-            if (Encoding.UTF8.GetString(LibraryObjects.ConfigFile.Hash(this.CurrentText.Text)) == DataFileSystem.IO.configFile.Password && this.NewText.Text == this.ConfirmNewText.Text)
+            if (Encoding.UTF8.GetString(LibraryObjects.ConfigFile.Hash(this.CurrentText.Text)) == DataFileSystem.IO.ConfigFile.Password && this.NewText.Text == this.ConfirmNewText.Text)
             {
                 this.ConfirmButton.Enabled = true;
             }
 
-            else this.ConfirmButton.Enabled = false;
+            else
+            {
+                this.ConfirmButton.Enabled = false;
+            }
         }
 
         private void CurrentText_Enter(object sender, EventArgs e)
@@ -96,7 +99,7 @@ namespace LibraryApplication.LibraryForms
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            DataFileSystem.IO.configFile.Password = this.NewText.Text;
+            DataFileSystem.IO.ConfigFile.Password = this.NewText.Text;
             DataFileSystem.IO.SaveConfig();
             MessageBox.Show("Changed the password successfully");
             this.Close();

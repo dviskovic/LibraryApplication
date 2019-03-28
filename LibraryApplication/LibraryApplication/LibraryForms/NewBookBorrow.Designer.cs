@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class NewBookBorrowForm
+    partial class NewBookBorrow
     {
         /// <summary>
         /// Required designer variable.
