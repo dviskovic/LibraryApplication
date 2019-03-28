@@ -19,6 +19,8 @@ namespace LibraryApplication.LibraryForms
 
         private string imagePath;
 
+        private bool recentlyRequestedNewAuthor = false;
+
         private bool DefaultImage
         {
             get
@@ -41,12 +43,13 @@ namespace LibraryApplication.LibraryForms
             this.CountBox.Text = book.Count.ToString();
             this.AvailableTextBox.Text = book.Available.ToString();
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            LibraryEvents.EventManager.OnAuthorListChanged += this.UpdateAuthorList;
+            LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => this.UpdateAuthorList(true));
             this.UpdateAuthorList();
         }
 
-        private void UpdateAuthorList()
+        private void UpdateAuthorList(bool selectLast = false)
         {
+            MessageBox.Show("Called");
             List<string> dataSource = new List<string> { "Select an Author", "--Add a New Author--" };
 
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList())
@@ -55,7 +58,11 @@ namespace LibraryApplication.LibraryForms
             }
 
             this.AuthorBox.DataSource = dataSource;
-            this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
+            if (selectLast && this.recentlyRequestedNewAuthor)
+            {
+                this.AuthorBox.SelectedIndex = dataSource.Count - 1;
+            }
+            //this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -107,6 +114,8 @@ namespace LibraryApplication.LibraryForms
             {
                 if (this.AuthorBox?.SelectedIndex == 1)
                 {
+                    this.recentlyRequestedNewAuthor = true;
+
                     if (this.form.CurrentAddNewAuthorForm != null)
                     {
                         this.form.CurrentAddNewAuthorForm.Focus();

@@ -28,7 +28,7 @@ namespace LibraryApplication.LibraryForms
             this.form = form;
             this.user = user;
             this.InitializeComponent();
-            this.Text = "Info about " + user.FullName;
+            this.Text = user.FullName;
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.imagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, user.ImageID);
             this.pictureBox1.Image = Image.FromFile(File.Exists(this.imagePath) ? this.imagePath : DataFileSystem.FileLocations.DefaultUserImagePath);

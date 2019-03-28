@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserBooks));
             this.AddNewBook = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -123,25 +124,30 @@
             // 
             this.From.HeaderText = "From";
             this.From.Name = "From";
+            this.From.ReadOnly = true;
             // 
             // To
             // 
             this.To.HeaderText = "To";
             this.To.Name = "To";
+            this.To.ReadOnly = true;
             // 
             // Late
             // 
             this.Late.HeaderText = "Late";
             this.Late.Name = "Late";
+            this.Late.ReadOnly = true;
             // 
-            // UserBooksForm
+            // UserBooks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.BookList);
             this.Controls.Add(this.groupBox1);
-            this.Name = "UserBooksForm";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "UserBooks";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserBooksForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserBooksForm_Closing);
             this.groupBox1.ResumeLayout(false);

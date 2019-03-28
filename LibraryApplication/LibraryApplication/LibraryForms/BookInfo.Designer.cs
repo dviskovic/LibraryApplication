@@ -210,6 +210,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BookInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BookInfoForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BookInfoForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

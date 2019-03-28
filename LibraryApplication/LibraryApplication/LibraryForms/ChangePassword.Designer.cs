@@ -102,7 +102,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChangePassword";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change Password";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangePasswordForm_Closing);
             this.ResumeLayout(false);

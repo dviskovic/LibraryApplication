@@ -174,6 +174,7 @@
             this.Controls.Add(this.Calendar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewBookBorrow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Book Borrow";
             this.ResumeLayout(false);
             this.PerformLayout();

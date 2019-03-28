@@ -11,8 +11,11 @@ namespace LibraryApplication.LibraryForms
     public partial class AddNewBook : Form
     {
         private Random random;
+
         private MainForm mainForm = null;
+
         private Author selectedAuthor = null;
+
         private string imagePath = string.Empty;
 
         private bool recentlyRequestedNewAuthor = false;
@@ -35,6 +38,7 @@ namespace LibraryApplication.LibraryForms
         private void UpdateAuthorList(bool selectLast = false)
         {
             List<string> dataSource = new List<string> { "Select an Author", "--Add a New Author--" };
+
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList())
             {
                 dataSource.Add(item);
@@ -60,8 +64,11 @@ namespace LibraryApplication.LibraryForms
                         this.mainForm.CurrentAddNewAuthorForm.Focus();
                     }
 
-                    this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthor(this.mainForm);
-                    this.mainForm.CurrentAddNewAuthorForm.Show();
+                    else
+                    {
+                        this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthor(this.mainForm);
+                        this.mainForm.CurrentAddNewAuthorForm.Show();
+                    }
                 }
 
                 else

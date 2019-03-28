@@ -71,7 +71,7 @@ namespace LibraryApplication
             // 
             this.RefreshButton.Location = new System.Drawing.Point(297, 31);
             this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(95, 21);
+            this.RefreshButton.Size = new System.Drawing.Size(98, 21);
             this.RefreshButton.TabIndex = 1;
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
@@ -109,23 +109,24 @@ namespace LibraryApplication
             // 
             // SearchLabel
             // 
+            this.SearchLabel.AutoSize = true;
             this.SearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchLabel.Location = new System.Drawing.Point(7, 32);
+            this.SearchLabel.Location = new System.Drawing.Point(12, 33);
             this.SearchLabel.Name = "SearchLabel";
-            this.SearchLabel.Size = new System.Drawing.Size(53, 20);
+            this.SearchLabel.Size = new System.Drawing.Size(51, 16);
             this.SearchLabel.TabIndex = 0;
             this.SearchLabel.Text = "Search";
             this.SearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(398, 32);
+            this.label2.Location = new System.Drawing.Point(405, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 20);
+            this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Type";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -252,7 +253,7 @@ namespace LibraryApplication
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 

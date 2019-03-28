@@ -131,6 +131,7 @@
             this.Controls.Add(this.SearchTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BookSearch";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Borrow a Book";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookBorrowForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.BookList)).EndInit();

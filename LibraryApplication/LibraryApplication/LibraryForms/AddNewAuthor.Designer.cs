@@ -95,7 +95,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "AddNewAuthor";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new author";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewAuthorForm_Closing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddNewAuthorForm_KeyDown);
