@@ -16,7 +16,7 @@ namespace LibraryApplication.LibraryObjects
 
         public string ISBN { get; set; }
 
-        public string ID { get; }
+        public string ID { get; set; }
 
         [JsonIgnore]
         public Author Author
