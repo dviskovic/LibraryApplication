@@ -47,7 +47,15 @@ namespace LibraryApplication.LibraryForms
             this.AuthorBox.DataSource = dataSource;
             if (selectLast && this.recentlyRequestedNewAuthor)
             {
-                this.AuthorBox.SelectedIndex = dataSource.Count - 1;
+                try
+                {
+                    this.AuthorBox.SelectedIndex = dataSource.Count - 1;
+                }
+                
+                catch (Exception)
+                {
+                    this.AuthorBox.SelectedIndex = dataSource.Count - 2;
+                }
             }
         }
 
@@ -103,6 +111,7 @@ namespace LibraryApplication.LibraryForms
 
             DataFileSystem.IO.DataFile.Books.Add(new Book
             {
+                ID = ID,
                 Count = int.Parse(this.CountBox.Text),
                 AuthorID = this.selectedAuthor.ID,
                 Name = this.NameBox.Text,

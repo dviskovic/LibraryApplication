@@ -62,6 +62,7 @@
             this.FirstName.Name = "FirstName";
             this.FirstName.Size = new System.Drawing.Size(171, 20);
             this.FirstName.TabIndex = 1;
+            this.FirstName.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // LastName
             // 
@@ -69,6 +70,7 @@
             this.LastName.Name = "LastName";
             this.LastName.Size = new System.Drawing.Size(171, 20);
             this.LastName.TabIndex = 2;
+            this.LastName.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // ChangeImageButton
             // 
@@ -134,6 +136,7 @@
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(171, 20);
             this.Email.TabIndex = 3;
+            this.Email.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // EmailLabel
             // 
@@ -150,6 +153,8 @@
             this.Phone.Name = "Phone";
             this.Phone.Size = new System.Drawing.Size(171, 20);
             this.Phone.TabIndex = 4;
+            this.Phone.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.Phone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Phone_KeyPress);
             // 
             // PhoneLabel
             // 
@@ -166,6 +171,7 @@
             this.Address.Name = "Address";
             this.Address.Size = new System.Drawing.Size(171, 20);
             this.Address.TabIndex = 5;
+            this.Address.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // AddressLabel
             // 

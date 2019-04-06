@@ -42,9 +42,11 @@ namespace LibraryApplication.LibraryForms
             this.NameBox.Text = book.Name;
             this.CountBox.Text = book.Count.ToString();
             this.AvailableTextBox.Text = book.Available.ToString();
+            this.ISBNTextBox.Text = book.ISBN;
             this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => this.UpdateAuthorList(true));
             this.UpdateAuthorList();
+            this.TextChangedEvent(null, null);
         }
 
         private void UpdateAuthorList(bool selectLast = false)
@@ -102,6 +104,8 @@ namespace LibraryApplication.LibraryForms
                 this.currentBook.AuthorID = this.selectedAuthor.ID;
             }
 
+            this.currentBook.ISBN = this.ISBNTextBox.Text;
+
             this.currentBook.ImageID = this.DefaultImage ? "default_book.png" : LibraryHelpers.ImageHelper.SaveImage(this.currentBook, this.imagePath);
             DataFileSystem.IO.SaveUserData();
             this.Close();
@@ -137,6 +141,8 @@ namespace LibraryApplication.LibraryForms
                     this.selectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
                 }
             }
+
+            this.TextChangedEvent(sender, e);
         }
 
         private void SelectImageButton_Click(object sender, EventArgs e)
@@ -148,6 +154,27 @@ namespace LibraryApplication.LibraryForms
             };
             fileBrowser.ShowDialog();
             this.pictureBox1.ImageLocation = this.imagePath = fileBrowser.FileName;
+        }
+
+        private void TextChangedEvent(object sender, EventArgs e)
+        {
+            this.SaveAndExit.Enabled = !string.IsNullOrEmpty(this.ISBNTextBox.Text) && !string.IsNullOrEmpty(this.AvailableTextBox.Text) && !string.IsNullOrEmpty(this.CountBox.Text) && !string.IsNullOrEmpty(this.NameBox.Text) && this.AuthorBox.SelectedIndex > 1;
+        }
+
+        private void CountBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ISBNTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

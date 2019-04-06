@@ -41,6 +41,8 @@
             this.CountLabel = new System.Windows.Forms.Label();
             this.AuthorLabel = new System.Windows.Forms.Label();
             this.AvailableTextBox = new System.Windows.Forms.TextBox();
+            this.ISBNLabel = new System.Windows.Forms.Label();
+            this.ISBNTextBox = new System.Windows.Forms.TextBox();
             this.AvailableLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 193);
+            this.pictureBox1.Size = new System.Drawing.Size(256, 203);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -60,7 +62,7 @@
             // 
             this.SelectImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SelectImageButton.Location = new System.Drawing.Point(12, 238);
+            this.SelectImageButton.Location = new System.Drawing.Point(12, 246);
             this.SelectImageButton.Name = "SelectImageButton";
             this.SelectImageButton.Size = new System.Drawing.Size(256, 23);
             this.SelectImageButton.TabIndex = 1;
@@ -72,26 +74,29 @@
             // 
             this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameBox.Location = new System.Drawing.Point(68, 267);
+            this.NameBox.Location = new System.Drawing.Point(68, 275);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(200, 20);
             this.NameBox.TabIndex = 2;
+            this.NameBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
             // 
             // CountBox
             // 
             this.CountBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CountBox.Location = new System.Drawing.Point(68, 293);
+            this.CountBox.Location = new System.Drawing.Point(68, 301);
             this.CountBox.Name = "CountBox";
             this.CountBox.Size = new System.Drawing.Size(200, 20);
             this.CountBox.TabIndex = 3;
+            this.CountBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.CountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CountBox_KeyPress);
             // 
             // AuthorBox
             // 
             this.AuthorBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AuthorBox.FormattingEnabled = true;
-            this.AuthorBox.Location = new System.Drawing.Point(68, 345);
+            this.AuthorBox.Location = new System.Drawing.Point(68, 379);
             this.AuthorBox.Name = "AuthorBox";
             this.AuthorBox.Size = new System.Drawing.Size(200, 21);
             this.AuthorBox.TabIndex = 5;
@@ -101,7 +106,7 @@
             // 
             this.SaveAndExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveAndExit.Location = new System.Drawing.Point(12, 372);
+            this.SaveAndExit.Location = new System.Drawing.Point(12, 406);
             this.SaveAndExit.Name = "SaveAndExit";
             this.SaveAndExit.Size = new System.Drawing.Size(256, 23);
             this.SaveAndExit.TabIndex = 6;
@@ -113,7 +118,7 @@
             // 
             this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CloseButton.Location = new System.Drawing.Point(13, 430);
+            this.CloseButton.Location = new System.Drawing.Point(13, 464);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(255, 23);
             this.CloseButton.TabIndex = 8;
@@ -125,7 +130,7 @@
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(13, 401);
+            this.DeleteButton.Location = new System.Drawing.Point(13, 435);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(255, 23);
             this.DeleteButton.TabIndex = 7;
@@ -138,7 +143,7 @@
             this.NameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(12, 270);
+            this.NameLabel.Location = new System.Drawing.Point(12, 278);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(35, 13);
             this.NameLabel.TabIndex = 10;
@@ -149,7 +154,7 @@
             this.CountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CountLabel.AutoSize = true;
-            this.CountLabel.Location = new System.Drawing.Point(12, 296);
+            this.CountLabel.Location = new System.Drawing.Point(12, 304);
             this.CountLabel.Name = "CountLabel";
             this.CountLabel.Size = new System.Drawing.Size(35, 13);
             this.CountLabel.TabIndex = 10;
@@ -160,7 +165,7 @@
             this.AuthorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AuthorLabel.AutoSize = true;
-            this.AuthorLabel.Location = new System.Drawing.Point(12, 348);
+            this.AuthorLabel.Location = new System.Drawing.Point(12, 382);
             this.AuthorLabel.Name = "AuthorLabel";
             this.AuthorLabel.Size = new System.Drawing.Size(38, 13);
             this.AuthorLabel.TabIndex = 10;
@@ -172,18 +177,42 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AvailableTextBox.Cursor = System.Windows.Forms.Cursors.No;
             this.AvailableTextBox.Enabled = false;
-            this.AvailableTextBox.Location = new System.Drawing.Point(68, 319);
+            this.AvailableTextBox.Location = new System.Drawing.Point(68, 327);
             this.AvailableTextBox.Name = "AvailableTextBox";
             this.AvailableTextBox.ReadOnly = true;
             this.AvailableTextBox.Size = new System.Drawing.Size(200, 20);
             this.AvailableTextBox.TabIndex = 4;
+            this.AvailableTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            // 
+            // ISBNLabel
+            // 
+            this.ISBNLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ISBNLabel.AutoSize = true;
+            this.ISBNLabel.Location = new System.Drawing.Point(12, 356);
+            this.ISBNLabel.Name = "ISBNLabel";
+            this.ISBNLabel.Size = new System.Drawing.Size(32, 13);
+            this.ISBNLabel.TabIndex = 10;
+            this.ISBNLabel.Text = "ISBN";
+            // 
+            // ISBNTextBox
+            // 
+            this.ISBNTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ISBNTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ISBNTextBox.Location = new System.Drawing.Point(68, 353);
+            this.ISBNTextBox.Name = "ISBNTextBox";
+            this.ISBNTextBox.Size = new System.Drawing.Size(200, 20);
+            this.ISBNTextBox.TabIndex = 4;
+            this.ISBNTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
+            this.ISBNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ISBNTextBox_KeyPress);
             // 
             // AvailableLabel
             // 
             this.AvailableLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AvailableLabel.AutoSize = true;
-            this.AvailableLabel.Location = new System.Drawing.Point(12, 322);
+            this.AvailableLabel.Location = new System.Drawing.Point(12, 330);
             this.AvailableLabel.Name = "AvailableLabel";
             this.AvailableLabel.Size = new System.Drawing.Size(50, 13);
             this.AvailableLabel.TabIndex = 10;
@@ -193,15 +222,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 466);
+            this.ClientSize = new System.Drawing.Size(280, 500);
             this.Controls.Add(this.AuthorLabel);
             this.Controls.Add(this.AvailableLabel);
+            this.Controls.Add(this.ISBNLabel);
             this.Controls.Add(this.CountLabel);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveAndExit);
             this.Controls.Add(this.AuthorBox);
+            this.Controls.Add(this.ISBNTextBox);
             this.Controls.Add(this.AvailableTextBox);
             this.Controls.Add(this.CountBox);
             this.Controls.Add(this.NameBox);
@@ -234,6 +265,8 @@
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Label AuthorLabel;
         private System.Windows.Forms.TextBox AvailableTextBox;
+        private System.Windows.Forms.Label ISBNLabel;
+        private System.Windows.Forms.TextBox ISBNTextBox;
         private System.Windows.Forms.Label AvailableLabel;
     }
 }

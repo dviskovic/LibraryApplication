@@ -109,5 +109,18 @@ namespace LibraryApplication.LibraryForms
                 pass.Focus();
             }
         }
+
+        private void TextChangedEvent(object sender, EventArgs e)
+        {
+            this.SaveAndExit.Enabled = !string.IsNullOrEmpty(this.FirstName.Text) && !string.IsNullOrEmpty(this.LastName.Text) && !string.IsNullOrEmpty(this.Address.Text) && !string.IsNullOrEmpty(this.Email.Text) && !string.IsNullOrEmpty(this.Phone.Text);
+        }
+
+        private void Phone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
