@@ -28,8 +28,6 @@ namespace LibraryApplication
 
         public MainForm()
         {
-            var t = StringHelper.RandomString();
-            MessageBox.Show(t);
             this.InitializeComponent();
             this.Shown += new EventHandler((o, e) => LibraryEvents.EventManager.OnStartupFinished());
             LibraryEvents.EventManager.OnDataFileChanged += new Action(this.UpdateList);

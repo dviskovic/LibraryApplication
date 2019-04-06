@@ -30,7 +30,6 @@ namespace LibraryApplication.LibraryForms
 
             DataFileSystem.IO.SaveUserData();
 
-            this.mainForm.Focus();
             this.Close();
         }
 

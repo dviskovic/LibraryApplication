@@ -63,7 +63,7 @@ namespace LibraryApplication.LibraryForms
                 this.AuthorBox.SelectedIndex = dataSource.Count - 1;
             }
 
-            this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
+            else this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
