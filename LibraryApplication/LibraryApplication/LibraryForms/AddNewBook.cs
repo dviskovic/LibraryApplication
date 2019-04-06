@@ -92,6 +92,15 @@ namespace LibraryApplication.LibraryForms
                 fileName = targetFileName;
             }
 
+            var ID = "";
+
+            do
+            {
+                ID = LibraryHelpers.StringHelper.RandomString();
+            }
+
+            while (DataFileSystem.IO.DataFile.Books.Select(x => x.ID).Contains(ID));
+
             DataFileSystem.IO.DataFile.Books.Add(new Book
             {
                 Count = int.Parse(this.CountBox.Text),

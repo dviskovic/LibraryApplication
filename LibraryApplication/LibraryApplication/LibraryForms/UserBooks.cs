@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using LibraryApplication.LibraryObjects;
 
@@ -31,8 +32,13 @@ namespace LibraryApplication.LibraryForms
             {
                 var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local));
                 var isLate = late.TotalMilliseconds > 0;
-                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Ceiling(book.BorrowedUntil.Subtract(book.BorrowedAt).TotalDays) + " day" + (Math.Ceiling(book.BorrowedUntil.Subtract(book.BorrowedAt).TotalDays) > 1 ? "s" : "") + " left)";
-                var ID = this.BookList.Rows.Add(book.Book.Name, book.Book.Author.FullName, book.Book.ISBN, TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedAt, TimeZoneInfo.Local), TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local), lateString);
+                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Abs(late.Days) + " day" + (Math.Abs(late.Days) > 1 ? "s" : "") + " left)";
+
+                Book b = DataFileSystem.IO.DataFile.Books.FirstOrDefault(x => x.ID == book.BookID);
+
+                if (b == null) MessageBox.Show("Null");
+
+                var ID = this.BookList.Rows.Add(b.Name, b.Author.FullName, b.ISBN, TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedAt, TimeZoneInfo.Local), TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local), lateString);
 
                 if (isLate)
                 {

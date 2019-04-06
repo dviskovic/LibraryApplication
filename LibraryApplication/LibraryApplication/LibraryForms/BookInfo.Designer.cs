@@ -63,7 +63,7 @@
             this.SelectImageButton.Location = new System.Drawing.Point(12, 238);
             this.SelectImageButton.Name = "SelectImageButton";
             this.SelectImageButton.Size = new System.Drawing.Size(256, 23);
-            this.SelectImageButton.TabIndex = 3;
+            this.SelectImageButton.TabIndex = 1;
             this.SelectImageButton.Text = "SelectImage";
             this.SelectImageButton.UseVisualStyleBackColor = true;
             this.SelectImageButton.Click += new System.EventHandler(this.SelectImageButton_Click);
@@ -75,7 +75,7 @@
             this.NameBox.Location = new System.Drawing.Point(68, 267);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(200, 20);
-            this.NameBox.TabIndex = 4;
+            this.NameBox.TabIndex = 2;
             // 
             // CountBox
             // 
@@ -84,7 +84,7 @@
             this.CountBox.Location = new System.Drawing.Point(68, 293);
             this.CountBox.Name = "CountBox";
             this.CountBox.Size = new System.Drawing.Size(200, 20);
-            this.CountBox.TabIndex = 5;
+            this.CountBox.TabIndex = 3;
             // 
             // AuthorBox
             // 
@@ -94,7 +94,7 @@
             this.AuthorBox.Location = new System.Drawing.Point(68, 345);
             this.AuthorBox.Name = "AuthorBox";
             this.AuthorBox.Size = new System.Drawing.Size(200, 21);
-            this.AuthorBox.TabIndex = 6;
+            this.AuthorBox.TabIndex = 5;
             this.AuthorBox.TextChanged += new System.EventHandler(this.AuthorBox_TextChanged);
             // 
             // SaveAndExit
@@ -104,7 +104,7 @@
             this.SaveAndExit.Location = new System.Drawing.Point(12, 372);
             this.SaveAndExit.Name = "SaveAndExit";
             this.SaveAndExit.Size = new System.Drawing.Size(256, 23);
-            this.SaveAndExit.TabIndex = 7;
+            this.SaveAndExit.TabIndex = 6;
             this.SaveAndExit.Text = "Save and close";
             this.SaveAndExit.UseVisualStyleBackColor = true;
             this.SaveAndExit.Click += new System.EventHandler(this.SaveAndExit_Click);
@@ -128,7 +128,7 @@
             this.DeleteButton.Location = new System.Drawing.Point(13, 401);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(255, 23);
-            this.DeleteButton.TabIndex = 9;
+            this.DeleteButton.TabIndex = 7;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
@@ -176,7 +176,7 @@
             this.AvailableTextBox.Name = "AvailableTextBox";
             this.AvailableTextBox.ReadOnly = true;
             this.AvailableTextBox.Size = new System.Drawing.Size(200, 20);
-            this.AvailableTextBox.TabIndex = 5;
+            this.AvailableTextBox.TabIndex = 4;
             // 
             // AvailableLabel
             // 
@@ -209,6 +209,7 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "BookInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BookInfoForm";

@@ -173,6 +173,7 @@
             this.Controls.Add(this.SinceTextBox);
             this.Controls.Add(this.Calendar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "NewBookBorrow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Book Borrow";

@@ -26,10 +26,11 @@ namespace LibraryApplication.LibraryForms
             this.Text = user.FullName + " - " + book.Name;
             this.UserTextBox.Text = user.FullName;
             this.BookTextBox.Text = book.Name;
-            this.borrowedBook = this.user.BorrowedBooks.FirstOrDefault(x => x.Book.Equals(this.book));
+            this.borrowedBook = this.user.BorrowedBooks.FirstOrDefault(x => x.BookID == this.book.ID);
 
             if (this.borrowedBook == null)
             {
+                MessageBox.Show("A");
                 return;
             }
             
@@ -37,7 +38,7 @@ namespace LibraryApplication.LibraryForms
             this.UntilTextBox.Text = TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local).ToString();
             var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local));
             var isLate = late.TotalMilliseconds > 0;
-            var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Ceiling(this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).TotalDays) + " day" + (Math.Ceiling(this.borrowedBook.BorrowedUntil.Subtract(this.borrowedBook.BorrowedAt).TotalDays) > 1 ? "s" : "") + " left)";
+            var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Abs(late.Days) + " day" + (Math.Abs(late.Days) > 1 ? "s" : "") + " day" + (Math.Abs(late.Days) > 1 ? "s" : "") + " left)";
             this.LateTextBox.Text = lateString;
         }
 

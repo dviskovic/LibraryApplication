@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class SetupPasword
+    partial class SetupPassword
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupPasword));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupPassword));
             this.Password = new System.Windows.Forms.TextBox();
             this.PasswordConfirm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,7 +85,7 @@
             this.ConfirmButton.UseVisualStyleBackColor = true;
             this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
-            // SetupPasword
+            // SetupPassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,7 +96,8 @@
             this.Controls.Add(this.Password);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SetupPasword";
+            this.MaximizeBox = false;
+            this.Name = "SetupPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password Setup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetupPasswordForm_Closing);

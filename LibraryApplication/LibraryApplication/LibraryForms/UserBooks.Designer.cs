@@ -48,7 +48,7 @@
             this.AddNewBook.Location = new System.Drawing.Point(6, 19);
             this.AddNewBook.Name = "AddNewBook";
             this.AddNewBook.Size = new System.Drawing.Size(104, 23);
-            this.AddNewBook.TabIndex = 1;
+            this.AddNewBook.TabIndex = 0;
             this.AddNewBook.Text = "Borrow a Book";
             this.AddNewBook.UseVisualStyleBackColor = true;
             this.AddNewBook.Click += new System.EventHandler(this.AddNewButton_Click);
@@ -70,7 +70,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 19);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(117, 82);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tools";
             // 
@@ -99,7 +99,7 @@
             this.BookList.RowHeadersVisible = false;
             this.BookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BookList.Size = new System.Drawing.Size(653, 414);
-            this.BookList.TabIndex = 11;
+            this.BookList.TabIndex = 1;
             this.BookList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BookList_CellDoubleClick);
             // 
             // ItemName
@@ -146,6 +146,7 @@
             this.Controls.Add(this.BookList);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "UserBooks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserBooksForm";

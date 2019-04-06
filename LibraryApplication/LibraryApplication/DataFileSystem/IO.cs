@@ -30,7 +30,7 @@ namespace LibraryApplication.DataFileSystem
 
             if (string.IsNullOrEmpty(ConfigFile.Password))
             {
-                var setup = new SetupPasword();
+                var setup = new SetupPassword();
                 LibraryEvents.EventManager.OnStartupFinished += new Action(() => setup.Show());
             }
 

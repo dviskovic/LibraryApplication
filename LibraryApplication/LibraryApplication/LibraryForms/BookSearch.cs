@@ -33,7 +33,7 @@ namespace LibraryApplication.LibraryForms
                 {
                     foreach (var book in DataFileSystem.IO.DataFile.Books.Where(x => x.Available != 0).ToList())
                     {
-                        if (this.currentUser.BorrowedBooks.Select(x => x.Book.Name).Contains(book.Name))
+                        if (this.currentUser.BorrowedBooks.Select(x => x.BookID).Contains(book.ID))
                         {
                             continue;
                         }
@@ -52,7 +52,7 @@ namespace LibraryApplication.LibraryForms
             {
                 foreach (var book in DataFileSystem.IO.DataFile.Books.Where(x => x.Available != 0).ToList())
                 {
-                    if (this.currentUser.BorrowedBooks.Select(x => x.Book.Name).Contains(book.Name))
+                    if (this.currentUser.BorrowedBooks.Select(x => x.BookID).Contains(book.ID))
                     {
                         continue;
                     }

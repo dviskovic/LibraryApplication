@@ -13,8 +13,8 @@ namespace LibraryApplication
     {
         public StartupForm StartupForm = null;
 
-        public Dictionary<User, LibraryForms.UserInfo> UserDictionary = new Dictionary<User, LibraryForms.UserInfo>();
-        public Dictionary<Book, LibraryForms.BookInfo> BookDictionary = new Dictionary<Book, LibraryForms.BookInfo>();
+        public Dictionary<User, UserInfo> UserDictionary = new Dictionary<User, UserInfo>();
+        public Dictionary<Book, BookInfo> BookDictionary = new Dictionary<Book, BookInfo>();
 
         public AddNewUser CurrentAddNewUserForm = null;
         public AddNewAuthor CurrentAddNewAuthorForm = null;
@@ -24,10 +24,12 @@ namespace LibraryApplication
         public ChangePassword CurrentChangePasswordForm = null;
 
         private string searchQuery = string.Empty;
-        private System.Windows.Forms.Timer lastSaveTimer = new System.Windows.Forms.Timer { Enabled = true, Interval = 1000 };
+        private Timer lastSaveTimer = new Timer { Enabled = true, Interval = 1000 };
 
         public MainForm()
         {
+            var t = StringHelper.RandomString();
+            MessageBox.Show(t);
             this.InitializeComponent();
             this.Shown += new EventHandler((o, e) => LibraryEvents.EventManager.OnStartupFinished());
             LibraryEvents.EventManager.OnDataFileChanged += new Action(this.UpdateList);

@@ -16,5 +16,19 @@ namespace LibraryApplication.LibraryHelpers
         {
             return int.TryParse(str, out int a);
         }
+
+        public static string RandomString()
+        {
+            var random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var str = "";
+
+            for (int i = 0; i < 6; i++)
+            {
+                str += chars[random.Next(chars.Length)];
+            }
+
+            return str;
+        }
     }
 }

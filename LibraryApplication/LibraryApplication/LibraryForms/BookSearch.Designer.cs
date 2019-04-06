@@ -130,6 +130,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SearchTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "BookSearch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Borrow a Book";

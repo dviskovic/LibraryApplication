@@ -51,7 +51,7 @@ namespace LibraryApplication.LibraryForms
         {
             this.user.BorrowedBooks.Add(new BorrowedBook
             {
-                Book = this.book,
+                BookID = this.book.ID,
                 BorrowedAt = TimeZoneInfo.ConvertTimeToUtc(this.now),
                 BorrowedUntil = TimeZoneInfo.ConvertTimeToUtc(this.toDate)
             });

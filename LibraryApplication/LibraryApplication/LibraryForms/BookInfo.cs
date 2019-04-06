@@ -49,20 +49,21 @@ namespace LibraryApplication.LibraryForms
 
         private void UpdateAuthorList(bool selectLast = false)
         {
-            MessageBox.Show("Called");
             List<string> dataSource = new List<string> { "Select an Author", "--Add a New Author--" };
 
             foreach (var item in DataFileSystem.IO.DataFile.Authors.Select(x => x.FirstName + " " + x.LastName).ToList())
             {
                 dataSource.Add(item);
             }
-
+            
             this.AuthorBox.DataSource = dataSource;
+
             if (selectLast && this.recentlyRequestedNewAuthor)
             {
                 this.AuthorBox.SelectedIndex = dataSource.Count - 1;
             }
-            //this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
+
+            this.AuthorBox.SelectedIndex = DataFileSystem.IO.DataFile.Authors.IndexOf(this.currentBook.Author) + 2;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)

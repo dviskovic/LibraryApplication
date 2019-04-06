@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class SetupPasword : Form
+    public partial class SetupPassword : Form
     {
         private const string PasswordText = "Password";
         private const string PasswordTextConfirm = "Confirm Password";
         private bool canClose = false;
 
-        public SetupPasword()
+        public SetupPassword()
         {
             this.InitializeComponent();
             this.ConfirmButton.Enabled = false;

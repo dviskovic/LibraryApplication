@@ -5,7 +5,7 @@ namespace LibraryApplication.LibraryObjects
 {
     public class BorrowedBook
     {
-        public Book Book { get; set; }
+        public string BookID { get; set; }
 
         public DateTime BorrowedAt { get; set; }
 

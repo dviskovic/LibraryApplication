@@ -16,6 +16,8 @@ namespace LibraryApplication.LibraryObjects
 
         public string ISBN { get; set; }
 
+        public string ID { get; }
+
         [JsonIgnore]
         public Author Author
         {
@@ -30,7 +32,7 @@ namespace LibraryApplication.LibraryObjects
         {
             get
             {
-                var borrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.Book.Name == this.Name && bborrow.Book == this));
+                var borrowedCount = DataFileSystem.IO.DataFile.Users.Count(x => x.BorrowedBooks.Any(bborrow => bborrow.BookID == this.ID));
                 return this.Count - borrowedCount;
             }
         }

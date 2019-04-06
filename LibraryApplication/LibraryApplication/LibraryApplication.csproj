@@ -101,11 +101,11 @@
     <Compile Include="LibraryForms\SetUpLateFee.Designer.cs">
       <DependentUpon>SetUpLateFee.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\SetupPasword.cs">
+    <Compile Include="LibraryForms\SetupPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\SetupPasword.Designer.cs">
-      <DependentUpon>SetupPasword.cs</DependentUpon>
+    <Compile Include="LibraryForms\SetupPassword.Designer.cs">
+      <DependentUpon>SetupPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryForms\UserBooks.cs">
       <SubType>Form</SubType>
@@ -214,8 +214,8 @@
     <EmbeddedResource Include="LibraryForms\SetUpLateFee.resx">
       <DependentUpon>SetUpLateFee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\SetupPasword.resx">
-      <DependentUpon>SetupPasword.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\SetupPassword.resx">
+      <DependentUpon>SetupPassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\StartupForm.resx">
