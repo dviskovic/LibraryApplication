@@ -26,9 +26,7 @@ namespace LibraryApplication.LibraryObjects
 
         public enum Types
         {
-            Book,
-            User,
-            All
+            Book, User, All
         }
 
         public static Types ParseFromString(string input)

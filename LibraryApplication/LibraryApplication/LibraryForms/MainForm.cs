@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using LibraryApplication.LibraryForms;
 using LibraryApplication.LibraryHelpers;
 using LibraryApplication.LibraryObjects;
 
-namespace LibraryApplication
+namespace LibraryApplication.LibraryForms
 {
     public partial class MainForm : Form
     {

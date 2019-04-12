@@ -138,7 +138,7 @@ namespace LibraryApplication.DataFileSystem
 
             if (!File.Exists(Path.Combine(FileLocations.DatabasePath, FileName)))
             {
-                throw new FileNotFoundException("File does not exist on saving!", FileName);
+                CreateNewDataFile();
             }
 
             if (File.Exists(Path.Combine(FileLocations.DatabasePath, FileName) + "2"))
