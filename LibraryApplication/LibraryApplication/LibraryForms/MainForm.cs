@@ -285,7 +285,7 @@ namespace LibraryApplication.LibraryForms
                 {
                     var confirm = new PasswordForm(() => 
                     {
-                        DataFileSystem.IO.Wipe();
+                        DataFileSystem.IO.CreateNewDataFile();
                         MessageBox.Show("All user data has been deleted");
                     });
                     confirm.Show();

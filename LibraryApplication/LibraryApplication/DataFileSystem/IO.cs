@@ -178,16 +178,10 @@ namespace LibraryApplication.DataFileSystem
             }
         }
 
-        public static void Wipe()
-        {
-            DataFile = new DataFile();
-            SaveUserData();
-        }
-
-        private static void CreateNewDataFile()
+        public static void CreateNewDataFile()
         {
             IO.DataFile = new DataFile();
-            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
+            SaveUserData();
         }
 
         private static bool LoadFromFile(string path)

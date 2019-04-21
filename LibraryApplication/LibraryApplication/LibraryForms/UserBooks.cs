@@ -26,6 +26,7 @@ namespace LibraryApplication.LibraryForms
 
         public void UpdateList()
         {
+            if (this.BookList.IsDisposed || this.BookList.Disposing) return;
             this.BookList.Rows.Clear();
 
             foreach (var book in this.user.BorrowedBooks)

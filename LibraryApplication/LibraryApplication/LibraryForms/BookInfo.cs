@@ -34,7 +34,7 @@ namespace LibraryApplication.LibraryForms
             this.InitializeComponent();
             this.currentBook = book;
             this.form = form;
-            this.Text = "Info about \"" + this.currentBook.Name + "\"";
+            this.Text = "\"" + this.currentBook.Name + "\"";
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.imagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, book.ImageID); 
             this.pictureBox1.Image = this.pictureBox1.Image = Image.FromFile(File.Exists(this.imagePath) ? this.imagePath : DataFileSystem.FileLocations.DefaultBookImagePath);
