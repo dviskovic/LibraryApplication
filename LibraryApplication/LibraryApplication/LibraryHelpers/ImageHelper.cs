@@ -7,8 +7,6 @@ namespace LibraryApplication.LibraryHelpers
 {
     public class ImageHelper
     {
-        private static Random random = new Random();
-
         public static byte[] ConvertToByteArray(Image image)
         {
             var stream = new MemoryStream();
@@ -23,6 +21,7 @@ namespace LibraryApplication.LibraryHelpers
                 return string.Empty;
             }
 
+            Random random = new Random();
             string targetFileName = user.FirstName + "_" + user.LastName + random.Next().ToString() + Path.GetExtension(path);
             string destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, targetFileName);
             File.Copy(path, destination);
@@ -36,6 +35,7 @@ namespace LibraryApplication.LibraryHelpers
                 return string.Empty;
             }
 
+            Random random = new Random();
             string targetFileName = book.Name + random.Next().ToString() + Path.GetExtension(path);
             string destination = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, targetFileName);
             File.Copy(path, destination);

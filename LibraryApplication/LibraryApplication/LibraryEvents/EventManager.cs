@@ -4,7 +4,7 @@ namespace LibraryApplication.LibraryEvents
 {
     public class EventManager
     {
-        public static Action OnDataFileChanged { get; set; }
+        public static Action OnDataFileChanged { get; set; } = new Action(() => { });
 
         public static Action OnAuthorListChanged { get; set; } = new Action(() => { });
 
