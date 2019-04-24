@@ -50,8 +50,6 @@ namespace LibraryApplication.LibraryForms
             this.deleteAllDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeDataLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aSSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LastSaveTimeLabel = new System.Windows.Forms.Label();
             this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -75,7 +73,7 @@ namespace LibraryApplication.LibraryForms
             this.RefreshButton.TabIndex = 1;
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
-            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Clicked);
+            this.RefreshButton.Click += new System.EventHandler(this.SearchTypeBox_TextChanged);
             // 
             // button1
             // 
@@ -105,7 +103,7 @@ namespace LibraryApplication.LibraryForms
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(225, 20);
             this.SearchBox.TabIndex = 0;
-            this.SearchBox.TextChanged += new System.EventHandler(this.SearchQueryChanged);
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchTypeBox_TextChanged);
             // 
             // SearchLabel
             // 
@@ -120,7 +118,7 @@ namespace LibraryApplication.LibraryForms
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -134,6 +132,7 @@ namespace LibraryApplication.LibraryForms
             // SearchTypeBox
             // 
             this.SearchTypeBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SearchTypeBox.FormattingEnabled = true;
             this.SearchTypeBox.Location = new System.Drawing.Point(447, 31);
             this.SearchTypeBox.Name = "SearchTypeBox";
@@ -157,8 +156,7 @@ namespace LibraryApplication.LibraryForms
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assToolStripMenuItem,
-            this.weToolStripMenuItem,
-            this.aSSToolStripMenuItem1});
+            this.weToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 476);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -183,7 +181,7 @@ namespace LibraryApplication.LibraryForms
             this.addNewBookToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.addNewBookToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewBookToolStripMenuItem.Text = "Add new Book";
-            this.addNewBookToolStripMenuItem.Click += new System.EventHandler(this.AddNewBookToolStripMenuItem_Click);
+            this.addNewBookToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewBookButton_Clicked(o, e));
             // 
             // addNewUserToolStripMenuItem
             // 
@@ -191,16 +189,16 @@ namespace LibraryApplication.LibraryForms
             this.addNewUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.addNewUserToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewUserToolStripMenuItem.Text = "Add new User";
-            this.addNewUserToolStripMenuItem.Click += new System.EventHandler(this.AddNewUserToolStripMenuItem_Click);
+            this.addNewUserToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewUserButton_Clicked(o, e));
             // 
             // addNewAuthorToolStripMenuItem
             // 
             this.addNewAuthorToolStripMenuItem.Name = "addNewAuthorToolStripMenuItem";
-            this.addNewAuthorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.addNewAuthorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.A)));
             this.addNewAuthorToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewAuthorToolStripMenuItem.Text = "Add new Author";
-            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler(this.AddNewAuthorToolStripMenuItem_Click);
+            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewAuthorButton_Clicked(o, e));
             // 
             // changePasswordToolStripMenuItem
             // 
@@ -239,23 +237,7 @@ namespace LibraryApplication.LibraryForms
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
-            // 
-            // aSSToolStripMenuItem1
-            // 
-            this.aSSToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.aSSToolStripMenuItem1.Name = "aSSToolStripMenuItem1";
-            this.aSSToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
-            this.aSSToolStripMenuItem1.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler((o, e) => DataFileSystem.IO.SaveUserData());
             // 
             // LastSaveTimeLabel
             // 
@@ -278,11 +260,11 @@ namespace LibraryApplication.LibraryForms
             this.ShowAllCheckBox.TabIndex = 8;
             this.ShowAllCheckBox.Text = "Show all if no search query";
             this.ShowAllCheckBox.UseVisualStyleBackColor = true;
-            this.ShowAllCheckBox.CheckedChanged += new System.EventHandler(this.ShowAllCheckBox_CheckChanged);
+            this.ShowAllCheckBox.CheckedChanged += new System.EventHandler(this.SearchTypeBox_TextChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -296,8 +278,8 @@ namespace LibraryApplication.LibraryForms
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.ResultList);
             this.groupBox2.Controls.Add(this.SearchLabel);
@@ -318,8 +300,8 @@ namespace LibraryApplication.LibraryForms
             this.ResultList.AllowUserToAddRows = false;
             this.ResultList.AllowUserToDeleteRows = false;
             this.ResultList.AllowUserToResizeRows = false;
-            this.ResultList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.ResultList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ResultList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ResultList.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -403,10 +385,8 @@ namespace LibraryApplication.LibraryForms
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem assToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem weToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aSSToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteAllDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label LastSaveTimeLabel;
         private System.Windows.Forms.ToolStripMenuItem addNewBookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewUserToolStripMenuItem;

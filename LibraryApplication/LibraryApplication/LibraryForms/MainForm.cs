@@ -19,7 +19,6 @@ namespace LibraryApplication.LibraryForms
         public AddNewAuthor CurrentAddNewAuthorForm = null;
         public AddNewBook CurrentAddNewBookForm = null;
         public ListViewItem SelectedItem = null;
-        public About CurrentAboutForm = null;
         public ChangePassword CurrentChangePasswordForm = null;
 
         private string searchQuery = string.Empty;
@@ -31,8 +30,7 @@ namespace LibraryApplication.LibraryForms
             this.Shown += new EventHandler((o, e) => LibraryEvents.EventManager.OnStartupFinished());
             LibraryEvents.EventManager.OnDataFileChanged += new Action(this.UpdateList);
             this.lastSaveTimer.Tick += new EventHandler(this.RefreshLastTime);
-            this.lastSaveTimer.Start(); 
-            this.SearchTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.lastSaveTimer.Start();
             this.SearchTypeBox.DataSource = SearchResult.StringArray();
 
             var doubleBuffer = typeof(DataGridView).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -43,7 +41,7 @@ namespace LibraryApplication.LibraryForms
         private void RefreshLastTime(object o, EventArgs e)
         {
             TimeSpan timeSpanSinceSave = LibraryHelpers.Data.TimeSinceLastSave();
-            this.LastSaveTimeLabel.Text = "Last Save: " + LibraryHelpers.Data.GetReadableTimeFromTimeSpan(timeSpanSinceSave);
+            this.LastSaveTimeLabel.Text = "Last Save: " + Data.GetReadableTimeFromTimeSpan(timeSpanSinceSave);
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs e)
@@ -89,33 +87,6 @@ namespace LibraryApplication.LibraryForms
 
             this.CurrentAddNewBookForm = new AddNewBook(this);
             this.CurrentAddNewBookForm.Show();
-        }
-
-        private void SearchQueryChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(SearchBox.Text))
-            {
-                if (!this.ShowAllCheckBox.Checked)
-                {
-                    this.ClearSearchBox();
-                }
-
-                else
-                {
-                    this.ShowResults(true);
-                }
-            }
-
-            else
-            {
-                this.searchQuery = SearchBox.Text.ToLower();
-                this.UpdateList();
-            }
-        }
-
-        private void ClearSearchBox()
-        {
-            this.ResultList.Rows.Clear();
         }
 
         private void ShowResults(bool all)
@@ -207,7 +178,7 @@ namespace LibraryApplication.LibraryForms
             {
                 if (!this.ShowAllCheckBox.Checked)
                 {
-                    this.ClearSearchBox();
+                    this.ResultList.Rows.Clear();
                     return;
                 }
 
@@ -218,6 +189,7 @@ namespace LibraryApplication.LibraryForms
                 }
             }
 
+            this.searchQuery = SearchBox.Text.ToLower();
             this.ShowResults(false);
         }
 
@@ -263,11 +235,6 @@ namespace LibraryApplication.LibraryForms
             }
         }
 
-        private void RefreshButton_Clicked(object sender, EventArgs e)
-        {
-            this.UpdateList();
-        }
-
         private void SearchTypeBox_TextChanged(object sender, EventArgs e)
         {
             this.UpdateList();
@@ -279,55 +246,13 @@ namespace LibraryApplication.LibraryForms
 
             if (dialog == DialogResult.Yes)
             {
-                var dialog2 = MessageBox.Show("Are you REALLY sure you want to delete all data?", "Warning", MessageBoxButtons.YesNo);
-
-                if (dialog2 == DialogResult.Yes)
+                var confirm = new PasswordForm(() =>
                 {
-                    var confirm = new PasswordForm(() => 
-                    {
-                        DataFileSystem.IO.CreateNewDataFile();
-                        MessageBox.Show("All user data has been deleted");
-                    });
-                    confirm.Show();
-                }
+                    DataFileSystem.IO.CreateNewDataFile();
+                    MessageBox.Show("All user data has been deleted");
+                });
+                confirm.Show();
             }
-        }
-
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DataFileSystem.IO.SaveUserData();
-        }
-
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.CurrentAboutForm != null)
-            {
-                this.CurrentAboutForm.Focus();
-                return;
-            }
-
-            this.CurrentAboutForm = new About(this);
-            this.CurrentAboutForm.Show();
-        }
-
-        private void AddNewBookToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.AddNewBookButton_Clicked(sender, e);
-        }
-
-        private void AddNewUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.AddNewUserButton_Clicked(sender, e);
-        }
-
-        private void AddNewAuthorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.AddNewAuthorButton_Clicked(sender, e);
-        }
-
-        private void ShowAllCheckBox_CheckChanged(object sender, EventArgs e)
-        {
-            this.UpdateList();
         }
 
         private void ChangeDataLocationToolStripMenuItem_Click(object sender, EventArgs e)
