@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class BorrowedBookInfo
+    partial class ReturnBookForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BorrowedBookInfo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReturnBookForm));
             this.ReturnButton = new System.Windows.Forms.Button();
             this.LateTextBox = new System.Windows.Forms.TextBox();
             this.LateLabel = new System.Windows.Forms.Label();
@@ -147,13 +147,17 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.ErrorImage = global::LibraryApplication.Properties.Resources.defaultBook;
+            this.pictureBox1.Image = global::LibraryApplication.Properties.Resources.defaultBook;
+            this.pictureBox1.InitialImage = global::LibraryApplication.Properties.Resources.defaultBook;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(255, 193);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // BorrowedBookInfo
+            // ReturnBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -173,9 +177,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "BorrowedBookInfo";
+            this.Name = "ReturnBookForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BorrowedBookInfo";
+            this.Text = "ReturnBookForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

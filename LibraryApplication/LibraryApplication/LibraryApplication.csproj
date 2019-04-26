@@ -71,11 +71,11 @@
     <Compile Include="LibraryForms\BookInfo.Designer.cs">
       <DependentUpon>BookInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryForms\BorrowedBookInfo.cs">
+    <Compile Include="LibraryForms\ReturnBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryForms\BorrowedBookInfo.Designer.cs">
-      <DependentUpon>BorrowedBookInfo.cs</DependentUpon>
+    <Compile Include="LibraryForms\ReturnBookForm.Designer.cs">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryForms\ChangePassword.cs">
       <SubType>Form</SubType>
@@ -182,8 +182,8 @@
       <DependentUpon>BookInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryForms\BorrowedBookInfo.resx">
-      <DependentUpon>BorrowedBookInfo.cs</DependentUpon>
+    <EmbeddedResource Include="LibraryForms\ReturnBookForm.resx">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForms\ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>

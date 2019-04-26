@@ -128,6 +128,7 @@
             // 
             // BorrowButton
             // 
+            this.BorrowButton.Enabled = false;
             this.BorrowButton.Location = new System.Drawing.Point(12, 339);
             this.BorrowButton.Name = "BorrowButton";
             this.BorrowButton.Size = new System.Drawing.Size(227, 23);

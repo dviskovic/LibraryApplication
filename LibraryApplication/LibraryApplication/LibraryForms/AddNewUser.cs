@@ -8,18 +8,14 @@ namespace LibraryApplication.LibraryForms
 {
     public partial class AddNewUser : Form
     {
-        private Random random;
+        private Random random = new Random();
         private MainForm mainForm = null;
         private string imagePath = string.Empty;
 
         public AddNewUser(MainForm mainForm)
         {
-            this.random = new Random();
             this.mainForm = mainForm;
             this.InitializeComponent();
-            this.AddButton.Enabled = false;
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultUserImagePath;
         }
 
         private void TextChangedEvent(object o, EventArgs e)
@@ -64,20 +60,6 @@ namespace LibraryApplication.LibraryForms
             };
             fileBrowser.ShowDialog();
             this.pictureBox1.ImageLocation = this.imagePath = fileBrowser.FileName;
-        }
-
-        private void AddNewUserForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.mainForm.CurrentAddNewUserForm = null;
-                this.Close();
-            }
-        }
-
-        private void AddNewUserForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.mainForm.CurrentAddNewUserForm = null;
         }
 
         private void PhoneTextBox_KeyPress(object sender, KeyPressEventArgs e)

@@ -54,6 +54,7 @@
             // 
             // FinishButton
             // 
+            this.FinishButton.Enabled = false;
             this.FinishButton.Location = new System.Drawing.Point(12, 103);
             this.FinishButton.Name = "FinishButton";
             this.FinishButton.Size = new System.Drawing.Size(265, 23);
@@ -67,6 +68,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(289, 138);
+            this.ControlBox = false;
             this.Controls.Add(this.FinishButton);
             this.Controls.Add(this.FeeTextBox);
             this.Controls.Add(this.FeeLabel);

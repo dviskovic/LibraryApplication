@@ -63,6 +63,7 @@
             // 
             // AddNewBookButton
             // 
+            this.AddNewBookButton.Enabled = false;
             this.AddNewBookButton.Location = new System.Drawing.Point(12, 342);
             this.AddNewBookButton.Name = "AddNewBookButton";
             this.AddNewBookButton.Size = new System.Drawing.Size(256, 23);
@@ -73,14 +74,18 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::LibraryApplication.Properties.Resources.defaultBook;
+            this.pictureBox1.InitialImage = global::LibraryApplication.Properties.Resources.defaultBook;
             this.pictureBox1.Location = new System.Drawing.Point(12, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(256, 185);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // AuthorBox
             // 
+            this.AuthorBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AuthorBox.FormattingEnabled = true;
             this.AuthorBox.Location = new System.Drawing.Point(58, 315);
             this.AuthorBox.Name = "AuthorBox";
@@ -167,7 +172,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new book";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookForm_Closing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddNewBookForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

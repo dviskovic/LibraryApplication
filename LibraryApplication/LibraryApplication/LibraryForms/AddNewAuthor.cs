@@ -13,8 +13,6 @@ namespace LibraryApplication.LibraryForms
         {
             this.mainForm = mainForm;
             this.InitializeComponent();
-            this.AddNewAuthorButton.Enabled = false;
-            this.Focus();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -38,26 +36,9 @@ namespace LibraryApplication.LibraryForms
             this.AddNewAuthorButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty;
         }
 
-        private void AddNewAuthorForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.mainForm.CurrentAddNewAuthorForm = null;
-                this.Close();
-            }
-        }
-
         private void AddNewAuthorForm_Closing(object sender, FormClosingEventArgs e)
         {
             this.mainForm.CurrentAddNewAuthorForm = null;
-        }
-
-        private void LastNameTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return && this.AddNewAuthorButton.Enabled)
-            {
-                this.AddButton_Click(null, null);
-            }
         }
     }
 }

@@ -38,6 +38,7 @@
             // PasswordInputTextBox
             // 
             this.PasswordInputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PasswordInputTextBox.Enabled = false;
             this.PasswordInputTextBox.Location = new System.Drawing.Point(12, 231);
             this.PasswordInputTextBox.Name = "PasswordInputTextBox";
             this.PasswordInputTextBox.Size = new System.Drawing.Size(205, 20);
@@ -88,6 +89,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(229, 315);
+            this.ControlBox = false;
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ConfirmButton);
             this.Controls.Add(this.label1);

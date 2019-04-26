@@ -15,7 +15,6 @@ namespace LibraryApplication.LibraryForms
         {
             this.Action = action;
             this.InitializeComponent();
-            this.ConfirmButton.Enabled = false;
         }
 
         private void PasswordBox_TextChanged(object sender, EventArgs e)

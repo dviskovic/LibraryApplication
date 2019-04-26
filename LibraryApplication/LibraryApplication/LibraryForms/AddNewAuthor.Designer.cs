@@ -51,10 +51,10 @@
             this.LastNameTextBox.Size = new System.Drawing.Size(197, 20);
             this.LastNameTextBox.TabIndex = 1;
             this.LastNameTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.LastNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LastNameTextBox_KeyDown);
             // 
             // AddNewAuthorButton
             // 
+            this.AddNewAuthorButton.Enabled = false;
             this.AddNewAuthorButton.Location = new System.Drawing.Point(13, 66);
             this.AddNewAuthorButton.Name = "AddNewAuthorButton";
             this.AddNewAuthorButton.Size = new System.Drawing.Size(255, 23);
@@ -99,7 +99,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new author";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewAuthorForm_Closing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddNewAuthorForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

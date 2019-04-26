@@ -7,20 +7,19 @@ using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class BorrowedBookInfo : Form
+    public partial class ReturnBookForm : Form
     {
         private User user;
         private Book book;
         private UserBooks userBooksForm;
         private BorrowedBook borrowedBook;
 
-        public BorrowedBookInfo(User user, Book book, UserBooks userBooksForm)
+        public ReturnBookForm(User user, Book book, UserBooks userBooksForm)
         {
             this.InitializeComponent();
             this.user = user;
             this.userBooksForm = userBooksForm;
             this.book = book;
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             var imagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, book.ImageID);
             this.pictureBox1.Image = Image.FromFile(File.Exists(imagePath) ? imagePath : DataFileSystem.FileLocations.DefaultBookImagePath);
             this.Text = user.FullName + " - " + book.Name;
@@ -28,12 +27,8 @@ namespace LibraryApplication.LibraryForms
             this.BookTextBox.Text = book.Name;
             this.borrowedBook = this.user.BorrowedBooks.FirstOrDefault(x => x.BookID == this.book.ID);
 
-            if (this.borrowedBook == null)
-            {
-                MessageBox.Show("A");
-                return;
-            }
-            
+            if (this.borrowedBook == null) return;
+
             this.AtTextBox.Text = TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedAt, TimeZoneInfo.Local).ToString();
             this.UntilTextBox.Text = TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local).ToString();
             var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(this.borrowedBook.BorrowedUntil, TimeZoneInfo.Local));

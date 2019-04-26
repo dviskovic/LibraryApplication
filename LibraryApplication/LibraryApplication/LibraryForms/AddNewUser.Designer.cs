@@ -63,6 +63,7 @@
             // 
             // AddButton
             // 
+            this.AddButton.Enabled = false;
             this.AddButton.Location = new System.Drawing.Point(12, 396);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(256, 22);
@@ -83,9 +84,13 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.ErrorImage = global::LibraryApplication.Properties.Resources.defaultUser;
+            this.pictureBox1.Image = global::LibraryApplication.Properties.Resources.defaultUser;
+            this.pictureBox1.InitialImage = global::LibraryApplication.Properties.Resources.defaultUser;
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(255, 219);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -184,8 +189,7 @@
             this.Name = "AddNewUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new user";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewUserForm_Closing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddNewUserForm_KeyDown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler((o, e) => this.mainForm.CurrentAddNewUserForm = null);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

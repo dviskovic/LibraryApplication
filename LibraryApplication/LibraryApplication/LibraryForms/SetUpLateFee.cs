@@ -16,7 +16,6 @@ namespace LibraryApplication.LibraryForms
         public SetUpLateFee()
         {
             this.InitializeComponent();
-            this.FinishButton.Enabled = false;
         }
 
         private void FinishButton_Click(object sender, EventArgs e)

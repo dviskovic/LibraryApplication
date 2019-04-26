@@ -10,7 +10,7 @@ namespace LibraryApplication.LibraryForms
 {
     public partial class AddNewBook : Form
     {
-        private Random random;
+        private Random random = new Random();
 
         private MainForm mainForm = null;
 
@@ -24,13 +24,7 @@ namespace LibraryApplication.LibraryForms
         {
             this.InitializeComponent();
             this.Focus();
-            this.random = new Random();
             this.mainForm = mainForm;
-            this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.AddNewBookButton.Enabled = false;
-
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            this.pictureBox1.ImageLocation = DataFileSystem.FileLocations.DefaultBookImagePath;
             LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => this.UpdateAuthorList(true));
             this.UpdateAuthorList();   
         }
@@ -60,33 +54,33 @@ namespace LibraryApplication.LibraryForms
         }
 
         private void TextChangedEvent(object o, EventArgs e)
-        {
-            if (this.AuthorBox?.SelectedIndex > 0)
             {
-                if (this.AuthorBox?.SelectedIndex == 1)
+                if (this.AuthorBox?.SelectedIndex > 0)
                 {
-                    this.recentlyRequestedNewAuthor = true;
-
-                    if (this.mainForm.CurrentAddNewAuthorForm != null)
+                    if (this.AuthorBox?.SelectedIndex == 1)
                     {
-                        this.mainForm.CurrentAddNewAuthorForm.Focus();
+                        this.recentlyRequestedNewAuthor = true;
+
+                        if (this.mainForm.CurrentAddNewAuthorForm != null)
+                        {
+                            this.mainForm.CurrentAddNewAuthorForm.Focus();
+                        }
+
+                        else
+                        {
+                            this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthor(this.mainForm);
+                            this.mainForm.CurrentAddNewAuthorForm.Show();
+                        }
                     }
 
                     else
                     {
-                        this.mainForm.CurrentAddNewAuthorForm = new AddNewAuthor(this.mainForm);
-                        this.mainForm.CurrentAddNewAuthorForm.Show();
+                        this.selectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
                     }
                 }
 
-                else
-                {
-                    this.selectedAuthor = DataFileSystem.IO.DataFile.Authors[this.AuthorBox.SelectedIndex - 2];
-                }
+                this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.AuthorBox.SelectedIndex > 1 && this.ISBNTextBox.Text != string.Empty;
             }
-
-            this.AddNewBookButton.Enabled = this.CountBox.Text != string.Empty && this.NameBox.Text != string.Empty && this.AuthorBox.SelectedIndex > 1 && this.ISBNTextBox.Text != string.Empty;
-        }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -130,7 +124,7 @@ namespace LibraryApplication.LibraryForms
             var fileBrowser = new OpenFileDialog
             {
                 Title = "Select an image",
-                Filter = "Image Files|*.jpg;*.png;*.jpeg;*.png;..."
+                Filter = "Image Files|*.jpg;*.png;*.jpeg;..."
             };
             fileBrowser.ShowDialog();
             this.pictureBox1.ImageLocation = this.imagePath = fileBrowser.FileName;
@@ -141,15 +135,6 @@ namespace LibraryApplication.LibraryForms
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void AddNewBookForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.mainForm.CurrentAddNewBookForm = null;
-                this.Close();
             }
         }
 

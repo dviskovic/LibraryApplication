@@ -92,7 +92,7 @@ namespace LibraryApplication.LibraryForms
 
                     if (item is Book book)
                     {
-                        var form = new BorrowedBookInfo(this.user, item, this);
+                        var form = new ReturnBookForm(this.user, item, this);
                         form.Show();
                         return;
                     }

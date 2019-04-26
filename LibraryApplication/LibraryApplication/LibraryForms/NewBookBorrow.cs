@@ -24,7 +24,6 @@ namespace LibraryApplication.LibraryForms
 
             this.InitializeComponent();
 
-            this.BorrowButton.Enabled = false;
             this.BookNameTextBox.Text = this.book.Name;
             this.UserNameTextBox.Text = this.user.FullName;
             this.SinceTextBox.Text = this.now.ToString();
