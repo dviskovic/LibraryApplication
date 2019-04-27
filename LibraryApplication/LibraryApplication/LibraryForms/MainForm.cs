@@ -75,6 +75,7 @@ namespace LibraryApplication.LibraryForms
             {
                 this.CurrentAddNewAuthorForm = new AddNewAuthor(this);
                 this.CurrentAddNewAuthorForm.Show();
+                this.CurrentAddNewAuthorForm.FormClosing += new FormClosingEventHandler((o2, e2) => this.CurrentAddNewAuthorForm = null);
             }
         }
 
@@ -88,6 +89,7 @@ namespace LibraryApplication.LibraryForms
 
             this.CurrentAddNewBookForm = new AddNewBook(this);
             this.CurrentAddNewBookForm.Show();
+            this.CurrentAddNewBookForm.FormClosing += new FormClosingEventHandler((o2, e2) => this.CurrentAddNewBookForm = null);
         }
 
         private void ShowResults(bool all)
@@ -229,9 +231,15 @@ namespace LibraryApplication.LibraryForms
 
                 else
                 {
-                    var form2 = new LibraryForms.UserInfo(user, this);
+                    var form2 = new LibraryForms.UserInfo(user);
                     form2.Show();
                     this.UserDictionary.Add(user, form2);
+                    form2.FormClosing += new FormClosingEventHandler((o2, e2) => {
+                        if (this.UserDictionary.ContainsKey(user))
+                        {
+                            this.UserDictionary.Remove(user);
+                        }
+                    });
                 }
             }
         }

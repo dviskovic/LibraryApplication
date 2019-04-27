@@ -10,29 +10,22 @@ namespace LibraryApplication.LibraryForms
     {
         public UserBooks UserBooks;
 
-        private MainForm form;
         private User user;
 
         private bool DefaultImage
         {
-            get
-            {
-                return Path.GetFileName(this.imagePath) == "default_user.png";
-            }
+            get { return Path.GetFileName(this.imagePath) == "default_user.png"; }
         }
 
         private string imagePath = string.Empty;
 
-        public UserInfo(User user, MainForm form)
+        public UserInfo(User user)
         {
-            this.form = form;
             this.user = user;
             this.InitializeComponent();
             this.Text = user.FullName;
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.imagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, user.ImageID);
             this.pictureBox1.Image = Image.FromFile(File.Exists(this.imagePath) ? this.imagePath : DataFileSystem.FileLocations.DefaultUserImagePath);
-            this.pictureBox1.Refresh();
             this.FirstName.Text = user.FirstName;
             this.LastName.Text = user.LastName;
             this.Email.Text = user.Email;
@@ -54,7 +47,6 @@ namespace LibraryApplication.LibraryForms
             this.user.Phone = this.Phone.Text;
             this.user.Email = this.Email.Text;
             DataFileSystem.IO.SaveUserData();
-            this.form.UserDictionary.Remove(this.user);
             this.Close();
         }
 
@@ -70,14 +62,6 @@ namespace LibraryApplication.LibraryForms
             this.pictureBox1.ImageLocation = this.imagePath = fileBrowser.FileName;
         }
 
-        private void InfoForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            if (this.form.UserDictionary.ContainsKey(this.user))
-            {
-                this.form.UserDictionary.Remove(this.user);
-            }
-        }
-
         private void BooksButton_Click(object sender, EventArgs e)
         {
             if (this.UserBooks != null)
@@ -87,7 +71,7 @@ namespace LibraryApplication.LibraryForms
 
             else
             {
-                this.UserBooks = new UserBooks(this, this.user);
+                this.UserBooks = new UserBooks(this.user);
                 this.UserBooks.Show();
                 this.UserBooks.FormClosing += new FormClosingEventHandler((o2, e2) => this.UserBooks = null);
             }

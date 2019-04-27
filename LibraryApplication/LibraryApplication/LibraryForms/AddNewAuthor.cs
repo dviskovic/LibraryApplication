@@ -35,10 +35,5 @@ namespace LibraryApplication.LibraryForms
         {
             this.AddNewAuthorButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty;
         }
-
-        private void AddNewAuthorForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.mainForm.CurrentAddNewAuthorForm = null;
-        }
     }
 }

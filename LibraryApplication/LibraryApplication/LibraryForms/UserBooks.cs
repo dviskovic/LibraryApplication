@@ -12,11 +12,8 @@ namespace LibraryApplication.LibraryForms
 
         private User user;
 
-        private UserInfo userControl;
-
-        public UserBooks(UserInfo userControl, User user)
+        public UserBooks(User user)
         {
-            this.userControl = userControl;
             this.user = user;
             this.InitializeComponent();
             this.Text = user.FullName + " - Borrowed Books";
@@ -31,13 +28,17 @@ namespace LibraryApplication.LibraryForms
 
             foreach (var book in this.user.BorrowedBooks)
             {
-                var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local));
-                var isLate = late.TotalMilliseconds > 0;
-                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Abs(late.Days) + " day" + (Math.Abs(late.Days) > 1 ? "s" : "") + " left)";
-
                 Book b = DataFileSystem.IO.DataFile.Books.FirstOrDefault(x => x.ID == book.BookID);
 
-                if (b == null) MessageBox.Show("Null");
+                if (b == null)
+                {
+                    continue;
+                }
+
+                var late = DateTime.UtcNow.Subtract(TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local));
+                var isLate = late.TotalMilliseconds > 0;
+
+                var lateString = isLate ? "Yes (" + late.Days + " day" + (late.Days > 1 ? "s" : "") + ", " + Math.Round(late.Days * DataFileSystem.IO.ConfigFile.LateFee, 2) + " HRK)" : "No (" + Math.Abs(late.Days) + " day" + (Math.Abs(late.Days) > 1 ? "s" : "") + " left)";
 
                 var ID = this.BookList.Rows.Add(b.Name, b.Author.FullName, b.ISBN, TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedAt, TimeZoneInfo.Local), TimeZoneInfo.ConvertTimeFromUtc(book.BorrowedUntil, TimeZoneInfo.Local), lateString);
 
@@ -73,26 +74,20 @@ namespace LibraryApplication.LibraryForms
 
         private void BookList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            foreach (var rowObj in this.BookList.Rows)
+            string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+            var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
+
+            if (item == null)
             {
-                if (rowObj is DataGridViewRow row)
-                {
-                    string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
+                return;
+            }
 
-                    var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
-
-                    if (item == null)
-                    {
-                        return;
-                    }
-
-                    if (item is Book book)
-                    {
-                        var form = new ReturnBook(this.user, item, this);
-                        form.Show();
-                        return;
-                    }
-                }
+            if (item is Book book)
+            {
+                var form = new ReturnBook(this.user, item, this);
+                form.Show();
+                return;
             }
         }
     }

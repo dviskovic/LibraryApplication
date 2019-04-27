@@ -98,7 +98,6 @@
             this.Name = "AddNewAuthor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new author";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewAuthorForm_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

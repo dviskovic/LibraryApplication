@@ -23,7 +23,6 @@ namespace LibraryApplication.LibraryForms
         public AddNewBook(MainForm mainForm)
         {
             this.InitializeComponent();
-            this.Focus();
             this.mainForm = mainForm;
             LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => this.UpdateAuthorList(true));
             this.UpdateAuthorList();   
@@ -141,7 +140,6 @@ namespace LibraryApplication.LibraryForms
         private void AddNewBookForm_Closing(object sender, FormClosingEventArgs e)
         {
             LibraryEvents.EventManager.OnAuthorListChanged -= new Action(() => this.UpdateAuthorList());
-            this.mainForm.CurrentAddNewBookForm = null;
         }
 
         private void ISBNBox_KeyPress(object sender, KeyPressEventArgs e)

@@ -50,9 +50,13 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.ErrorImage = global::LibraryApplication.Properties.Resources.defaultUser;
+            this.pictureBox1.Image = global::LibraryApplication.Properties.Resources.defaultUser;
+            this.pictureBox1.InitialImage = global::LibraryApplication.Properties.Resources.defaultUser;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(255, 180);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -219,7 +223,6 @@
             this.Name = "UserInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Info about ";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InfoForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
