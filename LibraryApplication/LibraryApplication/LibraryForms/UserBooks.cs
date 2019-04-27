@@ -51,11 +51,6 @@ namespace LibraryApplication.LibraryForms
             }
         }
 
-        private void UserBooksForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.userControl.UserBooks = null;
-        }
-
         private void RefreshButton_Click(object sender, EventArgs e)
         {
             this.UpdateList();
@@ -72,6 +67,7 @@ namespace LibraryApplication.LibraryForms
             {
                 this.AddNewBookBorrowForm = new BookSearch(this, this.user);
                 this.AddNewBookBorrowForm.Show();
+                this.AddNewBookBorrowForm.FormClosing += new FormClosingEventHandler((o2, e2) => this.AddNewBookBorrowForm = null);
             }
         }
 
@@ -92,7 +88,7 @@ namespace LibraryApplication.LibraryForms
 
                     if (item is Book book)
                     {
-                        var form = new ReturnBookForm(this.user, item, this);
+                        var form = new ReturnBook(this.user, item, this);
                         form.Show();
                         return;
                     }

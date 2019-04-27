@@ -7,14 +7,14 @@ using LibraryApplication.LibraryObjects;
 
 namespace LibraryApplication.LibraryForms
 {
-    public partial class ReturnBookForm : Form
+    public partial class ReturnBook : Form
     {
         private User user;
         private Book book;
         private UserBooks userBooksForm;
         private BorrowedBook borrowedBook;
 
-        public ReturnBookForm(User user, Book book, UserBooks userBooksForm)
+        public ReturnBook(User user, Book book, UserBooks userBooksForm)
         {
             this.InitializeComponent();
             this.user = user;

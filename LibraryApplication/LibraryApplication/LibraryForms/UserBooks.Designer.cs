@@ -150,7 +150,6 @@
             this.Name = "UserBooks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserBooksForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserBooksForm_Closing);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BookList)).EndInit();
             this.ResumeLayout(false);

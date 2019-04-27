@@ -52,9 +52,13 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.ErrorImage = global::LibraryApplication.Properties.Resources.defaultBook;
+            this.pictureBox1.Image = global::LibraryApplication.Properties.Resources.defaultBook;
+            this.pictureBox1.InitialImage = global::LibraryApplication.Properties.Resources.defaultBook;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(256, 203);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -89,12 +93,13 @@
             this.CountBox.Size = new System.Drawing.Size(200, 20);
             this.CountBox.TabIndex = 3;
             this.CountBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.CountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CountBox_KeyPress);
+            this.CountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberBox_KeyPress);
             // 
             // AuthorBox
             // 
             this.AuthorBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AuthorBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AuthorBox.FormattingEnabled = true;
             this.AuthorBox.Location = new System.Drawing.Point(68, 379);
             this.AuthorBox.Name = "AuthorBox";
@@ -124,7 +129,6 @@
             this.CloseButton.TabIndex = 8;
             this.CloseButton.Text = "Close";
             this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // DeleteButton
             // 
@@ -205,7 +209,7 @@
             this.ISBNTextBox.Size = new System.Drawing.Size(200, 20);
             this.ISBNTextBox.TabIndex = 4;
             this.ISBNTextBox.TextChanged += new System.EventHandler(this.TextChangedEvent);
-            this.ISBNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ISBNTextBox_KeyPress);
+            this.ISBNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberBox_KeyPress);
             // 
             // AvailableLabel
             // 
@@ -244,7 +248,6 @@
             this.Name = "BookInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BookInfoForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BookInfoForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

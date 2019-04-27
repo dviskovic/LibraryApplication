@@ -134,7 +134,6 @@
             this.Name = "BookSearch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Borrow a Book";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddNewBookBorrowForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.BookList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

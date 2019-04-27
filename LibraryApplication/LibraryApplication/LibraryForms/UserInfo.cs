@@ -89,6 +89,7 @@ namespace LibraryApplication.LibraryForms
             {
                 this.UserBooks = new UserBooks(this, this.user);
                 this.UserBooks.Show();
+                this.UserBooks.FormClosing += new FormClosingEventHandler((o2, e2) => this.UserBooks = null);
             }
         }
 
@@ -106,7 +107,6 @@ namespace LibraryApplication.LibraryForms
                 });
 
                 pass.Show();
-                pass.Focus();
             }
         }
 

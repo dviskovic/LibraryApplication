@@ -189,7 +189,6 @@
             this.Name = "AddNewUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new user";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler((o, e) => this.mainForm.CurrentAddNewUserForm = null);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

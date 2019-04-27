@@ -1,6 +1,6 @@
 ﻿namespace LibraryApplication.LibraryForms
 {
-    partial class ReturnBookForm
+    partial class ReturnBook
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReturnBookForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReturnBook));
             this.ReturnButton = new System.Windows.Forms.Button();
             this.LateTextBox = new System.Windows.Forms.TextBox();
             this.LateLabel = new System.Windows.Forms.Label();

@@ -23,10 +23,7 @@ namespace LibraryApplication.LibraryForms
 
         private bool DefaultImage
         {
-            get
-            {
-                return Path.GetFileName(this.imagePath) == "default_book.png";
-            }
+            get { return Path.GetFileName(this.imagePath) == "default_book.png"; }
         }
 
         public BookInfo(Book book, MainForm form)
@@ -35,15 +32,12 @@ namespace LibraryApplication.LibraryForms
             this.currentBook = book;
             this.form = form;
             this.Text = "\"" + this.currentBook.Name + "\"";
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.imagePath = Path.Combine(DataFileSystem.FileLocations.ImagesFolderPath, book.ImageID); 
             this.pictureBox1.Image = this.pictureBox1.Image = Image.FromFile(File.Exists(this.imagePath) ? this.imagePath : DataFileSystem.FileLocations.DefaultBookImagePath);
-            this.pictureBox1.Refresh();
             this.NameBox.Text = book.Name;
             this.CountBox.Text = book.Count.ToString();
             this.AvailableTextBox.Text = book.Available.ToString();
             this.ISBNTextBox.Text = book.ISBN;
-            this.AuthorBox.DropDownStyle = ComboBoxStyle.DropDownList;
             LibraryEvents.EventManager.OnAuthorListChanged += new Action(() => this.UpdateAuthorList(true));
             this.UpdateAuthorList();
             this.TextChangedEvent(null, null);
@@ -89,11 +83,6 @@ namespace LibraryApplication.LibraryForms
             }
         }
 
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void SaveAndExit_Click(object sender, EventArgs e)
         {
             this.currentBook.Name = this.NameBox.Text;
@@ -109,11 +98,6 @@ namespace LibraryApplication.LibraryForms
             this.currentBook.ImageID = this.DefaultImage ? "default_book.png" : LibraryHelpers.ImageHelper.SaveImage(this.currentBook, this.imagePath);
             DataFileSystem.IO.SaveUserData();
             this.Close();
-        }
-
-        private void BookInfoForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.form.BookDictionary.Remove(this.currentBook);
         }
 
         private void AuthorBox_TextChanged(object sender, EventArgs e)
@@ -161,17 +145,9 @@ namespace LibraryApplication.LibraryForms
             this.SaveAndExit.Enabled = !string.IsNullOrEmpty(this.ISBNTextBox.Text) && !string.IsNullOrEmpty(this.AvailableTextBox.Text) && !string.IsNullOrEmpty(this.CountBox.Text) && !string.IsNullOrEmpty(this.NameBox.Text) && this.AuthorBox.SelectedIndex > 1;
         }
 
-        private void CountBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void NumberBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void ISBNTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }

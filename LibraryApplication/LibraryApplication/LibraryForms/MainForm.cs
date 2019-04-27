@@ -61,6 +61,7 @@ namespace LibraryApplication.LibraryForms
 
             this.CurrentAddNewUserForm = new AddNewUser(this);
             this.CurrentAddNewUserForm.Show();
+            this.CurrentAddNewUserForm.FormClosing += new FormClosingEventHandler((o2, e2) => this.CurrentAddNewUserForm = null);
         }
 
         private void AddNewAuthorButton_Clicked(object sender, EventArgs e)
@@ -294,6 +295,11 @@ namespace LibraryApplication.LibraryForms
                 this.CurrentChangePasswordForm = new ChangePassword(this);
                 this.CurrentChangePasswordForm.Show();
             }
+        }
+
+        private void SaveClicked(object sender, EventArgs e)
+        {
+            DataFileSystem.IO.SaveUserData();
         }
     }
 }

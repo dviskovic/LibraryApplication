@@ -24,7 +24,6 @@ namespace LibraryApplication.LibraryForms
 
         public void UpdateList()
         {
-            GC.Collect();
             var resultList = new List<SearchResult>();
 
             if (string.IsNullOrEmpty(this.SearchTextBox.Text))
@@ -74,33 +73,20 @@ namespace LibraryApplication.LibraryForms
 
         private void AvailableBookList_DoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            foreach (var rowObj in this.BookList.Rows)
+            string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+            var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
+
+            if (item == null)
             {
-                if (rowObj is DataGridViewRow row)
-                {
-                    string Name = this.BookList.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-                    var item = LibraryHelpers.Data.Find(Name, SearchResult.Types.Book);
-
-                    if (item == null)
-                    {
-                        return;
-                    }
-                   
-                    if (item is Book book)
-                    {
-                        var form = new NewBookBorrow(this, book, this.currentUser);
-                        form.Show();
-                    }
-
-                    return;
-                }
+                return;
             }
-        }
 
-        private void AddNewBookBorrowForm_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.userBooksForm.AddNewBookBorrowForm = null;
+            if (item is Book book)
+            {
+                var form = new NewBookBorrow(this, book, this.currentUser);
+                form.Show();
+            }
         }
 
         private void SearchQueryChanged(object sender, EventArgs e)

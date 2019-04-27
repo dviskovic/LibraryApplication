@@ -181,7 +181,7 @@ namespace LibraryApplication.LibraryForms
             this.addNewBookToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.addNewBookToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewBookToolStripMenuItem.Text = "Add new Book";
-            this.addNewBookToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewBookButton_Clicked(o, e));
+            this.addNewBookToolStripMenuItem.Click += new System.EventHandler(this.AddNewBookButton_Clicked);
             // 
             // addNewUserToolStripMenuItem
             // 
@@ -189,7 +189,7 @@ namespace LibraryApplication.LibraryForms
             this.addNewUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.addNewUserToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewUserToolStripMenuItem.Text = "Add new User";
-            this.addNewUserToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewUserButton_Clicked(o, e));
+            this.addNewUserToolStripMenuItem.Click += new System.EventHandler(this.AddNewUserButton_Clicked);
             // 
             // addNewAuthorToolStripMenuItem
             // 
@@ -198,7 +198,7 @@ namespace LibraryApplication.LibraryForms
             | System.Windows.Forms.Keys.A)));
             this.addNewAuthorToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.addNewAuthorToolStripMenuItem.Text = "Add new Author";
-            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler((o, e) => this.AddNewAuthorButton_Clicked(o, e));
+            this.addNewAuthorToolStripMenuItem.Click += new System.EventHandler(this.AddNewAuthorButton_Clicked);
             // 
             // changePasswordToolStripMenuItem
             // 
@@ -237,7 +237,7 @@ namespace LibraryApplication.LibraryForms
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler((o, e) => DataFileSystem.IO.SaveUserData());
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveClicked);
             // 
             // LastSaveTimeLabel
             // 
