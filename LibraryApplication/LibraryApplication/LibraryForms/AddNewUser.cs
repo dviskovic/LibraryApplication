@@ -20,7 +20,7 @@ namespace LibraryApplication.LibraryForms
 
         private void TextChangedEvent(object o, EventArgs e)
         {
-            this.AddButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty;
+            this.AddButton.Enabled = this.FirstNameTextBox.Text != string.Empty && this.LastNameTextBox.Text != string.Empty && this.EmailTextBox.Text != string.Empty && this.AddressTextBox.Text != string.Empty && this.PhoneTextBox.Text != string.Empty;
         }
 
         private void AddButton_Click(object sender, EventArgs e)

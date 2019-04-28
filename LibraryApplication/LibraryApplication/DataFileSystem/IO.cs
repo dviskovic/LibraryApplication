@@ -181,7 +181,7 @@ namespace LibraryApplication.DataFileSystem
         public static void CreateNewDataFile()
         {
             IO.DataFile = new DataFile();
-            SaveUserData();
+            File.WriteAllText(Path.Combine(FileLocations.DatabasePath, FileName), JsonConvert.SerializeObject(IO.DataFile, Formatting.Indented));
         }
 
         private static bool LoadFromFile(string path)

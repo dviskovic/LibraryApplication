@@ -38,7 +38,6 @@
             // PasswordInputTextBox
             // 
             this.PasswordInputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasswordInputTextBox.Enabled = false;
             this.PasswordInputTextBox.Location = new System.Drawing.Point(12, 231);
             this.PasswordInputTextBox.Name = "PasswordInputTextBox";
             this.PasswordInputTextBox.Size = new System.Drawing.Size(205, 20);
@@ -64,6 +63,7 @@
             // ConfirmButton
             // 
             this.ConfirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ConfirmButton.Enabled = false;
             this.ConfirmButton.Location = new System.Drawing.Point(12, 257);
             this.ConfirmButton.Name = "ConfirmButton";
             this.ConfirmButton.Size = new System.Drawing.Size(205, 23);
