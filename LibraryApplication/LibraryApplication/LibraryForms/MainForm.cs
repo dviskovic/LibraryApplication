@@ -219,6 +219,12 @@ namespace LibraryApplication.LibraryForms
                     var form2 = new LibraryForms.BookInfo(book, this);
                     form2.Show();
                     this.BookDictionary.Add(book, form2);
+                    form2.FormClosing += new FormClosingEventHandler((o2, e2) => {
+                        if (this.BookDictionary.ContainsKey(book))
+                        {
+                            this.BookDictionary.Remove(book);
+                        }
+                    });
                 }
             }
 
